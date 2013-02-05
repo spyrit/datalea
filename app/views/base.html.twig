@@ -10,6 +10,10 @@
         -->
         <!-- Bootstrap -->
         <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/font-awesome.min.css" rel="stylesheet">
+        <!--[if IE 7]>
+        <link rel="stylesheet" href="/css/font-awesome-ie7.min.css">
+        <![endif]-->
         <style type="text/css">
             body {
                 padding-top: 60px;
@@ -41,6 +45,7 @@
                             {% set currentPage = currentPage|default('home') %}
                             <li class="{% if currentPage == 'homepage' %}active{% endif %}"><a href="{{ path('datalea_homepage') }}">{{ 'About' | trans }}</a></li>
                             <li class="{% if currentPage == 'generate' %}active{% endif %}"><a href="{{ path('datalea_generate') }}">{{ 'Generate' | trans }}</a></li>
+                            <li class=""><a href="https://github.com/spyrit/datalea"><i class="icon-github icon-large"></i>{{ 'Github Project' | trans }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -83,7 +88,8 @@
             
         </footer>
             
-        <script src="/js/jquery-1.8.3.min.js"></script>
+        <script src="/js/jquery-1.9.1.min.js"></script>
+        <script src="/js/jquery-migrate-1.1.0.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/select2/select2.js"></script>
         
