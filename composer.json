@@ -1,0 +1,48 @@
+{
+    "name": "spyrit/datalea",
+    "description": "Spyrit Datalea Random Test Data Generator",
+    "keywords": ["data", "generator", "random"],
+    "authors": [
+        {
+            "name": "Charles Sanquer",
+            "email": "charles.sanquer@spyrit.net",
+            "role": "developer"
+        },
+        {
+            "name": "Maxime Corson",
+            "email": "maxime.corson@spyrit.net",
+            "role": "developer"
+        }
+    ],
+    "license": "GPL-3.0+",
+    "minimum-stability": "dev",
+    "require": {
+        "silex/silex": "1.0.*",
+        "symfony/twig-bridge": "2.1.*",
+        "twig/twig": ">=1.8.0,<2.0-dev",
+        "twig/extensions": "dev-master",
+        "symfony/form": "2.1.*",
+        "symfony/validator": "2.1.*",
+        "symfony/finder": "2.1.*",
+        "symfony/filesystem": "2.1.*",
+        "swiftmailer/swiftmailer": "4.2.*",
+        "doctrine/dbal": "2.2.*",
+        "symfony/translation": "2.1.*",
+        "symfony/locale": "2.1.*",
+        "symfony/console": "2.1.*",
+        "symfony/config": "2.1.*",
+        "symfony/yaml": "2.1.*",
+        "symfony/process": "2.1.*",
+        "symfony/security": "2.1.*",
+        "symfony/monolog-bridge": "2.1.*",
+        "fzaninotto/faker": "1.1.*@dev",
+        "spyrit/light-csv": "dev-master",
+        "spyrit/silex-utils": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {"": "src/"}
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}

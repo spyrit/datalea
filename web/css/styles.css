@@ -1,0 +1,84 @@
+/* 
+    Document   : styles
+    Created on : 14 déc. 2012, 17:50:32
+    Author     : Maxime CORSON <maxime.corson@spyrit.net>
+    Description:
+        Purpose of the stylesheet follows.
+*/
+body {
+    padding-bottom: 0;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+.ml10 {
+    margin-left: 10px;
+}
+.ml0 {
+    margin-left: 0;
+}
+
+.mr20 {
+    margin-right: 20px;
+}
+.mr10 {
+    margin-right: 10px;
+}
+.mr0 {
+    margin-right: 0;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+.mt10 {
+    margin-top: 10px;
+}
+.mt0 {
+    margin-top: 0;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+.mb10 {
+    margin-bottom: 10px;
+}
+.mb0 {
+    margin-bottom: 0;
+}
+
+table td input, 
+table td select {
+    margin-bottom: 0 !important;
+}
+
+.footer {
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 70px;
+    border-top: 1px solid #E5E5E5;
+    background-color: whiteSmoke;
+}
+
+.footer-links {
+    margin: 10px 0;
+}
+
+.footer li {
+    display: inline;
+    padding: 0 2px;
+}
+
+.required-asterisk {
+    color: red;
+    width: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.help-popover {
+    padding-left: 5px;
+    padding-right: 5px;
+}

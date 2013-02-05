@@ -1,0 +1,21 @@
+<form action="{{ path('datalea_load_config') }}" method="post" {{ form_enctype(form) }} style="width: 100%" class="form-inline">
+    {% if form.vars.errors|length > 0 %}
+    <div class="alert alert-error">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <div class="control-group error"> 
+            {{ form_errors(form) }}
+        </div>
+    </div>
+    {% endif %}
+    <fieldset>
+        <legend>{{ 'Existing Configuration' | trans }}</legend>
+            {##
+            {{ form_row(form.configFile) }}
+            {##}
+            {{ form_errors(form.configFile) }}
+            {{ form_label(form.configFile) }}
+            {{ form_widget(form.configFile) }}
+            {{ form_rest(form) }}
+            <input type="submit" class="btn btn-primary" value="{{ 'Load' | trans }}" />
+    </fieldset>
+</form>

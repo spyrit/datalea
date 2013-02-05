@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% set currentPage = 'dump' %}
+
+{% block body %}
+
+{% for format, fakeDump in dumps %}
+<h4>{{ format|upper }}</h4>
+<pre>
+<code>
+{{ fakeDump }}
+</code>
+</pre>
+{% endfor %}
+
+{% endblock %}
+
+

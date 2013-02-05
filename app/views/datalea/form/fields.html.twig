@@ -1,0 +1,30 @@
+{% block datalea_generator_variable_config_widget %}
+{% spaceless %}
+    <div class="row-fluid">
+        {{ form_row(form.name) }}
+        {{ form_row(form.fakerMethod) }}
+        {{ form_row(form.unique) }}
+    </div>
+    <div class="row-fluid">
+        {{ form_row(form.fakerMethodArg1) }}
+        {{ form_row(form.fakerMethodArg2) }}
+        {{ form_row(form.fakerMethodArg3) }}
+    </div>
+{% endspaceless %}
+{% endblock datalea_generator_variable_config_widget %}
+
+{% block datalea_generator_column_config_widget %}
+{% spaceless %}
+    <div class="row-fluid">
+        {{ form_row(form.name) }}
+        {{ form_row(form.value) }}
+        {{ form_row(form.convertMethod) }}
+    </div>
+{% endspaceless %}
+{% endblock datalea_generator_column_config_widget %}
+
+{% macro helpPopover(title, text, placement = 'top', trigger = 'hover') %}
+<a class=" help-popover" rel="popover" href="#" data-original-title="{{ title| trans }}" data-content="{{ text| trans }}" data-trigger="{{ trigger }}" data-placement="{{ placement }}">
+    <i class="icon-info-sign"></i>
+</a>
+{% endmacro %}

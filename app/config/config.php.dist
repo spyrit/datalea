@@ -1,0 +1,6 @@
+<?php
+return array(
+    'locale_fallback' => 'en',
+    'umask' => 0000,
+    'cache_access' => 0777,
+);

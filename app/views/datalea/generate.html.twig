@@ -1,0 +1,128 @@
+{% extends "base.html.twig" %}
+
+{% set currentPage = 'generate' %}
+
+{% form_theme form 'datalea/form/fields.html.twig' %}
+
+{% block body %}
+{% include 'datalea/config_file_form.html.twig' with {'form': configFileForm} %}
+
+<form action="{{ path('datalea_generate') }}" method="post" {{ form_enctype(form) }}>
+    
+    {% if form.vars.errors|length > 0 %}
+    <div class="alert alert-error">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <div class="control-group error"> 
+            {{ form_errors(form) }}
+        </div>
+    </div>
+    {% endif %}
+
+    {{ form_row(form.variableConfigs) }}
+    {{ form_row(form.columnConfigs) }}
+    
+    <div class="row-fluid">
+        <div class="span6">
+            <fieldset>
+                <legend>{{ 'Settings' | trans }}</legend>
+                <div class="row-fluid">
+                    {{ form_row(form.className) }}
+                    {{ form_row(form.locale) }}
+                </div>
+                <div class="row-fluid">
+                    {{ form_row(form.seed) }}
+                    {{ form_row(form.fakeNumber) }}
+                </div>
+            </fieldset>
+        </div>
+            
+        <div class="span6">
+            <fieldset>
+                <legend>{{ 'Output' | trans }}</legend>
+                {{ form_row(form.formats) }}
+                <p><i class="icon-plus"></i> Generator XML Configuration</p>
+            </fieldset>
+        </div>
+    </div>
+    {{ form_rest(form) }}
+     <div class="row-fluid">
+        <div class="offset4 span4">
+            <input type="submit" class="btn btn-large btn-block btn-primary" value="{{ 'Generate' | trans }}" />
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type=text/javascript>
+    
+var $columnCollectionHolder = $('#datalea_generator_config_columnConfigs');
+var addColumnConfigSelector = '.add-columnConfigs';
+var $variableCollectionHolder = $('#datalea_generator_config_variableConfigs');
+var addVariableConfigSelector = '.add-variableConfigs';
+var removeConfigSelector = '.remove-collection-item-form';
+
+jQuery(document).ready(function() {
+    $(addColumnConfigSelector).on('click', function(e) {
+        addConfigForm($columnCollectionHolder);
+    });
+    
+    $(addVariableConfigSelector).on('click', function(e) {
+        addConfigForm($variableCollectionHolder);
+    });
+    
+    addRemoveConfigListener($(removeConfigSelector));
+    
+    $('select.select2-box').select2({
+        width: 'resolve',
+    });
+    
+    $('select.select2-empty-box').select2({
+        width: 'resolve',
+        allowClear: true,
+        placeholder: 'select'
+    });
+    
+    $('.required-asterisk').tooltip({
+        title: 'required field'
+    });
+    
+    $('.help-popover').popover({
+        html: true
+        /*trigger: 'hover'*/
+    });
+    
+    $('.help-popover').click(function(e){
+        e.preventDefault();
+    });
+});
+
+function addRemoveConfigListener($object)
+{
+    $object.on('click', function(e) {
+        $(this).parent().remove();
+    });
+}
+
+function addConfigForm($collectionHolder) 
+{
+    var prototype = $collectionHolder.attr('data-prototype');
+    var newForm = prototype.replace(/__name__/g, $collectionHolder.children().length);
+    var elt = $collectionHolder.append(newForm);
+    $collectionHolder.find('select.select2-box').select2({
+        width: 'resolve'
+    });
+    
+    $collectionHolder.find('select.select2-empty-box').select2({
+        width: 'resolve',
+        allowClear: true,
+        placeholder: 'select'
+    });
+    addRemoveConfigListener($collectionHolder.find(removeConfigSelector));
+}
+</script>
+
+{% endblock %}
+

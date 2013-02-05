@@ -1,0 +1,8 @@
+vendor
+app/cache
+app/config/config.yml
+app/config/config.php
+bin
+data
+web/uploads
+composer.phar

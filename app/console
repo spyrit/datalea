@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+
+require_once __DIR__.DS.'..'.DS.'vendor'.DS.'autoload.php';
+
+use Spyrit\Silex\Utils\Command\CacheClearCommand;
+use Symfony\Component\Console\Application as BaseApplication;
+
+class Application extends BaseApplication
+{
+    const NAME = 'Silex Console Tool';
+    const VERSION = '0.1';
+
+    protected $projectDir;
+
+    public function __construct()
+    {
+        parent::__construct(static::NAME, static::VERSION);
+        $this->add(new CacheClearCommand());
+        $this->projectDir = realpath(__DIR__.DS.'..');
+    }
+
+    public function getProjectDir()
+    {
+        return $this->projectDir;
+    }
+
+    public function getBinDir()
+    {
+        return $this->projectDir.DS.'bin';
+    }
+}
+
+$application = new Application();
+$application->run();

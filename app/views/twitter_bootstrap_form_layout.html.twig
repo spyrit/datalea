@@ -1,0 +1,149 @@
+{# Symfony2 Twig Form theme for twitter bootstrap #}
+
+{% macro collection_item(form) %}
+<div class="well control-group {% if form.vars.errors|length > 0 %}error{% endif %}">
+    <span class="pull-right btn btn-danger remove-collection-item-form" title="{{ 'Remove the current element' | trans }}"><i class="icon-minus"></i></span>
+    {{ form_errors(form) }}
+    {##
+    {{ form_label(form) }}
+    {##}
+    {{ form_widget(form) }}
+</div>
+{% endmacro %}
+
+{% block collection_row %}
+{% spaceless %}
+    <fieldset>
+        {{ block('collection_label') }}
+        <div class="control-group {% if form.vars.errors|length > 0 %}error{% endif %}">
+            {{ block('collection_errors') }}
+            {{ block('collection_widget') }}
+        </div>
+    </fieldset>
+{% endspaceless %}
+{% endblock collection_row %}
+
+{% block collection_label %}
+{% spaceless %}
+    {% if not compound %}
+        {% set label_attr = label_attr|merge({'for': id}) %}
+    {% endif %}
+    {% if required %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+    {% endif %}
+    {% if label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
+    <legend {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+    {{ label|trans({}, translation_domain)|raw }}{{ block('form_label_asterisk') }}{% if help_type == 'popover' %}{{ block('form_help') }}{% endif %}
+    <span class="pull-right add-{{name}} btn btn-success" title="{{ 'Add a new element' | trans({}, translation_domain) }}"><i class="icon-plus"></i></span>
+    </legend>
+{% endspaceless %}
+{% endblock collection_label %}
+    
+{% block collection_widget %}
+{% import _self as macros %}
+{% spaceless %}
+    <div id="{{ id }}" {% if prototype is defined %}data-prototype="{{ macros.collection_item(prototype)|escape }}"{% endif %}>
+    {% for child in form %}
+        {{ macros.collection_item(child) }}
+    {% endfor %}
+    </div>
+    {##}
+{% endspaceless %}
+{% endblock collection_widget %}
+
+{% block form_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+    <span class="help-block">
+    <ul>
+        {% for error in errors %}
+            <li>{{
+                error.messagePluralization is null
+                    ? error.messageTemplate|trans(error.messageParameters, 'validators')
+                    : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
+            }}</li>
+        {% endfor %}
+    </ul>
+    </span>
+    {% endif %}
+{% endspaceless %}
+{% endblock form_errors %}
+
+{% block form_label %}
+{% spaceless %}
+    {% if not compound %}
+        {% set label_attr = label_attr|merge({'for': id}) %}
+    {% endif %}
+    {% if required %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+    {% endif %}
+    {% if label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
+    <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain)|raw }}{{ block('form_label_asterisk') }}{% if help_type == 'popover' %}{{ block('form_help') }}{% endif %}</label>
+{% endspaceless %}
+{% endblock form_label %}
+
+{% block form_help %}
+{% spaceless %}
+{% if help is not empty %}
+    {% if help_type == 'inline' or help_type == 'block' %}
+    <span class="help-{{ help_type }}">{{ help|raw| trans({}, translation_domain) }}</span>
+    {% elseif help_type == 'popover' %}
+    <a class=" help-popover" rel="popover" href="#" data-original-title="{{ help_popover_title| trans({}, translation_domain) }}" data-content="{{ help|raw| trans({}, translation_domain) }}" data-trigger="{{ help_popover_trigger }}" data-placement="{{ help_popover_position }}">
+        <i class="icon-info-sign"></i>
+    </a>
+    {% endif %}
+{% endif %}
+{% endspaceless %}
+{% endblock form_help %}  
+    
+{% block form_label_asterisk %}
+{% spaceless %}
+    {% if required and required_asterisk %}<span class="required-asterisk">*</span>{% endif %}
+{% endspaceless %}
+{% endblock form_label_asterisk %}    
+    
+{% block form_row %}
+{% spaceless %}
+{% set row_attr = row_attr|merge({'class': (row_attr.class|default('control-group'))|trim}) %}
+{% if form.vars.errors|length > 0 %}
+    {% set row_attr = row_attr|merge({'class': (row_attr.class|default('') ~ ' error')|trim}) %}
+{% endif %}
+<div {% for attrname, attrvalue in row_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+    {{ form_label(form) }}
+    {{ form_widget(form) }}
+    {% if help_type == 'inline' or help_type== 'block' %}{{ block('form_help') }}{% endif %}
+    {{ form_errors(form) }}
+</div>
+{% endspaceless %}
+{% endblock form_row %}
+
+{% block choice_widget_expanded %}
+{% spaceless %}
+    <div {{ block('widget_container_attributes') }}>
+    {% for child in form %}
+        <label class="{{ (multiple ? 'checkbox' : 'radio') ~ (attr.inline is defined and attr.inline ? ' inline' : '') }}">
+            {{ form_widget(child, {'attr': {'class': attr.widget_class|default('')}}) }}
+            {{ child.vars.label|trans({}, translation_domain) }}
+        </label>
+    {% endfor %}
+    </div>
+{% endspaceless %}
+{% endblock choice_widget_expanded %}
+
+{% block widget_attributes %}
+{% spaceless %}
+    id="{{ id }}" name="{{ full_name }}"{% if read_only %} readonly="readonly"{% endif %}{% if disabled %} disabled="disabled"{% endif %}{% if required %} required="required"{% endif %}{% if max_length %} maxlength="{{ max_length }}"{% endif %}{% if pattern %} pattern="{{ pattern }}"{% endif %}
+    {% for attrname, attrvalue in attr %}{% if attrname not in ['inline'] %}{% if attrname in ['placeholder', 'title'] %}{{ attrname }}="{{ attrvalue|trans({}, translation_domain) }}" {% else %}{{ attrname }}="{{ attrvalue }}" {% endif %}{% endif %}{% endfor %}
+{% endspaceless %}
+{% endblock widget_attributes %}
+
+{% block widget_container_attributes %}
+{% spaceless %}
+    {% if id is not empty %}id="{{ id }}" {% endif %}
+    {% for attrname, attrvalue in attr %}{% if attrname not in ['inline'] %}{{ attrname }}="{{ attrvalue }}" {% endif %}{% endfor %}
+{% endspaceless %}
+{% endblock widget_container_attributes %}
