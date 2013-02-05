@@ -45,7 +45,7 @@
                             {% set currentPage = currentPage|default('home') %}
                             <li class="{% if currentPage == 'homepage' %}active{% endif %}"><a href="{{ path('datalea_homepage') }}">{{ 'About' | trans }}</a></li>
                             <li class="{% if currentPage == 'generate' %}active{% endif %}"><a href="{{ path('datalea_generate') }}">{{ 'Generate' | trans }}</a></li>
-                            <li class=""><a href="https://github.com/spyrit/datalea"><i class="icon-github icon-large"></i>{{ 'Github Project' | trans }}</a></li>
+                            <li class=""><a href="https://github.com/spyrit/datalea" target="_blank" ><i class="icon-github icon-large"></i>{{ 'Github Project' | trans }}</a></li>
                         </ul>
                     </div>
                 </div>
