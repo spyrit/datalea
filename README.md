@@ -4,23 +4,31 @@ Datalea - a Random Test Data Generator
 Install
 -------
 
-- copy config sample file and edit the copy with your environment values
+* copy config sample file and edit the copy with your environment values
 
-    cp app/config/config.php.dist app/config/config.php
+```bash
+cp app/config/config.php.dist app/config/config.php
+```
 
-- get composer http://getcomposer.org/ and install dependencies
+* get composer http://getcomposer.org/ and install dependencies
 
+```bash
     curl -s https://getcomposer.org/installer | php
+```
 
-- install dependencies
+* install dependencies
     
+```bash
     php composer.phar install
+```
 
-- set you web server document root to web directory
+* set you web server document root to web directory
 
-- clean cache
+* clean cache
 
+```bash
     php app/console cache:clear
+```
 
 Licensing
 ---------
