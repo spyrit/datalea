@@ -42,6 +42,16 @@
                 {{ form_row(form.formats) }}
                 <p><i class="icon-plus"></i> Generator XML Configuration</p>
             </fieldset>
+            <fieldset id="csv-options">
+                <legend>{{ 'CSV Options' | trans }}</legend>
+                <div class="row-fluid">
+                {{ form_row(form.csvFormat.encoding) }}
+                {{ form_row(form.csvFormat.eol) }}
+                {{ form_row(form.csvFormat.delimiter) }}
+                {{ form_row(form.csvFormat.enclosure) }}
+                {{ form_row(form.csvFormat.escape) }}
+                </div>
+            </fieldset>
         </div>
     </div>
     {{ form_rest(form) }}
@@ -58,13 +68,15 @@
 {{ parent() }}
 <script type=text/javascript>
     
-var $columnCollectionHolder = $('#datalea_generator_config_columnConfigs');
-var addColumnConfigSelector = '.add-columnConfigs';
-var $variableCollectionHolder = $('#datalea_generator_config_variableConfigs');
-var addVariableConfigSelector = '.add-variableConfigs';
-var removeConfigSelector = '.remove-collection-item-form';
-
 jQuery(document).ready(function() {
+    var $columnCollectionHolder = $('#datalea_generator_config_columnConfigs');
+    var addColumnConfigSelector = '.add-columnConfigs';
+    var $variableCollectionHolder = $('#datalea_generator_config_variableConfigs');
+    var addVariableConfigSelector = '.add-variableConfigs';
+    var removeConfigSelector = '.remove-collection-item-form';
+    var $csvFormatOption = $('input[type="checkbox"][name^="datalea_generator_config"][value="csv"]')
+    var $csvOptions = $('#csv-options');
+    
     $(addColumnConfigSelector).on('click', function(e) {
         addConfigForm($columnCollectionHolder);
     });
@@ -97,31 +109,37 @@ jQuery(document).ready(function() {
     $('.help-popover').click(function(e){
         e.preventDefault();
     });
-});
-
-function addRemoveConfigListener($object)
-{
-    $object.on('click', function(e) {
-        $(this).parent().remove();
-    });
-}
-
-function addConfigForm($collectionHolder) 
-{
-    var prototype = $collectionHolder.attr('data-prototype');
-    var newForm = prototype.replace(/__name__/g, $collectionHolder.children().length);
-    var elt = $collectionHolder.append(newForm);
-    $collectionHolder.find('select.select2-box').select2({
-        width: 'resolve'
+    
+    $csvOptions.toggle($csvFormatOption.prop("checked"));
+    
+    $csvFormatOption.click(function(e){
+        $csvOptions.toggle($(this).prop("checked"));
     });
     
-    $collectionHolder.find('select.select2-empty-box').select2({
-        width: 'resolve',
-        allowClear: true,
-        placeholder: 'select'
-    });
-    addRemoveConfigListener($collectionHolder.find(removeConfigSelector));
-}
+    function addRemoveConfigListener($object)
+    {
+        $object.on('click', function(e) {
+            $(this).parent().remove();
+        });
+    }
+
+    function addConfigForm($collectionHolder) 
+    {
+        var prototype = $collectionHolder.attr('data-prototype');
+        var newForm = prototype.replace(/__name__/g, $collectionHolder.children().length);
+        var elt = $collectionHolder.append(newForm);
+        $collectionHolder.find('select.select2-box').select2({
+            width: 'resolve'
+        });
+
+        $collectionHolder.find('select.select2-empty-box').select2({
+            width: 'resolve',
+            allowClear: true,
+            placeholder: 'select'
+        });
+        addRemoveConfigListener($collectionHolder.find(removeConfigSelector));
+    }
+});
 </script>
 
 {% endblock %}

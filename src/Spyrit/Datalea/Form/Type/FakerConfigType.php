@@ -159,6 +159,9 @@ class FakerConfigType extends AbstractType
                     )),
                 )
             ))
+            ->add('csvFormat', new CsvFormatType(), array(
+                'label' => 'CSV options',
+            ));
             ;
     }
     
@@ -169,6 +172,7 @@ class FakerConfigType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Spyrit\Datalea\Faker\Model\Config',
+            'cascade_validation' => true,
         ));
     }
 

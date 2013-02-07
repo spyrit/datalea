@@ -3,6 +3,7 @@
 namespace Spyrit\Datalea\Faker\Model;
 
 use \Spyrit\Datalea\Faker\Dump\Dumper;
+use \Spyrit\LightCsv\CsvWriter;
 
 /**
  * Config
@@ -53,9 +54,17 @@ class Config
      */
     protected $variableConfigs = array();
     
+    /**
+     *
+     * @var \Spyrit\Datalea\Faker\Model\CsvFormat
+     */
+    protected $csvFormat;
+
+
     public function __construct() 
     {
         $this->columnConfigs = array();
+        $this->csvFormat = new CsvFormat(';', '"', 'WINDOWS-1252', "\r\n", "\\");
     }
     
     
@@ -148,7 +157,7 @@ class Config
     
     /**
      * 
-     * @param \Spyrit\Datalea\Faker\Model\ColumnConfig $columnConfig
+     * @param string
      * @return boolean
      */
     public function removeFormat($format) 
@@ -164,11 +173,26 @@ class Config
         return false;
     }
     
+    /**
+     * 
+     * @param string $format
+     * @return bool
+     */
+    public function hasFormat($format)
+    {
+        return in_array($format, $this->formats);
+    }
+    
     public function getFormats()
     {
         return $this->formats;
     }
 
+    /**
+     * 
+     * @param array $formats
+     * @return \Spyrit\Datalea\Faker\Model\Config
+     */
     public function setFormats(array $formats)
     {
         $this->formats = $formats;
@@ -184,6 +208,48 @@ class Config
     {
         $this->fakeNumber = (int) $fakeNumber;
         return $this;
+    }
+
+    /**
+     * 
+     * @return \Spyrit\Datalea\Faker\Model\CsvFormat
+     */
+    public function getCsvFormat()
+    {
+        return $this->csvFormat;
+    }
+
+    /**
+     * 
+     * @param \Spyrit\Datalea\Faker\Model\CsvFormat $csvFormat
+     * @return \Spyrit\Datalea\Faker\Model\Config
+     */
+    public function setCsvFormat($csvFormat)
+    {
+        $this->csvFormat = $csvFormat;
+        return $this;
+    }
+
+    /**
+     * create a CSV writer from CSV format options
+     * 
+     * @return \Spyrit\LightCsv\CsvWriter
+     */
+    public function createCsvWriter()
+    {
+        if ($this->csvFormat) {
+            $csvWriter = new CsvWriter(
+                $this->csvFormat->getDelimiter(),
+                $this->csvFormat->getEnclosure(),
+                $this->csvFormat->getEncoding(),
+                $this->csvFormat->getEol(),
+                $this->csvFormat->getEscape(),
+                false
+            );
+        } else {
+            $csvWriter = new CsvWriter(';', '"', 'WINDOWS-1252', "\r\n", "\\", false);
+        }
+        return $csvWriter;
     }
 
     /**

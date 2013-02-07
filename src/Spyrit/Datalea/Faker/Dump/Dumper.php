@@ -2,13 +2,17 @@
 
 namespace Spyrit\Datalea\Faker\Dump;
 
-use Faker\Factory;
-use InvalidArgumentException;
-use Spyrit\LightCsv\CsvWriter;
-use Spyrit\Datalea\Faker\Dump\Dumper;
-use Spyrit\Datalea\Faker\Model\Config;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Yaml\Yaml;
+use \DateTime;
+use \DOMDocument;
+use \Faker\Factory;
+use \InvalidArgumentException;
+use \RuntimeException;
+use \Spyrit\Datalea\Faker\Dump\Dumper;
+use \Spyrit\Datalea\Faker\Model\Config;
+use \Spyrit\LightCsv\CsvWriter;
+use \Symfony\Component\Filesystem\Filesystem;
+use \Symfony\Component\Yaml\Yaml;
+use \ZipArchive;
 
 if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
@@ -96,7 +100,18 @@ class Dumper
         
         $formatsElt = $root->addChild('formats');
         foreach ($this->config->getFormats() as $format) {
-            $formatsElt->addChild('format', $format);
+            $formatElt = $formatsElt->addChild('format', $format);
+        }
+        
+        $csvFormat = $this->config->getCsvFormat();
+        if ($csvFormat && $this->config->hasFormat('csv')) {
+            $formatOptionsElt = $root->addChild('formatOptions');
+            $csvElt = $formatOptionsElt->addChild('csv');
+            $csvElt->addChildCData('delimiter', $csvFormat->getDelimiter());
+            $csvElt->addChildCData('enclosure', $csvFormat->getEnclosure());
+            $csvElt->addChild('encoding', $csvFormat->getEncoding());
+            $csvElt->addChild('eol', $csvFormat->getEol());
+            $csvElt->addChildCData('escape', $csvFormat->getEscape());
         }
         
         $variablesElt = $root->addChild('variables');
@@ -121,7 +136,7 @@ class Dumper
         $file = $dir.DS.$name.'.xml';
         
         $rootDom = dom_import_simplexml($root);
-        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom = new DOMDocument('1.0', 'UTF-8');
         $dom->formatOutput = true;
         $rootDom = $dom->importNode($rootDom, true);
         $rootDom = $dom->appendChild($rootDom);
@@ -257,7 +272,7 @@ JSON;
         $name = $this->config->getClassName(true);
         $file = $dir.DS.$name.'.csv';
         
-        $csvWriter = new CsvWriter(';', '"', 'CP1252', "\r\n", "\\", false);
+        $csvWriter = $this->config->createCsvWriter();
         $csvWriter->setFilename($file);
                 
         $csvWriter->writeRow(array_keys($fakeData[0]));
@@ -291,7 +306,7 @@ JSON;
         $file = $dir.DS.$name.'.xml';
         
         $rootDom = dom_import_simplexml($root);
-        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom = new DOMDocument('1.0', 'UTF-8');
         $dom->formatOutput = true;
         $rootDom = $dom->importNode($rootDom, true);
         $rootDom = $dom->appendChild($rootDom);
@@ -348,15 +363,15 @@ SQL;
     /**
      * 
      * @param string $tmpDir
-     * @param \DateTime $date
+     * @param DateTime $date
      * 
      * @return string zip filename
      * 
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function dump($tmpDir, $date = null)
     {
-        $date = $date instanceof \DateTime ? $date : new \DateTime();
+        $date = $date instanceof DateTime ? $date : new DateTime();
 
         $fs = new Filesystem();
         
@@ -395,9 +410,9 @@ SQL;
         }
         
         $zipname = $tmpDir.DS.'archive_'.$workingDir.'.zip';
-        $zip = new \ZipArchive();
-        if ($zip->open($zipname, \ZipArchive::CREATE)!==TRUE) {
-            throw new \RuntimeException;("cannot create zip archive $filename\n");
+        $zip = new ZipArchive();
+        if ($zip->open($zipname, ZipArchive::CREATE)!==TRUE) {
+            throw new RuntimeException;("cannot create zip archive $filename\n");
         }
         
         foreach ($files as $file) {

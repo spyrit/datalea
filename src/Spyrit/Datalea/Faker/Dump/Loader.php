@@ -2,6 +2,11 @@
 
 namespace Spyrit\Datalea\Faker\Dump;
 
+use \Spyrit\Datalea\Faker\Model\ColumnConfig;
+use \Spyrit\Datalea\Faker\Model\Config;
+use \Spyrit\Datalea\Faker\Model\CsvFormat;
+use \Spyrit\Datalea\Faker\Model\VariableConfig;
+
 /**
  * Loader
  *
@@ -12,13 +17,13 @@ class Loader
     /**
      * 
      * @param string $file filename
-     * @return \Spyrit\Datalea\Faker\Model\Config
+     * @return Config
      */
     public function loadXmlFakerConfig($file)
     {
         $root = simplexml_load_file($file, '\\Spyrit\\Datalea\\Faker\\Dump\\FakerSimpleXMLElement', LIBXML_NOCDATA);
         
-        $config = new \Spyrit\Datalea\Faker\Model\Config();
+        $config = new Config();
         if (isset($root['classname'])) {
             $config->setClassName((string) $root['classname']);
         }
@@ -36,9 +41,21 @@ class Loader
             $config->setFormats((array) $root->formats->format);
         }
         
+        if (isset($root->formatOptions)) {
+            if (isset($root->formatOptions->csv)) {
+                $config->setCsvFormat(new CsvFormat(
+                    (string) $root->formatOptions->csv->delimiter,
+                    (string) $root->formatOptions->csv->enclosure,
+                    (string) $root->formatOptions->csv->encoding,
+                    (string) $root->formatOptions->csv->eol,
+                    (string) $root->formatOptions->csv->escape
+                ));
+            }
+        }
+        
         if (isset($root->variables->variable)) {
             foreach ($root->variables->variable as $variable) {
-                $variableConfig = new \Spyrit\Datalea\Faker\Model\VariableConfig();
+                $variableConfig = new VariableConfig();
                 $variableConfig->setName($variable['name']);
                 $variableConfig->setFakerMethod((string) $variable->method);
                 $variableConfig->setFakerMethodArg1((string) $variable->argument1);
@@ -50,7 +67,7 @@ class Loader
         
         if (isset($root->columns->column)) {
             foreach ($root->columns->column as $column) {
-                $columnConfig = new \Spyrit\Datalea\Faker\Model\ColumnConfig();
+                $columnConfig = new ColumnConfig();
                 $columnConfig->setName($column['name']);
                 $columnConfig->setValue((string) $column->value);
                 $columnConfig->setConvertMethod((string) $column->convert);
