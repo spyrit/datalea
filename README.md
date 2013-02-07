@@ -22,7 +22,7 @@ cp app/config/config.php.dist app/config/config.php
     php composer.phar install
 ```
 
-* set you web server document root to web directory
+* set your web server document root to web directory
 
 * clean cache
 
