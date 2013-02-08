@@ -1,0 +1,335 @@
+
+body {
+    padding-top: 40px;
+    font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    font-weight: 300;
+    color: #2a2a2a;
+}
+
+h1, h2, h3, h4, h5, h6, h7 {
+    font-family: "SourceSansProLight", "RamblaRegular", "Helvetica Neue",Helvetica,sans-serif;
+    /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /* font-weight: normal; */
+    font-weight: 100;
+}
+
+.navbar-inverse .brand, 
+.navbar-inverse .nav > li > a {
+    color: #999;
+    text-shadow: none;
+}
+
+.navbar-inverse .nav > li.active > a{
+    text-shadow: 0 1px 1px rgba(0,0,0,0.25);
+}
+
+.navbar .nav > li {
+    line-height: 40px;
+}
+
+.navbar .nav > li > a {
+    padding: 10px 25px 10px;
+}
+
+.navbar-inverse .brand a:hover,
+.navbar .nav > li > a:hover {
+    color: #757575 ;
+}
+
+.navbar-inverse .navbar-inner {
+    background-color: white;
+    background-image: none;
+    border: none;
+}
+
+.navbar-inverse .nav .active > a, .navbar-inverse .nav .active > a:hover, .navbar-inverse .nav .active > a:focus {
+    background-color: #30b62c;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(.2,  #a0d53a),color-stop(1, #60b513));
+    background-image: -moz-linear-gradient(center top,#a0d53a 20%,#60b513 100%);
+    background-image: linear-gradient(top, #a0d53a 20%, #60b513 100%);
+    background-image: -o-linear-gradient(top, #a0d53a 20%, #60b513 100%);
+    background-image: -ms-linear-gradient(top, #a0d53a 20%, #60b513 100%);
+}
+
+#header {
+    background: #0075ea; /* Old browsers */
+    background: -moz-linear-gradient(45deg,  #0075ea 0%, #53cbf1 60%, #87e0fd 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#0075ea), color-stop(60%,#53cbf1), color-stop(100%,#87e0fd)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(45deg,  #0075ea 0%,#53cbf1 60%,#87e0fd 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(45deg,  #0075ea 0%,#53cbf1 60%,#87e0fd 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(45deg,  #0075ea 0%,#53cbf1 60%,#87e0fd 100%); /* IE10+ */
+    background: linear-gradient(45deg,  #0075ea 0%,#53cbf1 60%,#87e0fd 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0075ea', endColorstr='#87e0fd',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    padding: 40px 0 20px 0;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.25);
+    color: white;
+    /* height: 250px; /* +40px */
+}
+
+#header .btn {
+    box-shadow: 0 0 10px white;
+}
+
+#homepage #header {
+    padding: 80px 0;
+}
+
+#header h1 {
+    font-size: 3.5em;
+    line-height: 1em; 
+}
+
+
+#footer {
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 70px;
+    /* box-shadow: inset 0 0 10px rgba(0,0,0,0.5); */
+    color: #626262;
+    font-size: 0.95em;
+    background-color: #2a2a2a ;
+}
+
+#footer a {
+    color: #626262 ;
+}
+
+#footer a:hover {
+    color: #4e4e4d ;
+}
+
+#footer .footer-links {
+    margin: 10px 0;
+}
+
+#footer li {
+    display: inline;
+    padding: 0 2px;
+}
+
+.section {
+    padding: 50px 0;
+}
+
+.section.gray {
+    background-color: whitesmoke;
+    /* border-top: 1px solid #e9e9e9;
+    border-bottom: 1px solid #e9e9e9; */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.08);
+}
+
+.well {
+    border-radius: 2px;
+    background-color: white;
+    border: none;
+    box-shadow: 0 1px 10px rgba(0,0,0,0.15);
+}
+
+.section h2 {
+    color: #ff7400 ;
+}
+
+/* .section .well {
+    border-radius: 2px;
+    background-color: white;
+    border: none;
+    box-shadow: 0 1px 10px rgba(0,0,0,0.15);
+} */
+
+.section .well h2 {
+    color: #ff7400 ;
+}
+
+.section.gray h2 {
+    color: #00a5db;
+}
+
+.section.gray .well h2 {
+    color: orange;
+}
+
+#testimonial .item {
+    padding-right: 80px;
+    width: 350px;
+}
+
+.circle {
+    border-radius: 50%;
+    
+}
+
+#how-does-it-works .circle {
+    background-color: #2a2a2a;
+    color: white;
+    height: 240px;
+    width: 240px;
+    position: relative;
+}
+
+#how-does-it-works .circle .icon,
+#how-does-it-works .circle .description {
+    width: 220px;
+    text-align: center;
+}
+
+#how-does-it-works .circle .icon {
+    font-size: 4em;
+    text-align: center;
+    padding-top: 50px;
+    padding-left: 10px;
+}
+
+#how-does-it-works .circle .description {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 40%;
+    font-size: 1.3em;
+}
+
+#how-does-it-works .title {
+    margin-bottom: 30px;
+}
+
+#how-does-it-works h2 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 3em;
+    color: #2a2a2a;
+    font-weight: 100;
+}
+
+#testimonial .carousel-control {
+    border-width: 4px;
+    font-size: 1.5em;
+    line-height: 25px;
+    width: 30px;
+    height: 30px;
+    padding-top: 4px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+#testimonial .carousel-control .icon {
+    margin-top: 5px;
+}
+
+.row.bonus {
+    margin-top: 50px;
+}
+
+/** buttons **/
+.btn:hover {
+    -moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: color 0 ease-in;
+    transition: none;
+}
+.btn,
+.btn-success{ 
+    color: white;
+    border-color: #7ca122; border-bottom-color: #7ca122; 
+    background-color: #8dc11e;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(.2, #a0d53a),color-stop(1, #60b513));
+    background-image: -moz-linear-gradient(center top,#a0d53a 20%,#60b513 100%);
+    background-image: linear-gradient(top, #a0d53a 20%, #60b513 100%);
+    background-image: -o-linear-gradient(top, #a0d53a 20%, #60b513 100%);
+    background-image: -ms-linear-gradient(top, #a0d53a 20%, #60b513 100%);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+.btn:hover,
+.btn-success:hover{ 
+    background: #d20000;
+    color: white;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(.2, #8EBD33),color-stop(1, #549E11));
+    background-image: -moz-linear-gradient(center top,#8EBD33 20%,#549E11 100%);
+    background-image: linear-gradient(top, #8EBD33 20%, #549E11 100%);
+    background-image: -o-linear-gradient(top, #8EBD33 20%, #549E11 100%);
+    background-image: -ms-linear-gradient(top, #8EBD33 20%, #549E11 100%);
+}
+
+.btn-danger { 
+    border-color: #af4040; border-bottom-color: #9a2020; background-color: #d72323;
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(.2, #e85252),color-stop(1, #cf2e2e));
+    background: -moz-linear-gradient(center top,#e85252 20%,#cf2e2e 100%);
+    background-image: linear-gradient(top, #e85252 20%, #cf2e2e 100%);
+    background-image: -o-linear-gradient(top, #e85252 20%, #cf2e2e 100%);
+    background-image: -ms-linear-gradient(top, #e85252 20%, #cf2e2e 100%);
+}
+.btn-danger:hover { 
+    background: #d20000;
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(.2, #e53e3e),color-stop(1, #ca1616));
+    background: -moz-linear-gradient(center top,#e53e3e 20%,#ca1616 100%);
+    background-image: linear-gradient(top, #e53e3e 20%, #ca1616 100%);
+    background-image: -o-linear-gradient(top, #e53e3e 20%, #ca1616 100%);
+    background-image: -ms-linear-gradient(top, #e53e3e 20%, #ca1616 100%);
+}
+
+.btn-primary {
+    border: 1px solid #4081AF;
+    background-color: #237FD7;
+    background: -webkit-gradient( linear, left top, left bottom, color-stop(.2, #52A8E8), color-stop(1, #2E76CF) );
+    background: -moz-linear-gradient( center top, #52A8E8 20%, #2E76CF 100% );
+    background-image: linear-gradient(top, #52A8E8 20%, #2E76CF 100%);
+    background-image: -o-linear-gradient(top, #52A8E8 20%, #2E76CF 100%);
+    background-image: -ms-linear-gradient(top, #52A8E8 20%, #2E76CF 100%);
+}
+
+.btn-primary:hover {
+    background: #0073D2;
+    background: -webkit-gradient( linear, left top, left bottom, color-stop(.2, #3E9EE5), color-stop(1, #1666CA) );
+    background: -moz-linear-gradient( center top, #3E9EE5 20%, #1666CA 100% );
+    background-image: linear-gradient(top, #3E9EE5 20%, #1666CA 100%);
+    background-image: -o-linear-gradient(top, #3E9EE5 20%, #1666CA 100%);
+    background-image: -ms-linear-gradient(top, #3E9EE5 20%, #1666CA 100%);
+}
+
+/** font **/
+@font-face {
+    font-family: 'SourceSansProRegular';
+    src: url('../font/source/SourceSansPro-Regular-webfont.eot');
+    src: url('../font/source/SourceSansPro-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/source/SourceSansPro-Regular-webfont.woff') format('woff'),
+         url('../font/source/SourceSansPro-Regular-webfont.ttf') format('truetype'),
+         url('../font/source/SourceSansPro-Regular-webfont.svg#SourceSansProRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'SourceSansProLight';
+    src: url('../font/source/SourceSansPro-Light-webfont.eot');
+    src: url('../font/source/SourceSansPro-Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/source/SourceSansPro-Light-webfont.woff') format('woff'),
+         url('../font/source/SourceSansPro-Light-webfont.ttf') format('truetype'),
+         url('../font/source/SourceSansPro-Light-webfont.svg#SourceSansProLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'SourceSansProExtraLight';
+    src: url('../font/source/SourceSansPro-ExtraLight-webfont.eot');
+    src: url('../font/source/SourceSansPro-ExtraLight-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/source/SourceSansPro-ExtraLight-webfont.woff') format('woff'),
+         url('../font/source/SourceSansPro-ExtraLight-webfont.ttf') format('truetype'),
+         url('../font/source/SourceSansPro-ExtraLight-webfont.svg#SourceSansProExtraLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'SourceSansProBlack';
+    src: url('../font/source/SourceSansPro-Black-webfont.eot');
+    src: url('../font/source/SourceSansPro-Black-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/source/SourceSansPro-Black-webfont.woff') format('woff'),
+         url('../font/source/SourceSansPro-Black-webfont.ttf') format('truetype'),
+         url('../font/source/SourceSansPro-Black-webfont.svg#SourceSansProBlack') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}

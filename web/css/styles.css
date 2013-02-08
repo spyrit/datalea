@@ -54,23 +54,6 @@ table td select {
     margin-bottom: 0 !important;
 }
 
-.footer {
-    text-align: center;
-    padding: 30px 0;
-    margin-top: 70px;
-    border-top: 1px solid #E5E5E5;
-    background-color: whiteSmoke;
-}
-
-.footer-links {
-    margin: 10px 0;
-}
-
-.footer li {
-    display: inline;
-    padding: 0 2px;
-}
-
 .required-asterisk {
     color: red;
     width: 5px;

@@ -29,8 +29,10 @@
         <link href="/css/bootstrap-responsive.css" rel="stylesheet">
         <link href="/select2/select2.css" rel="stylesheet">
         <link href="/css/styles.css" rel="stylesheet">
+        <link href="/css/layout.css" rel="stylesheet">
     </head>
-    <body>
+    {% set bodyId = bodyId|default('global') %}
+    <body id="{{ bodyId }}">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -39,7 +41,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="{{ path('datalea_generate') }}">Datalea</a>
+                    <a class="brand" href="{{ path('datalea_generate') }}">{{ 'Datalea' }}<span>{{ 'Advanced test data generator' }}</span></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             {% set currentPage = currentPage|default('home') %}
@@ -52,6 +54,17 @@
             </div>
         </div>
 
+        {% block header %}
+        <header id="header">
+            <div class="container">
+                {% block header_content %}
+
+                {% endblock header_content %}
+            </div>
+        </header>
+        {% endblock header %}
+            
+        {% block main_body %}    
         <div class="container">
             <div class="row-fluid">
 
@@ -62,14 +75,14 @@
             </div>
 
         </div>
+        {% endblock main_body %}
             
-        <footer class="footer">
-            
+        <footer id="footer" class="footer">
             <div class="container">
                 <p class='mt10'>&copy; 2012-2013<br/>
-                <a href="http://www.spyrit.net" title="www.spyrit.net" target="_blank">{{ 'Spyrit' }}</a>
+                    <a href="http://www.spyrit.net" title="www.spyrit.net" target="_blank" class="company">{{ 'Spyrit' }}</a>
                 </p>
-                <p class='mt10'>Powered by</p>
+                <p class='mt10'>{{ 'Powered by' }}</p>
                 <ul class="footer-links">
                     <li><a href="https://github.com/fzaninotto/Faker" target="_blank">Faker</a></li>
                     <li class="muted">·</li>
@@ -82,16 +95,13 @@
                     <li><a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a></li>
                 </ul>
             </div>
-            
-            
-            
-            
         </footer>
             
         <script src="/js/jquery-1.9.1.min.js"></script>
         <script src="/js/jquery-migrate-1.1.0.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/select2/select2.js"></script>
+        <script src="/js/global.js"></script>
         
         {% block javascripts %}
             

@@ -1,13 +1,201 @@
 {% extends "base.html.twig" %}
 
 {% set currentPage = 'homepage' %}
+{% set bodyId = currentPage %}
 
-{% block body %}
-<div class="page-header">
-    <h2>{{ 'Datalea - a random test data generator' }}</h2>
-    <p>{{ 'A highly customizable random data generator to dump test data in various output format.' }}<br/>{{ 'Based on Francois Zaninotto' }} <a href="https://github.com/fzaninotto/Faker" target="_blank">{{ 'Faker Library' }}</a></p>
-    <a href="{{ path('datalea_generate') }}" title="Try Datalea generator" class="btn btn-large btn-primary">{{ 'Try it' }}</a>
-    <a href="https://github.com/spyrit/datalea" class="btn btn-large" target="_blank" ><i class="icon-github icon-large"></i> {{ 'Fork me on Github' | trans }}</a>
+{% block header_content %}
+<div class="row">
+    <div class="span7">
+        <h1>{{ 'Need realistic sample data ?' }}</h1>
+        <p>At vero eos et accusam et justo duo dolores et ea rebum. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+        <a href="https://github.com/spyrit/datalea" class="btn btn-large mt20" target="_blank"><i class="icon-github icon-large"></i>{{ 'Fork me on Github' }}</a>
+        <a href="{{ path('datalea_generate') }}" title="{{ 'Try Datalea generator' }}" class="btn btn-large btn-primary mt20 ml10">{{ 'Try it now' }}</a>
+    </div>
+
+    <div class="span4 offset1">
+        <img src="img/db.png" alt="Generate data" title="Generate data" />
+    </div>
 </div>
+{% endblock header_content %}
+
+{% block main_body %}
+
+<section class="section">
+    <div id="how-does-it-works" class="container">
+
+            <div class="row title">
+                <div class="span12">
+                    <center><h2>{{ 'Ready in 4 steps' }}</h2></center>
+                </div>
+            </div>
+        
+            <div class="row content">
+                
+                <div class="span3">
+                    <div class="circle">
+                        <div class="icon">
+                            <i class="icon-cogs"></i>
+                        </div>
+                        <div class="description">
+                            {{ 'Set your parameters' }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="span3">
+                    <div class="circle">
+                        <div class="icon">
+                            <i class="icon-columns"></i>
+                        </div>
+                        <div class="description">
+                            {{ 'Define variables and combine item for' }}<br />
+                            {{ 'creating your' }}<br />
+                            {{ 'columns' }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="span3">
+                    <div class="circle">
+                        <div class="icon">
+                            <i class="icon-inbox"></i>
+                        </div>
+                        <div class="description">
+                            {{ 'Choose your favorite output formats' }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="span3">
+                    <div class="circle">
+                        <div class="icon">
+                            <i class="icon-cloud-download"></i>
+                        </div>
+                        <div class="description">
+                            {{ 'Download your data' }}
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        
+            <div class="row bonus">
+                <div class="span12">
+                    <center>
+                        <i class="icon-plus-sign"></i> Extras bonus : save your whole data generation configuration to re-use and improve it later.
+                    </center>
+                </div>
+            </div>
+
+        </div>
+</section>
+
+<hr />
+
+<section class="section">
+    <div class="container">
+
+            <div class="row">
+            
+                <div class="span8">
+                    
+                    <h2>{{ 'How does it work ?' }}</h2>
+                    
+                    <div class="row">
+                        
+                        <div class="span4">
+                            <h3>{{ 'Screencast' }}</h3>
+                            <p>Lorem ipsum dolor sit amet. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+                        </div>
+                        
+                        <div class="span4">
+                            <h3>{{ 'Ready in 4 steps' }}</h3>
+                            <ol>
+                                <li>{{ 'Set your parameters' }}</li>
+                                <li>{{ 'Define variables and combine item for creating your columns' }}</li>
+                                <li>{{ 'Choose your favorite output formats' }}</li>
+                                <li>{{ 'Download your data' }}</li>
+                            </ol>
+                            <p>+ Extras bonus : save your whole data generation configuration to re-use and improve it later.</p>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="span4">
+                    <div class="well">
+                        <h2>{{ 'Latest news' }}</h2>
+                        <p>At vero eos et accusam et justo duo dolores et ea rebum. Lorem ipsum dolor sit amet.</p>
+                        <p>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
+                        <p>Stet clita kasd gubergren, no sea takimata sanctus est. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                    </div>
+                </div>
+            
+            </div>
+
+        </div>
+</section>
+
+
+
+<section class="gray section">
+    <div class="container">
+
+            <div class="row">
+            
+                <div class="span6">
+                    
+                    <h2>{{ 'F.A.Q.' }}</h2>
+                    
+                    <ul>
+                        <li>Nam liber tempor cum soluta imperdiet doming id quod mazim placerat facer possim assum ?</li>
+                        <li>Nam liber tempor cum soluta nobis eleifend option congue nihil ?</li>
+                        <li>Imperdiet doming id quod mazim placerat facer possim assum ?</li>
+                        <li>Doming id quod mazim placerat facer possim assum ?</li>
+                        <li>Eleifend option liber tempor cum soluta nobis congue nihil nam assum ?</li>
+                    </ul>
+                    
+                </div>
+                
+                <div class="span6">
+                    <h2>{{ 'What do people say about it ?' }}</h2>
+                    
+                    <div id="testimonial" class="carousel slide">
+                        <div class="carousel-inner">
+                          <div class="active item">
+                              <h4 class="author">Charles SANQUER</h4>
+                              <p class="quote"><i class="icon-quote-left"></i> Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. <i class="icon-quote-right"></i></p>
+                          </div>
+                          <div class="item">
+                              <h4 class="author">Pierre-Yves STUCKI</h4>
+                              <p class="quote"><i class="icon-quote-left"></i> Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. <i class="icon-quote-right"></i></p>
+                          </div>
+                        </div>
+                        <a class="carousel-control right" href="#testimonial" data-slide="next"><i class="icon-chevron-right"></i></a>
+                    </div>
+                    
+                </div>
+            
+            </div>
+
+        </div>
+</section>
+
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h2>{{ 'Datalea - a random test data generator' }}</h2>
+                <p>{{ 'A highly customizable random data generator to dump test data in various output format.' }}<br/>{{ 'Based on Francois Zaninotto' }} <a href="https://github.com/fzaninotto/Faker" target="_blank">{{ 'Faker Library' }}</a></p>
+                <a href="{{ path('datalea_generate') }}" title="Try Datalea generator" class="btn btn-large btn-primary">{{ 'Try it now' }}</a>
+                <a href="https://github.com/spyrit/datalea" class="btn btn-large" target="_blank" ><i class="icon-github icon-large"></i> {{ 'Fork me on Github' | trans }}</a>
+            </div>
+
+        </div>
+    </div>
+</section>
 
 {% endblock %}
