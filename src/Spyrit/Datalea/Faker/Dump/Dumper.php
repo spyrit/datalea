@@ -55,10 +55,13 @@ class Dumper
         return array(
             'csv' => 'CSV', 
             'yaml' => 'YAML', 
-            'php' => 'PHP array', 
             'xml' => 'XML', 
             'json' => 'JSON',
             'sql' => 'SQL',
+            'php' => 'PHP', 
+            'perl' => 'Perl', 
+            'ruby' => 'Ruby', 
+            'python' => 'Python', 
         );
     }
     
@@ -200,7 +203,7 @@ class Dumper
      * 
      * @return string
      */
-    public function dumpPHPArray($dir)
+    public function dumpPHP($dir)
     {
         $format = <<<PHPARRAY
 <?php 
@@ -211,6 +214,132 @@ PHPARRAY;
         
         $file = $dir.DS.$name.'.php';
         file_put_contents($file, sprintf($format, $name, preg_replace('/\s*\d+\s*=>\s*/', "\n  ", var_export($this->getFakeData(), true))));
+        
+        return $file;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function dumpPerl($dir)
+    {
+        $format = <<<DUMP
+my %%%s = (
+%s
+);
+
+DUMP;
+        $fakeData = $this->getFakeData();
+        
+        $indent = 2;
+        $indentChar = ' ';
+        
+        $values = '';
+        foreach ($fakeData as $item) {
+            $values .= str_repeat($indentChar, $indent).'{'."\n";
+            foreach ($item as $key => $value) {
+                $values .= str_repeat($indentChar, $indent*2).'"'.$key.'" => "'.$value.'",'."\n";
+            }
+            $values .= str_repeat($indentChar, $indent).'},'."\n";
+        }
+        
+        $file = $dir.DS.$this->config->getClassName(true).'.pl';
+        file_put_contents($file, sprintf($format, $this->config->getClassNameLastPart(), $values));
+        
+        return $file;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function dumpPython($dir)
+    {
+        $format = <<<DUMP
+%s = [
+%s
+]
+
+DUMP;
+        $fakeData = $this->getFakeData();
+        
+        $indent = 2;
+        $indentChar = ' ';
+        
+        $values = '';
+        $first1 = true;
+        foreach ($fakeData as $item) {
+            if ($first1) {
+                $first1 = false;
+            } else {
+                $values .= ','."\n";
+            }
+            $values .= str_repeat($indentChar, $indent).'{';
+            
+            $first2 = true;
+            foreach ($item as $key => $value) {
+                if ($first2) {
+                    $first2 = false;
+                    $values .= "\n";
+                } else {
+                    $values .= ','."\n";
+                }
+                $values .= str_repeat($indentChar, $indent*2).'\''.$key.'\': \''.$value.'\'';
+            }
+            
+            $values .= "\n".str_repeat($indentChar, $indent).'}';
+        }
+        
+        $file = $dir.DS.$this->config->getClassName(true).'.py';
+        file_put_contents($file, sprintf($format, $this->config->getClassNameLastPart(), $values));
+        
+        return $file;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function dumpRuby($dir)
+    {
+          $format = <<<DUMP
+%s = {
+%s
+}
+
+DUMP;
+        $fakeData = $this->getFakeData();
+        
+        $indent = 2;
+        $indentChar = ' ';
+        
+        $values = '';
+        $first1 = true;
+        foreach ($fakeData as $item) {
+            if ($first1) {
+                $first1 = false;
+            } else {
+                $values .= ','."\n";
+            }
+            $values .= str_repeat($indentChar, $indent).'{';
+            
+            $first2 = true;
+            foreach ($item as $key => $value) {
+                if ($first2) {
+                    $first2 = false;
+                    $values .= "\n";
+                } else {
+                    $values .= ','."\n";
+                }
+                $values .= str_repeat($indentChar, $indent*2).'\''.$key.'\' => \''.$value.'\'';
+            }
+            
+            $values .= "\n".str_repeat($indentChar, $indent).'}';
+        }
+        
+        $file = $dir.DS.$this->config->getClassName(true).'.rb';
+        file_put_contents($file, sprintf($format, $this->config->getClassNameLastPart(), $values));
         
         return $file;
     }
@@ -321,7 +450,7 @@ JSON;
      */
     public function dumpSQL($dir)
     {
-        $format = <<<SQL
+        $format = <<<DUMP
 # This is a fix for InnoDB in MySQL >= 4.1.x
 # It "suspends judgement" for fkey relationships until are tables are set.
 SET FOREIGN_KEY_CHECKS = 0;
@@ -332,7 +461,7 @@ INSERT INTO %s (%s) VALUES
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;
-SQL;
+DUMP;
         $fakeData = $this->getFakeData();
         
         $name = $this->config->getClassName(true);
@@ -341,13 +470,13 @@ SQL;
         
         $values = '';
         $first = true;
-        foreach ($fakeData as $items) {
+        foreach ($fakeData as $item) {
             if ($first) {
                 $first = false;
             } else {
                 $values .= ','."\n";
             }
-            $values .= '(\''.implode('\', \'', $items).'\')';
+            $values .= '(\''.implode('\', \'', $item).'\')';
         }
         
         $file = $dir.DS.$name.'.sql';
@@ -355,10 +484,6 @@ SQL;
         
         return $file;
     }
-    /**
-     * 
-     * @return string zip filename
-     */
     
     /**
      * 
@@ -388,14 +513,11 @@ SQL;
         
         foreach ($this->config->getFormats() as $format) {
             switch ($format) {
-                case 'yaml':
-                    $files[] = $this->dumpYAML($workingPath);
-                    break;
-                case 'php':
-                    $files[] = $this->dumpPHPArray($workingPath);
-                    break;
                 case 'csv':
                     $files[] = $this->dumpCSV($workingPath);
+                    break;
+                case 'yaml':
+                    $files[] = $this->dumpYAML($workingPath);
                     break;
                 case 'xml':
                     $files[] = $this->dumpXML($workingPath);
@@ -405,6 +527,18 @@ SQL;
                     break;
                 case 'sql':
                     $files[] = $this->dumpSQL($workingPath);
+                    break;
+                case 'php':
+                    $files[] = $this->dumpPHP($workingPath);
+                    break;
+                case 'perl':
+                    $files[] = $this->dumpPerl($workingPath);
+                    break;
+                case 'ruby':
+                    $files[] = $this->dumpRuby($workingPath);
+                    break;
+                case 'python':
+                    $files[] = $this->dumpPython($workingPath);
                     break;
             }
         }
