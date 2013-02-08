@@ -1,8 +1,30 @@
 <?php
 
-use Symfony\Component\ClassLoader\DebugClassLoader;
-use Symfony\Component\HttpKernel\Debug\ErrorHandler;
-use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
+use \Exception;
+use \Silex\Application;
+use \Silex\Provider\FormServiceProvider;
+use \Silex\Provider\MonologServiceProvider;
+use \Silex\Provider\ServiceControllerServiceProvider;
+use \Silex\Provider\SessionServiceProvider;
+use \Silex\Provider\SwiftmailerServiceProvider;
+use \Silex\Provider\TranslationServiceProvider;
+use \Silex\Provider\TwigServiceProvider;
+use \Silex\Provider\UrlGeneratorServiceProvider;
+use \Silex\Provider\ValidatorServiceProvider;
+use \Silex\Provider\WebProfilerServiceProvider;
+use \Spyrit\Datalea\Form\extension\BootstrapFormExtension;
+use \Spyrit\Silex\Utils\Provider\Database\PDOServiceProvider;
+use \Swift_MailTransport;
+use \Swift_SendmailTransport;
+use \Symfony\Component\ClassLoader\DebugClassLoader;
+use \Symfony\Component\Filesystem\Filesystem;
+use \Symfony\Component\HttpFoundation\Response;
+use \Symfony\Component\HttpKernel\Debug\ErrorHandler;
+use \Symfony\Component\HttpKernel\Debug\ExceptionHandler;
+use \Symfony\Component\HttpKernel\Exception\HttpException;
+use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use \Symfony\Component\Yaml\Exception\ParseException;
+use \Symfony\Component\Yaml\Yaml;
 
 // get environment constants or set default
 if (!defined('DS')) {
@@ -18,16 +40,16 @@ require_once __DIR__.DS.'..'.DS.'vendor'.DS.'autoload.php';
  * @param string $env default = prod
  * @param bool $debug default = false , debug mode
  *
- * @return \Silex\Application
+ * @return Application
  */
 function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
 {
-    $fs = new \Symfony\Component\Filesystem\Filesystem();
+    $fs = new Filesystem();
     if (!$fs->exists($appdir)) {
         die('the application directory doesn\'t exists !!');
     }
 
-    $app = new \Silex\Application();
+    $app = new Application();
     
     /*
      * define environment variables
@@ -55,7 +77,7 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     $config = require_once $app['app_dir'].DS.'config'.DS.'config.php';
     else if (file_exists($app['app_dir'].DS.'config'.DS.'config.yml')) {
         try {
-            $config = \Symfony\Component\Yaml\Yaml::parse($app['app_dir'].DS.'config'.DS.'config.yml');
+            $config = Yaml::parse($app['app_dir'].DS.'config'.DS.'config.yml');
         } catch (ParseException $e) {
             printf("Unable to parse the YAML string: %s in config file", $e->getMessage());
             exit();
@@ -113,33 +135,33 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     //    'http_cache.cache_dir' => $app['cache_dir'].DS.'http',
     //));
     //add url generator
-    $app->register(new \Silex\Provider\UrlGeneratorServiceProvider());
+    $app->register(new UrlGeneratorServiceProvider());
 
     //add symfony2 sessions
-    $app->register(new \Silex\Provider\SessionServiceProvider());
+    $app->register(new SessionServiceProvider());
 
     //add symfony2 forms and validators
-    $app->register(new \Silex\Provider\ValidatorServiceProvider());
+    $app->register(new ValidatorServiceProvider());
 
-    $app->register(new Silex\Provider\ServiceControllerServiceProvider());
+    $app->register(new ServiceControllerServiceProvider());
     
     // must be registered before twig
-    $app->register(new \Silex\Provider\FormServiceProvider(), array(
+    $app->register(new FormServiceProvider(), array(
         'form.secret' => '4fws6dg4w6df4<qg4sh4646qfgsd4',
     ));
     
     $app['form.extensions'] = $app->share($app->extend('form.extensions', function ($extensions) use ($app) {
-        $extensions[] = new \Spyrit\Datalea\Form\extension\BootstrapFormExtension();
+        $extensions[] = new BootstrapFormExtension();
         return $extensions;
     }));
 
     //add symfony2 translation (needed for twig + forms)
-    $app->register(new Silex\Provider\TranslationServiceProvider(), array(
+    $app->register(new TranslationServiceProvider(), array(
         'locale_fallback' => empty($config['locale_fallback']) ? 'en' : $config['locale_fallback'],
     ));
 
     // add twig templating
-    $app->register(new \Silex\Provider\TwigServiceProvider(), array(
+    $app->register(new TwigServiceProvider(), array(
         'twig.path' => __DIR__.'/views',
 //        'twig.templates' => array(),
         'twig.options' => array(
@@ -161,11 +183,11 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     
     // Web Profiler and Monolog
     if ($app['debug']) {
-        $app->register(new Silex\Provider\MonologServiceProvider(), array(
+        $app->register(new MonologServiceProvider(), array(
             'monolog.logfile' => $app['log_dir'].DS.'silex.log',
         ));
 
-        $app->register($p = new \Silex\Provider\WebProfilerServiceProvider(), array(
+        $app->register($p = new WebProfilerServiceProvider(), array(
             'profiler.cache_dir' => $app['cache_dir'].DS.'profiler',
         ));
         
@@ -174,17 +196,17 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     
     //add swiftmailer with default SMTP transport
     if (!empty($config['swiftmailer'])) {
-        $app->register(new \Silex\Provider\SwiftmailerServiceProvider(), array(
+        $app->register(new SwiftmailerServiceProvider(), array(
             'swiftmailer.options' => isset($config['swiftmailer']['options']) ? $config['swiftmailer']['options'] : array(),
         ));
         // custom swiftmailer transport
         $swiftTransport = in_array($config['swiftmailer']['transport'], array('mail', 'sendmail', 'smtp')) ? $config['swiftmailer']['transport'] : 'smtp';
         switch ($swiftTransport) {
             case 'mail':
-                $app['swiftmailer.transport'] = new \Swift_MailTransport();
+                $app['swiftmailer.transport'] = new Swift_MailTransport();
                 break;
             case 'sendmail':
-                $app['swiftmailer.transport'] = new \Swift_SendmailTransport();
+                $app['swiftmailer.transport'] = new Swift_SendmailTransport();
                 break;
             case 'smtp':
             default:
@@ -194,7 +216,7 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
 
     //Database PDO Connection
     if (!empty($config['databases'])) {
-        $app->register(new \Spyrit\Silex\Utils\Provider\PDOServiceProvider(), array(
+        $app->register(new PDOServiceProvider(), array(
             'pdo.dbs.options' => is_array($config['databases']) ? $config['databases'] : array(),
         ));
     }
@@ -205,15 +227,15 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
 
     // Exception Error page
     if ($app['env'] == 'prod') {
-        $app->error(function(\Exception $e) use ($app) {
-            if ($e instanceof Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+        $app->error(function(Exception $e) use ($app) {
+            if ($e instanceof NotFoundHttpException) {
                 $content = vsprintf('<h1>%d - %s (%s)</h1>', array(
                     $e->getStatusCode(),
-                \Symfony\Component\HttpFoundation\Response::$statusTexts[$e->getStatusCode()],
+                Response::$statusTexts[$e->getStatusCode()],
                     $app['request']->getRequestUri()
                 ));
                 $code = $e->getStatusCode();
-            } elseif ($e instanceof Symfony\Component\HttpKernel\Exception\HttpException) {
+            } elseif ($e instanceof HttpException) {
                 $content = '<h1>An error occured!</h1>';
                 $code = $e->getStatusCode();
             } else {
@@ -221,7 +243,7 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
                 $code = 200;
             }
 
-            return new \Symfony\Component\HttpFoundation\Response($content, $code);
+            return new Response($content, $code);
         });
     }
 
