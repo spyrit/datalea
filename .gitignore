@@ -1,5 +1,7 @@
 vendor
 app/cache
+app/log
+app/logs
 app/config/config.yml
 app/config/config.php
 bin

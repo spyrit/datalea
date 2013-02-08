@@ -1,11 +1,16 @@
 <?php
 
+use Symfony\Component\ClassLoader\DebugClassLoader;
+use Symfony\Component\HttpKernel\Debug\ErrorHandler;
+use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
+
 // get environment constants or set default
 if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
 }
 
 require_once __DIR__.DS.'..'.DS.'vendor'.DS.'autoload.php';
+
 /**
  * Create a Default Silex application with some extra service providers
  *
@@ -18,12 +23,26 @@ require_once __DIR__.DS.'..'.DS.'vendor'.DS.'autoload.php';
 function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
 {
     $fs = new \Symfony\Component\Filesystem\Filesystem();
-    $app = new \Silex\Application();
-
     if (!$fs->exists($appdir)) {
         die('the application directory doesn\'t exists !!');
     }
 
+    $app = new \Silex\Application();
+    
+    /*
+     * define environment variables
+     */
+    $app['debug'] = (bool) $debug;
+    $app['env'] = $env;
+
+    if ($app['debug']) {
+        DebugClassLoader::enable();
+        ErrorHandler::register();
+        if ('cli' !== php_sapi_name()) {
+            ExceptionHandler::register();
+        }
+    }
+    
     /*
      * define main paths
      */
@@ -32,26 +51,50 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     $app['web_dir'] = realpath($appdir.DS.'..'.DS.'web');
 
     // get configs
+    if (file_exists($app['app_dir'].DS.'config'.DS.'config.php'))
     $config = require_once $app['app_dir'].DS.'config'.DS.'config.php';
+    else if (file_exists($app['app_dir'].DS.'config'.DS.'config.yml')) {
+        try {
+            $config = \Symfony\Component\Yaml\Yaml::parse($app['app_dir'].DS.'config'.DS.'config.yml');
+        } catch (ParseException $e) {
+            printf("Unable to parse the YAML string: %s in config file", $e->getMessage());
+            exit();
+        }
+    }
+    else {
+        printf("no config file config file");
+        exit();
+    }
     
     //set umask
     $umask = isset($config['umask']) && is_int($config['umask']) ? $config['umask'] : 0002;
     umask($umask);
 
-    //create cache directories
+    //create cache and log directories
     $app['cache_dir'] = $appdir.DS.'cache';
+    $app['log_dir'] = $appdir.DS.'logs';
+    
     if (!$fs->exists($app['cache_dir'])) {
         $rights = isset($config['cache_access']) && is_int($config['cache_access']) ? $config['cache_access'] : 0775;
         $fs->mkdir(array(
             $app['cache_dir'],
             $app['cache_dir'].DS.'http',
             $app['cache_dir'].DS.'twig',
+            $app['cache_dir'].DS.'profiler',
                 ), $rights);
+        
         $fs->chmod($app['cache_dir'], $rights);
         $fs->chmod($app['cache_dir'].DS.'http', $rights);
         $fs->chmod($app['cache_dir'].DS.'twig', $rights);
+        $fs->chmod($app['cache_dir'].DS.'profiler', $rights);
     }
 
+    if (!$fs->exists($app['log_dir'])) {
+        $fs->mkdir($app['log_dir'], 0775);
+        $fs->chmod($app['log_dir'], 0775);
+    }
+    
+    
     $app['data_dir'] = $app['root_dir'].DS.'data';
     if (!$fs->exists($app['data_dir'])) {
         $fs->mkdir($app['data_dir'], 0777);
@@ -61,12 +104,6 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     if (!$fs->exists($app['uploads_dir'])) {
         $fs->mkdir($app['uploads_dir'], 0777);
     }
-    /*
-     * define environment variables
-     */
-    $app['debug'] = (bool) $debug;
-    $app['env'] = $env;
-
     /*
      * add service providers
      */
@@ -84,6 +121,8 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     //add symfony2 forms and validators
     $app->register(new \Silex\Provider\ValidatorServiceProvider());
 
+    $app->register(new Silex\Provider\ServiceControllerServiceProvider());
+    
     // must be registered before twig
     $app->register(new \Silex\Provider\FormServiceProvider(), array(
         'form.secret' => '4fws6dg4w6df4<qg4sh4646qfgsd4',
@@ -114,6 +153,25 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
         ),
     ));
 
+    $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
+        // add custom globals, filters, tags, ...
+
+        return $twig;
+    }));
+    
+    // Web Profiler and Monolog
+    if ($app['debug']) {
+        $app->register(new Silex\Provider\MonologServiceProvider(), array(
+            'monolog.logfile' => $app['log_dir'].DS.'silex.log',
+        ));
+
+        $app->register($p = new \Silex\Provider\WebProfilerServiceProvider(), array(
+            'profiler.cache_dir' => $app['cache_dir'].DS.'profiler',
+        ));
+        
+        $app->mount('/_profiler', $p);
+    }
+    
     //add swiftmailer with default SMTP transport
     if (!empty($config['swiftmailer'])) {
         $app->register(new \Silex\Provider\SwiftmailerServiceProvider(), array(
@@ -151,7 +209,7 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
             if ($e instanceof Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
                 $content = vsprintf('<h1>%d - %s (%s)</h1>', array(
                     $e->getStatusCode(),
-                    Symfony\Component\HttpFoundation\Response::$statusTexts[$e->getStatusCode()],
+                \Symfony\Component\HttpFoundation\Response::$statusTexts[$e->getStatusCode()],
                     $app['request']->getRequestUri()
                 ));
                 $code = $e->getStatusCode();

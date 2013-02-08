@@ -13,4 +13,7 @@ define('DS', DIRECTORY_SEPARATOR);
 define('SILEX_ENV', 'dev');
 define('SILEX_DEBUG', true);
 
+ini_set('display_errors', 1);
+error_reporting(-1);
+
 include_once __DIR__.DS.'..'.DS.'app'.DS.'app.php';
