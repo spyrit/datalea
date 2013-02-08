@@ -54,7 +54,7 @@ class MainControllerProvider implements ControllerProviderInterface
         $config->setClassname('User');
         $config->setFakeNumber(100);
         $config->setLocale('fr_FR');
-        $config->setFormats(array('php', 'xml', 'yaml', 'json', 'sql', 'csv', ));
+        $config->setFormats(array('xml', 'yaml', 'json', 'sql', 'csv', 'php', 'perl', 'python', 'ruby'));
 
         $var1 = new VariableConfig('lastname', 'lastName');
         $var2 = new VariableConfig('firstname', 'firstName');
