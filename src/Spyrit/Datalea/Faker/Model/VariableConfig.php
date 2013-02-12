@@ -112,6 +112,7 @@ class VariableConfig
                 'freeEmail' => 'freeEmail',
                 'companyEmail' => 'companyEmail',
                 'freeEmailDomain' => 'freeEmailDomain',
+                'safeEmailDomain' => 'safeEmailDomain',
                 'userName' => 'userName',
                 'domainName' => 'domainName',
                 'domainWord' => 'domainWord',
@@ -166,6 +167,9 @@ class VariableConfig
                 'safari' => 'safari',
                 'opera' => 'opera',
                 'internetExplorer' => 'internetExplorer',
+            ),
+            'Uuid' => array(
+                'uuid' => 'uuid',
             ),
         );
     }
@@ -293,7 +297,7 @@ class VariableConfig
                 do {
                     $value = $this->generate($faker, $values, $variableConfigs, $uniqueValues);
                     $try++;
-                    if ($try > 5 )
+                    if ($try > 10 )
                     {
                         $inc++;
                         $value = is_numeric($value) ? $value+1 : $value.'_'.$inc;
@@ -356,7 +360,7 @@ class VariableConfig
 
                 $format = empty($format) ? 'Y-m-d H:i:s' : $format;
                 $datetime = call_user_func_array(array($faker, $method), $args);
-                $values[$this->getName()] = $datetime->format($format);
+                $value = $datetime->format($format);
                 break;
 
             case 'dateTimeBetween':

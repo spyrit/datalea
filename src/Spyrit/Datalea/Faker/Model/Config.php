@@ -116,6 +116,16 @@ class Config
         return $this;
     }
 
+    public function hasSeed()
+    {
+        return $this->seed !== null && $this->seed != '';
+    }
+    
+    public function generateSeed()
+    {
+        return $this->setSeed(mt_rand(0, 50000));
+    }
+    
     public function getSeed()
     {
         return $this->seed;

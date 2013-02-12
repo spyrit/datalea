@@ -507,6 +507,10 @@ DUMP;
             $fs->mkdir($workingPath, 0777);
         }
         
+        if (!$this->config->hasSeed()) {
+            $this->config->generateSeed();
+        }
+        
         $files = array();
         
         $files[] = $this->saveConfigAsXML($workingPath);
