@@ -59,6 +59,9 @@
         <div class="offset4 span4">
             <input type="submit" class="btn btn-large btn-block btn-primary" value="{{ 'Generate' | trans }}" />
         </div>
+        <div class="span1">
+            <a href="{{ path('datalea_generate', {'reset': 1}) }}" class="btn btn-block btn-warning" title="{{ 'Reset the generator config' | trans }}">{{ 'Reset' | trans }}</a>
+        </div>
     </div>
 </form>
 
