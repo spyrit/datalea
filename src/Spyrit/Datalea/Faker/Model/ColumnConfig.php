@@ -31,11 +31,13 @@ class ColumnConfig
      * 
      * @param string $name default = null
      * @param string $value default = null
+     * @param string $convertMethod default = null
      */
-    public function __construct($name = null, $value = null)
+    public function __construct($name = null, $value = null, $convertMethod = null)
     {
-        $this->name = $name;
-        $this->value = $value;
+        $this->setName($name);
+        $this->setValue($value);
+        $this->setConvertMethod($convertMethod);
     }
 
     public function getName()
