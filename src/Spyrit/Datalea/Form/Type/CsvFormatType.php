@@ -31,7 +31,7 @@ class CsvFormatType extends AbstractType
                     'class' => 'input-mini',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span2',
+                    'class' => '',
                 ),
                 'constraints' => array(
                     new Constraints\NotBlank(),
@@ -48,7 +48,7 @@ class CsvFormatType extends AbstractType
                     'class' => 'input-mini',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span2',
+                    'class' => '',
                 ),
                 'constraints' => array(
                     new Constraints\NotBlank(),
@@ -65,7 +65,7 @@ class CsvFormatType extends AbstractType
                     'class' => 'input-mini',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span3',
+                    'class' => '',
                 ),
                 'constraints' => array(
                     new Constraints\NotBlank(),
@@ -83,7 +83,7 @@ class CsvFormatType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span2',
+                    'class' => '',
                 ),
                 'constraints' => array(
                     new Constraints\Choice(array(
@@ -102,7 +102,7 @@ class CsvFormatType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span3',
+                    'class' => '',
                 ),
                 'constraints' => array(
                     new Constraints\Choice(array(

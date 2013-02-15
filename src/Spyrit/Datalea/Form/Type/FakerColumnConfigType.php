@@ -27,10 +27,10 @@ class FakerColumnConfigType extends AbstractType
                 'help_type' => 'popover',
                 'help_popover_position' => 'right',
                 'attr' => array(
-                    'style' => 'width: 95%',
+//                    'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span2',
+                    'class' => 'name',
                 ),
                 'constraints' => array(
                     new Constraints\NotBlank(),
@@ -43,10 +43,10 @@ class FakerColumnConfigType extends AbstractType
                 'help' => 'set the column value. You can insert some variable pattern <strong>%variable_name%</strong> which will be replaced by random generated value.',
                 'help_type' => 'popover',
                 'attr' => array(
-                    'style' => 'width: 95%',
+//                    'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span6',
+                    'class' => 'value',
                 ),
                 'constraints' => array(
                     new Constraints\NotBlank(),
@@ -62,10 +62,10 @@ class FakerColumnConfigType extends AbstractType
                 'choices' => $convertMethods,
                 'attr' => array(
                     'class' => 'select2-empty-box',
-                    'style' => 'width: 95%',
+//                    'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span3',
+                    'class' => 'convert-method',
                 ),
                 'constraints' => array(
                     new Constraints\Choice(array(

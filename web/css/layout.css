@@ -14,6 +14,16 @@ h1, h2, h3, h4, h5, h6, h7 {
     font-weight: 100;
 }
 
+.section legend {
+    color: #ff7400;
+}
+
+.section.gray legend {
+    color: #00a5db;
+}
+
+/* Nav bar */
+
 .navbar-inverse .brand, 
 .navbar-inverse .nav > li > a {
     color: #999;
@@ -52,6 +62,8 @@ h1, h2, h3, h4, h5, h6, h7 {
     background-image: -ms-linear-gradient(top, #a0d53a 20%, #60b513 100%);
 }
 
+/* Header */
+
 #header {
     background: #0075ea; /* Old browsers */
     background: -moz-linear-gradient(45deg,  #0075ea 0%, #53cbf1 60%, #87e0fd 100%); /* FF3.6+ */
@@ -64,7 +76,6 @@ h1, h2, h3, h4, h5, h6, h7 {
     padding: 40px 0 20px 0;
     box-shadow: inset 0 0 10px rgba(0,0,0,0.25);
     color: white;
-    /* height: 250px; /* +40px */
 }
 
 #header .btn {
@@ -79,13 +90,25 @@ h1, h2, h3, h4, h5, h6, h7 {
     font-size: 3.5em;
     line-height: 1em; 
 }
+#header legend {
+    color: white;
+    border-bottom: 1px dotted white;
+}
 
+#header .popover {
+    color: #2a2a2a ;
+}
+
+#header .help-popover {
+    color: #224285;
+}
+
+/* Footer */
 
 #footer {
     text-align: center;
     padding: 30px 0;
     margin-top: 70px;
-    /* box-shadow: inset 0 0 10px rgba(0,0,0,0.5); */
     color: #626262;
     font-size: 0.95em;
     background-color: #2a2a2a ;
@@ -114,8 +137,6 @@ h1, h2, h3, h4, h5, h6, h7 {
 
 .section.gray {
     background-color: whitesmoke;
-    /* border-top: 1px solid #e9e9e9;
-    border-bottom: 1px solid #e9e9e9; */
     box-shadow: inset 0 0 10px rgba(0,0,0,0.08);
 }
 
@@ -126,16 +147,11 @@ h1, h2, h3, h4, h5, h6, h7 {
     box-shadow: 0 1px 10px rgba(0,0,0,0.15);
 }
 
+/* Section styles */
+
 .section h2 {
     color: #ff7400 ;
 }
-
-/* .section .well {
-    border-radius: 2px;
-    background-color: white;
-    border: none;
-    box-shadow: 0 1px 10px rgba(0,0,0,0.15);
-} */
 
 .section .well h2 {
     color: #ff7400 ;
@@ -149,6 +165,7 @@ h1, h2, h3, h4, h5, h6, h7 {
     color: orange;
 }
 
+
 #testimonial .item {
     padding-right: 80px;
     width: 350px;
@@ -158,6 +175,8 @@ h1, h2, h3, h4, h5, h6, h7 {
     border-radius: 50%;
     
 }
+
+/* How does it works styles */
 
 #how-does-it-works .circle {
     background-color: #2a2a2a;
@@ -201,6 +220,8 @@ h1, h2, h3, h4, h5, h6, h7 {
     font-weight: 100;
 }
 
+/* Testimonial styles */
+
 #testimonial .carousel-control {
     border-width: 4px;
     font-size: 1.5em;
@@ -219,7 +240,55 @@ h1, h2, h3, h4, h5, h6, h7 {
     margin-top: 50px;
 }
 
-/** buttons **/
+/* Special generation page styles */
+
+#column-configs .well, 
+#variables .well{
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#variables .well {
+    margin-bottom: 15px;
+}
+
+#column-configs .control-group .controls input,
+#variables .control-group .controls input {
+    width: 100%;
+}
+
+#column-configs .control-group,
+#variables .control-group {
+    margin-bottom: 0;   
+}
+
+#column-configs .control-group.name .control-label{ width: 80px; }
+#column-configs .control-group.name .controls{ margin-left: 90px; } /* previous one width + 10px */
+
+#column-configs .control-group.value .control-label{ width: 80px; }
+#column-configs .control-group.value .controls{ margin-left: 90px; } /* previous one width + 10px */
+
+#column-configs .control-group.convert-method .control-label{ width: 80px; }
+#column-configs .control-group.convert-method .controls{ margin-left: 90px; } /* previous one width + 10px */
+
+
+
+#variables .control-group.name .control-label{ width: 80px; }
+#variables .control-group.name .controls{ margin-left: 90px; } /* previous one width + 10px */
+
+#variables .control-group.faker-method .control-label{ width: 230px; }
+#variables .control-group.faker-method .controls{ margin-left: 240px; } /* previous one width + 10px */
+
+#variables .control-group.argument .control-label{ width: 110px; }
+#variables .control-group.argument .controls{ margin-left: 120px; } /* previous one width + 10px */
+
+#variables .control-group.unique .control-label{ width: 80px; }
+#variables .control-group.unique .controls{ margin-left: 90px; } /* previous one width + 10px */
+
+
+
+/* buttons styles */
+
 .btn:hover {
     -moz-transition: none;
     -webkit-transition: none;
@@ -249,7 +318,7 @@ h1, h2, h3, h4, h5, h6, h7 {
     background-image: -ms-linear-gradient(top, #8EBD33 20%, #549E11 100%);
 }
 
-.btn-danger { 
+/* .btn-danger { 
     border-color: #af4040; border-bottom-color: #9a2020; background-color: #d72323;
     background: -webkit-gradient(linear,left top,left bottom,color-stop(.2, #e85252),color-stop(1, #cf2e2e));
     background: -moz-linear-gradient(center top,#e85252 20%,#cf2e2e 100%);
@@ -264,6 +333,25 @@ h1, h2, h3, h4, h5, h6, h7 {
     background-image: linear-gradient(top, #e53e3e 20%, #ca1616 100%);
     background-image: -o-linear-gradient(top, #e53e3e 20%, #ca1616 100%);
     background-image: -ms-linear-gradient(top, #e53e3e 20%, #ca1616 100%);
+} */
+
+.btn-danger { 
+    /* color:  ; */
+    
+    border-color:  #da8b25 ; border-bottom-color: #9a5420; background-color: #ff9100;
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(.2, #ffb300),color-stop(1, #ff9100));
+    background: -moz-linear-gradient(center top,#ffb300 20%,#ff9100 100%);
+    background-image: linear-gradient(top, #ffb300 20%, #ff9100 100%);
+    background-image: -o-linear-gradient(top, #ffb300 20%, #ff9100 100%);
+    background-image: -ms-linear-gradient(top, #ffb300 20%, #ff9100 100%);
+}
+.btn-danger:hover { 
+    background: #d25e00;
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(.2, #ff9100),color-stop(1, #ff8000));
+    background: -moz-linear-gradient(center top,#e57d3e 20%,#ca5116 100%);
+    background-image: linear-gradient(top, #e57d3e 20%, #ca5116 100%);
+    background-image: -o-linear-gradient(top, #e57d3e 20%, #ca5116 100%);
+    background-image: -ms-linear-gradient(top, #e57d3e 20%, #ca5116 100%);
 }
 
 .btn-primary {
@@ -285,7 +373,13 @@ h1, h2, h3, h4, h5, h6, h7 {
     background-image: -ms-linear-gradient(top, #3E9EE5 20%, #1666CA 100%);
 }
 
-/** font **/
+.select2-choice, .select2-results{
+    font-weight: normal;
+    font-size: 14px;
+}
+
+/* fonts */
+
 @font-face {
     font-family: 'SourceSansProRegular';
     src: url('../font/source/SourceSansPro-Regular-webfont.eot');

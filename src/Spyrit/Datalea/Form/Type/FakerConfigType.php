@@ -32,7 +32,7 @@ class FakerConfigType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span6',
+                    'class' => '',
                 ),
                 'constraints' => array(
                     new Constraints\NotBlank(),
@@ -49,7 +49,7 @@ class FakerConfigType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span6',
+                    'class' => '',
                 ),
                 'constraints' => array(
                     new Constraints\Choice(array(
@@ -67,7 +67,7 @@ class FakerConfigType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span6',
+                    'class' => '',
                 ),
                 'constraints' => array(
                     new Constraints\Type('integer'),
@@ -82,7 +82,7 @@ class FakerConfigType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span6',
+                    'class' => '',
                 ),
                 'constraints' => array(
                     new Constraints\Type('integer'),

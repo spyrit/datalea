@@ -1,7 +1,7 @@
 {# Symfony2 Twig Form theme for twitter bootstrap #}
 
 {% macro collection_item(form) %}
-<div class="well control-group {% if form.vars.errors|length > 0 %}error{% endif %}">
+<div class="well {% if form.vars.errors|length > 0 %}error{% endif %}">
     <span class="pull-right btn btn-danger remove-collection-item-form" title="{{ 'Remove the current element' | trans }}"><i class="icon-minus"></i></span>
     {{ form_errors(form) }}
     {##
@@ -15,7 +15,7 @@
 {% spaceless %}
     <fieldset>
         {{ block('collection_label') }}
-        <div class="control-group {% if form.vars.errors|length > 0 %}error{% endif %}">
+        <div class="{% if form.vars.errors|length > 0 %}error{% endif %}">
             {{ block('collection_errors') }}
             {{ block('collection_widget') }}
         </div>
@@ -73,11 +73,15 @@
 
 {% block form_label %}
 {% spaceless %}
+    {% set default_classes = 'control-label ' ~ label_attr.class|default('')  %}
+
     {% if not compound %}
         {% set label_attr = label_attr|merge({'for': id}) %}
     {% endif %}
     {% if required %}
-        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% set label_attr = label_attr|merge({'class': (default_classes ~ 'required')|trim}) %}
+    {% else %}
+        {% set label_attr = label_attr|merge({'class': default_classes|trim}) %}
     {% endif %}
     {% if label is empty %}
         {% set label = name|humanize %}
@@ -108,13 +112,16 @@
     
 {% block form_row %}
 {% spaceless %}
-{% set row_attr = row_attr|merge({'class': (row_attr.class|default('control-group'))|trim}) %}
+{% set default_classes = 'control-group ' %}
+{% set row_attr = row_attr|merge({'class': (default_classes ~ row_attr.class|default(''))|trim}) %}
 {% if form.vars.errors|length > 0 %}
-    {% set row_attr = row_attr|merge({'class': (row_attr.class|default('') ~ ' error')|trim}) %}
+    {% set row_attr = row_attr|merge({'class': (default_classes ~ row_attr.class|default('') ~ ' error')|trim}) %}
 {% endif %}
 <div {% for attrname, attrvalue in row_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
     {{ form_label(form) }}
+    <div class="controls">
     {{ form_widget(form) }}
+    </div>
     {% if help_type == 'inline' or help_type== 'block' %}{{ block('form_help') }}{% endif %}
     {{ form_errors(form) }}
 </div>

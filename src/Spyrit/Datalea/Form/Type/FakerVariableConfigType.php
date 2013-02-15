@@ -35,7 +35,7 @@ class FakerVariableConfigType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span2',
+                    'class' => 'name',
                 ),
                 'constraints' => array(
                     new Constraints\NotBlank(),
@@ -54,7 +54,7 @@ class FakerVariableConfigType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span7',
+                    'class' => 'faker-method',
                 ),
                 'constraints' => array(
                     new Constraints\Choice(array(
@@ -72,7 +72,7 @@ class FakerVariableConfigType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span4',
+                    'class' => 'argument first-arg',
                 ),
             ))
             ->add('fakerMethodArg2', 'text', array(
@@ -84,7 +84,7 @@ class FakerVariableConfigType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span4',
+                    'class' => 'argument second-arg',
                 ),
             ))
             ->add('fakerMethodArg3', 'text', array(
@@ -96,7 +96,7 @@ class FakerVariableConfigType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span4',
+                    'class' => 'argument third-arg',
                 ),
             ))
             ->add('unique', 'checkbox', array(
@@ -109,7 +109,7 @@ class FakerVariableConfigType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span2',
+                    'class' => 'unique',
                 ),
             ))
             ;
