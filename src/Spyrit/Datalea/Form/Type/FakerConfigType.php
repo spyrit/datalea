@@ -36,7 +36,7 @@ class FakerConfigType extends AbstractType
                 ),
                 'constraints' => array(
                     new Constraints\NotBlank(),
-                    new Constraints\MinLength(3),
+                    new Constraints\Length(array('min' => 3)),
                 )
             ))
             ->add('locale', 'choice', array(
@@ -71,6 +71,7 @@ class FakerConfigType extends AbstractType
                 ),
                 'constraints' => array(
                     new Constraints\Type('integer'),
+                    new Constraints\Range(array('min' => 0, 'max' => 50000)),
                 )
             ))
             ->add('fakeNumber', 'integer', array(
@@ -86,8 +87,7 @@ class FakerConfigType extends AbstractType
                 ),
                 'constraints' => array(
                     new Constraints\Type('integer'),
-                    new Constraints\Min(1),
-                    new Constraints\Max(5000),
+                    new Constraints\Range(array('min' => 1, 'max' => 2000)),
                 )
             ))
             ->add('variableConfigs', 'collection', array(

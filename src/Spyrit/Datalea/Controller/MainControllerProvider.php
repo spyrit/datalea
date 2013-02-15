@@ -54,15 +54,22 @@ class MainControllerProvider implements ControllerProviderInterface
         $config->setClassname('User');
         $config->setFakeNumber(100);
         $config->setLocale('fr_FR');
-        $config->setFormats(array('php', 'xml', 'yaml', 'json', 'sql', 'csv', ));
+        $config->setFormats(array('xml', 'yaml', 'json', 'sql', 'csv', 'php', 'perl', 'python', 'ruby'));
 
         $var1 = new VariableConfig('lastname', 'lastName');
         $var2 = new VariableConfig('firstname', 'firstName');
+        $var3 = new VariableConfig('email_domain', 'safeEmailDomain');
+        $var4 = new VariableConfig('birth_date', 'dateTimeThisCentury');
 
         $config->addVariableConfig($var1);
         $config->addVariableConfig($var2);
+        $config->addVariableConfig($var3);
+        $config->addVariableConfig($var4);
         $config->addColumnConfig(new ColumnConfig($var1->getName(), $var1->getVarName()));
         $config->addColumnConfig(new ColumnConfig($var2->getName(), $var2->getVarName()));
+        $config->addColumnConfig(new ColumnConfig('username', $var1->getVarName().'.'.$var2->getVarName(), 'remove_accents_lowercase'));
+        $config->addColumnConfig(new ColumnConfig('email', $var1->getVarName().'.'.$var2->getVarName().'@'.$var3->getVarName(), 'remove_accents_lowercase'));
+        $config->addColumnConfig(new ColumnConfig($var4->getName(), $var4->getVarName()));
     }
     
     public function loadConfigAction(Request $request, Application $app) 
@@ -98,7 +105,7 @@ class MainControllerProvider implements ControllerProviderInterface
         
         $config = new Config();
         
-        if ('GET' == $request->getMethod()) {
+        if ('GET' == $request->getMethod() && $request->get('reset', 0) != 1) {
             $this->setDefaultConfig($config);
         }
         
