@@ -205,15 +205,31 @@ class Dumper
      */
     public function dumpPHP($dir)
     {
-        $format = <<<PHPARRAY
+        $format = <<<DUMP
 <?php 
-\$%s = %s;
+\$%s = array(
+%s
+);
 
-PHPARRAY;
+DUMP;
+        $fakeData = $this->getFakeData();
+        
+        $indent = 4;
+        $indentChar = ' ';
+        
+        $values = '';
+        foreach ($fakeData as $item) {
+            $values .= str_repeat($indentChar, $indent).'array('."\n";
+            foreach ($item as $key => $value) {
+                $values .= str_repeat($indentChar, $indent*2).'\''.$key.'\' => \''.$value.'\','."\n";
+            }
+            $values .= str_repeat($indentChar, $indent).'),'."\n";
+        }
+        
         $name = $this->config->getClassName(true);
         
         $file = $dir.DS.$name.'.php';
-        file_put_contents($file, sprintf($format, $name, preg_replace('/\s*\d+\s*=>\s*/', "\n  ", var_export($this->getFakeData(), true))));
+        file_put_contents($file, sprintf($format, $name, $values));
         
         return $file;
     }
