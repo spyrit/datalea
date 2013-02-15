@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app.request.locale }}">
     <head>
         <meta charset="utf-8">
         <meta name="description" content="">
@@ -39,11 +39,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="{{ path('datalea_generate') }}">{{ 'Datalea'|trans }}</a>
+                    <a class="brand" href="{{ path('datalea_homepage') }}">{{ 'Datalea'|trans }}</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             {% set currentPage = currentPage|default('home') %}
-                            <li class="{% if currentPage == 'homepage' %}active{% endif %}"><a href="{{ path('datalea_homepage') }}">{{ 'About' | trans }}</a></li>
+                            <li class="{% if currentPage == 'homepage' %}active{% endif %}"><a href="{{ path('datalea_about') }}">{{ 'About' | trans }}</a></li>
                             <li class="{% if currentPage == 'generate' %}active{% endif %}"><a href="{{ path('datalea_generate') }}">{{ 'Generate' | trans }}</a></li>
                             <li class=""><a href="https://github.com/spyrit/datalea" target="_blank" ><i class="icon-github icon-large"></i>{{ 'Github Project' | trans }}</a></li>
                         </ul>

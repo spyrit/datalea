@@ -33,12 +33,26 @@ class MainControllerProvider implements ControllerProviderInterface
         $controller = 'Spyrit\Datalea\Controller\MainControllerProvider::';
         
         // set as many controllers as you want
-        $controllers->get('/', $controller.'homeAction')->bind('datalea_homepage');
+        $controllers
+            ->get('/{_locale}/about', $controller.'homeAction')
+            ->value('_locale', 'en')
+            ->bind('datalea_about');
+        
+        $controllers
+            ->get('/{_locale}', $controller.'homeAction')
+            ->value('_locale', 'en')
+            ->bind('datalea_homepage');
         
         // config form
-        $controllers->match('/generate', $controller.'generateAction')->bind('datalea_generate'); //route name for use with url generator
+        $controllers
+            ->match('/{_locale}/generate', $controller.'generateAction')
+            ->value('_locale', 'en')   
+            ->bind('datalea_generate'); //route name for use with url generator
 
-        $controllers->post('/load/config', $controller.'loadConfigAction')->bind('datalea_load_config');
+        $controllers
+            ->post('/{_locale}/load/config', $controller.'loadConfigAction')
+            ->value('_locale', 'en')  
+            ->bind('datalea_load_config');
         
         return $controllers;
     }
@@ -49,7 +63,7 @@ class MainControllerProvider implements ControllerProviderInterface
         ));
     }
     
-    protected function setDefaultConfig(Config $config) 
+    protected function setUserExampleConfig(Config $config) 
     {
         $config->setClassname('User');
         $config->setFakeNumber(100);
@@ -70,6 +84,18 @@ class MainControllerProvider implements ControllerProviderInterface
         $config->addColumnConfig(new ColumnConfig('username', $var1->getVarName().'.'.$var2->getVarName(), 'remove_accents_lowercase'));
         $config->addColumnConfig(new ColumnConfig('email', $var1->getVarName().'.'.$var2->getVarName().'@'.$var3->getVarName(), 'remove_accents_lowercase'));
         $config->addColumnConfig(new ColumnConfig($var4->getName(), $var4->getVarName()));
+    }
+    
+    protected function setDefaultConfig(Config $config) 
+    {
+        $config->setClassname('');
+        $config->setFakeNumber(10);
+        $config->setFormats(array('csv'));
+
+        $var1 = new VariableConfig('text1', 'text');
+
+        $config->addVariableConfig($var1);
+        $config->addColumnConfig(new ColumnConfig($var1->getName(), $var1->getVarName()));
     }
     
     public function loadConfigAction(Request $request, Application $app) 
@@ -106,6 +132,8 @@ class MainControllerProvider implements ControllerProviderInterface
         $config = new Config();
         
         if ('GET' == $request->getMethod() && $request->get('reset', 0) != 1) {
+            $this->setUserExampleConfig($config);
+        } else {
             $this->setDefaultConfig($config);
         }
         

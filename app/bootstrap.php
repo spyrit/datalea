@@ -173,6 +173,13 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
         return $translator;
     }));
     
+     $app->before(function () use ($app) {
+        if ($locale = $app['request']->get('_locale')) {
+            $app['locale'] = $locale;
+            $app['translator']->setLocale($app['locale']);
+        }
+    });
+    
     // add twig templating
     $app->register(new TwigServiceProvider(), array(
         'twig.path' => __DIR__.'/views',
