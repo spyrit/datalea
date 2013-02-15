@@ -174,12 +174,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog",
-                "reference": "9dc4ffc071725c22fc5aea9755d4ca7ea06f5de0"
+                "reference": "48f22f4519ed17b4754c4b561101d19aeb0d0236"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/9dc4ffc071725c22fc5aea9755d4ca7ea06f5de0",
-                "reference": "9dc4ffc071725c22fc5aea9755d4ca7ea06f5de0",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/48f22f4519ed17b4754c4b561101d19aeb0d0236",
+                "reference": "48f22f4519ed17b4754c4b561101d19aeb0d0236",
                 "shasum": ""
             },
             "require": {
@@ -198,7 +198,7 @@
                 "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
                 "raven/raven": "Allow sending log messages to a Sentry server"
             },
-            "time": "2013-02-11 10:28:59",
+            "time": "2013-02-13 18:09:50",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -320,12 +320,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Silex.git",
-                "reference": "81988ead4c5971278b20711ab24c2c1a88baf102"
+                "reference": "c421eab3c4ca9d106cc5b68266d58adece8636cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Silex/zipball/81988ead4c5971278b20711ab24c2c1a88baf102",
-                "reference": "81988ead4c5971278b20711ab24c2c1a88baf102",
+                "url": "https://api.github.com/repos/fabpot/Silex/zipball/c421eab3c4ca9d106cc5b68266d58adece8636cd",
+                "reference": "c421eab3c4ca9d106cc5b68266d58adece8636cd",
                 "shasum": ""
             },
             "require": {
@@ -361,7 +361,7 @@
                 "symfony/css-selector": ">=2.1,<2.3-dev",
                 "symfony/dom-crawler": ">=2.1,<2.3-dev"
             },
-            "time": "2013-02-12 10:12:29",
+            "time": "2013-02-13 11:44:19",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -400,13 +400,13 @@
             "target-dir": "Silex/Provider",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sensiolabs/Silex-WebProfiler",
-                "reference": "685f16ce85f39a76792d8f6d70f761a8e8a4129a"
+                "url": "https://github.com/sensiolabs/Silex-WebProfiler.git",
+                "reference": "917c0d7576bfad8d85c148feb45e4b82aad569f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/Silex-WebProfiler/zipball/685f16ce85f39a76792d8f6d70f761a8e8a4129a",
-                "reference": "685f16ce85f39a76792d8f6d70f761a8e8a4129a",
+                "url": "https://api.github.com/repos/sensiolabs/Silex-WebProfiler/zipball/917c0d7576bfad8d85c148feb45e4b82aad569f0",
+                "reference": "917c0d7576bfad8d85c148feb45e4b82aad569f0",
                 "shasum": ""
             },
             "require": {
@@ -414,7 +414,7 @@
                 "symfony/web-profiler-bundle": ">=2.2,<3.0",
                 "symfony/stopwatch": ">=2.2,<3.0"
             },
-            "time": "2013-02-12 09:11:29",
+            "time": "2013-02-15 07:30:30",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1140,12 +1140,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel",
-                "reference": "c58c0389b13783254005923dbd130e2c20c587b2"
+                "reference": "cec254f40ea9baaa2b90de7ca6de236de76823eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/c58c0389b13783254005923dbd130e2c20c587b2",
-                "reference": "c58c0389b13783254005923dbd130e2c20c587b2",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/cec254f40ea9baaa2b90de7ca6de236de76823eb",
+                "reference": "cec254f40ea9baaa2b90de7ca6de236de76823eb",
                 "shasum": ""
             },
             "require": {
@@ -1173,7 +1173,7 @@
                 "symfony/dependency-injection": "2.2.*",
                 "symfony/finder": "2.2.*"
             },
-            "time": "2013-02-11 15:24:43",
+            "time": "2013-02-13 01:35:51",
             "type": "library",
             "extra": {
                 "branch-alias": {
