@@ -1,1 +1,16 @@
+base:
+  power_by: powered by
 
+menu:
+  about: about
+  generate: generator
+  github: github project
+
+about:
+  title: 'Datalea - a random test data generator'
+  based_on: "Based on %name%'s library : "
+  description: A highly customizable random data generator to dump test data in various output format.
+  try_datalea: Try Datalea generator
+  try_it: Try it
+  fork_github: Fork me on Github
+  fork_me: Fork me

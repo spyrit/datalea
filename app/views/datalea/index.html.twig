@@ -4,10 +4,10 @@
 
 {% block body %}
 <div class="page-header">
-    <h2>{{ 'Datalea - a random test data generator'|trans }}</h2>
-    <p>{{ 'A highly customizable random data generator to dump test data in various output format.'|trans() }}<br/>{{ 'Based on %name%'|trans({'%name%': 'Francois Zaninotto'}) }} <a href="https://github.com/fzaninotto/Faker" target="_blank">{{ 'Faker Library'|trans }}</a></p>
-    <a href="{{ path('datalea_generate') }}" title="{{ 'Try Datalea generator'|trans }}" class="btn btn-large btn-primary">{{ 'Try it' }}</a>
-    <a href="https://github.com/spyrit/datalea" class="btn btn-large" target="_blank" ><i class="icon-github icon-large"></i> {{ 'Fork me on Github'|trans }}</a>
+    <h2>{{ 'about.title'|trans }}</h2>
+    <p>{{ 'about.description'|trans() }}<br/>{{ 'about.based_on'|trans({'%name%': 'Francois Zaninotto'}) }} <a href="https://github.com/fzaninotto/Faker" target="_blank">{{ 'Faker' }}</a></p>
+    <a href="{{ path('datalea_generate') }}" title="{{ 'about.try_datalea'|trans|capitalize }}" class="btn btn-large btn-primary">{{ 'about.try_it'|trans|capitalize }}</a>
+    <a href="https://github.com/spyrit/datalea" class="btn btn-large" target="_blank" title="{{ 'about.fork_github'|trans|capitalize}}"><i class="icon-github icon-large"></i> {{ 'about.fork_me'|trans|capitalize }}</a>
 </div>
 
 {% endblock %}
