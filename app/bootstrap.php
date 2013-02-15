@@ -164,7 +164,7 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     $app['translator'] = $app->share($app->extend('translator', function($translator, $app) {
         $translator->addLoader('yaml', new YamlFileLoader());
         $languages = array('en', 'fr');
-        $domains = array('messages');
+        $domains = array('messages', 'validators');
         foreach ($languages as $lang) {
             foreach ($domains as $domain) {
                 $translator->addResource('yaml', $app['app_dir'].DS.'translations'.DS.$domain.'.'.$lang.'.yml', $lang);
