@@ -8,8 +8,8 @@ use Spyrit\Datalea\Faker\Dump\Dumper;
 use Spyrit\Datalea\Faker\Model\ColumnConfig;
 use Spyrit\Datalea\Faker\Model\Config;
 use Spyrit\Datalea\Faker\Model\VariableConfig;
-use Spyrit\Datalea\Form\Type\FakerConfigFileType;
-use Spyrit\Datalea\Form\Type\FakerConfigType;
+use Spyrit\Datalea\Form\Type\ConfigFileType;
+use Spyrit\Datalea\Form\Type\ConfigType;
 use Symfony\Component\HttpFoundation\Request;
 
 if (!defined('DS')) {
@@ -33,12 +33,26 @@ class MainControllerProvider implements ControllerProviderInterface
         $controller = 'Spyrit\Datalea\Controller\MainControllerProvider::';
         
         // set as many controllers as you want
-        $controllers->get('/', $controller.'homeAction')->bind('datalea_homepage');
+        $controllers
+            ->get('/{_locale}/about', $controller.'homeAction')
+            ->value('_locale', 'en')
+            ->bind('datalea_about');
+        
+        $controllers
+            ->get('/{_locale}', $controller.'homeAction')
+            ->value('_locale', 'en')
+            ->bind('datalea_homepage');
         
         // config form
-        $controllers->match('/generate', $controller.'generateAction')->bind('datalea_generate'); //route name for use with url generator
+        $controllers
+            ->match('/{_locale}/generate', $controller.'generateAction')
+            ->value('_locale', 'en')   
+            ->bind('datalea_generate'); //route name for use with url generator
 
-        $controllers->post('/load/config', $controller.'loadConfigAction')->bind('datalea_load_config');
+        $controllers
+            ->post('/{_locale}/load/config', $controller.'loadConfigAction')
+            ->value('_locale', 'en')  
+            ->bind('datalea_load_config');
         
         return $controllers;
     }
@@ -49,7 +63,7 @@ class MainControllerProvider implements ControllerProviderInterface
         ));
     }
     
-    protected function setDefaultConfig(Config $config) 
+    protected function setUserExampleConfig(Config $config) 
     {
         $config->setClassname('User');
         $config->setFakeNumber(100);
@@ -72,9 +86,21 @@ class MainControllerProvider implements ControllerProviderInterface
         $config->addColumnConfig(new ColumnConfig($var4->getName(), $var4->getVarName()));
     }
     
+    protected function setDefaultConfig(Config $config) 
+    {
+        $config->setClassname('');
+        $config->setFakeNumber(10);
+        $config->setFormats(array('csv'));
+
+        $var1 = new VariableConfig('text1', 'text');
+
+        $config->addVariableConfig($var1);
+        $config->addColumnConfig(new ColumnConfig($var1->getName(), $var1->getVarName()));
+    }
+    
     public function loadConfigAction(Request $request, Application $app) 
     {
-        $configFileForm = $app['form.factory']->create(new FakerConfigFileType());
+        $configFileForm = $app['form.factory']->create(new ConfigFileType());
         
         if ('POST' == $request->getMethod()) {
             $configFileForm->bindRequest($request);
@@ -91,7 +117,7 @@ class MainControllerProvider implements ControllerProviderInterface
             $this->setDefaultConfig($config);
         }
         
-        $configForm = $app['form.factory']->create(new FakerConfigType(), $config);
+        $configForm = $app['form.factory']->create(new ConfigType(), $config);
         
         return $app['twig']->render('datalea/generate.html.twig', array(
             'form' => $configForm->createView(),
@@ -101,15 +127,17 @@ class MainControllerProvider implements ControllerProviderInterface
     
     public function generateAction(Request $request, Application $app) 
     {
-        $configFileForm = $app['form.factory']->create(new FakerConfigFileType());
+        $configFileForm = $app['form.factory']->create(new ConfigFileType());
         
         $config = new Config();
         
         if ('GET' == $request->getMethod() && $request->get('reset', 0) != 1) {
+            $this->setUserExampleConfig($config);
+        } else {
             $this->setDefaultConfig($config);
         }
         
-        $configForm = $app['form.factory']->create(new FakerConfigType(), $config);
+        $configForm = $app['form.factory']->create(new ConfigType(), $config);
         
         if ('POST' == $request->getMethod()) {
             $configForm->bindRequest($request);

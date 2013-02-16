@@ -21,7 +21,7 @@ class Loader
      */
     public function loadXmlFakerConfig($file)
     {
-        $root = simplexml_load_file($file, '\\Spyrit\\Datalea\\Faker\\Dump\\FakerSimpleXMLElement', LIBXML_NOCDATA);
+        $root = simplexml_load_file($file, '\\Spyrit\\Datalea\\Faker\\Dump\\CdataSimpleXMLElement', LIBXML_NOCDATA);
         
         $config = new Config();
         if (isset($root['classname'])) {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app.request.locale }}">
     <head>
         <meta charset="utf-8">
         <meta name="description" content="">
@@ -41,13 +41,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="{{ path('datalea_generate') }}">{{ 'Datalea' }}<span>{{ 'Advanced test data generator' }}</span></a>
+                    <a class="brand" href="{{ path('datalea_homepage') }}">{{ 'datalea'|capitalize }} <span>{{ 'base.subtitle'|trans|capitalize }}</span></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             {% set currentPage = currentPage|default('home') %}
-                            <li class="{% if currentPage == 'homepage' %}active{% endif %}"><a href="{{ path('datalea_homepage') }}">{{ 'About' | trans }}</a></li>
-                            <li class="{% if currentPage == 'generate' %}active{% endif %}"><a href="{{ path('datalea_generate') }}">{{ 'Generate' | trans }}</a></li>
-                            <li class=""><a href="https://github.com/spyrit/datalea" target="_blank" ><i class="icon-github icon-large"></i>{{ 'Github Project' | trans }}</a></li>
+                            <li class="{% if currentPage == 'homepage' %}active{% endif %}"><a href="{{ path('datalea_about') }}" title="{{ 'menu.about' | trans | capitalize }}">{{ 'menu.about' | trans | capitalize }}</a></li>
+                            <li class="{% if currentPage == 'generate' %}active{% endif %}"><a href="{{ path('datalea_generate') }}" title="{{ 'menu.generate' | trans | capitalize }}">{{ 'menu.generate' | trans | capitalize }}</a></li>
+                            <li class=""><a href="https://github.com/spyrit/datalea" target="_blank" title="{{ 'about.fork_github' |trans|capitalize}}"><i class="icon-github icon-large"></i>{{ 'menu.github' | trans | capitalize }}</a></li>
+                        </ul>
+                        <ul class="nav pull-right">
+                            <li class=""><a href="{{ path('datalea_homepage', {'_locale': 'fr'}) }}" title="{{ 'français'|capitalize }}"><img src="/img/flags/png/fr.png" alt="{{ 'français'|capitalize }}"/></a></li>
+                            <li class=""><a href="{{ path('datalea_homepage', {'_locale': 'en'}) }}" title="{{ 'english'|capitalize }}"><img src="/img/flags/png/gb.png" alt="{{ 'english'|capitalize }}"/></a></li>
                         </ul>
                     </div>
                 </div>
@@ -67,13 +71,10 @@
         {% block main_body %}    
         <div class="container">
             <div class="row-fluid">
-
                 {% block body %}
 
                 {% endblock %}
-
             </div>
-
         </div>
         {% endblock main_body %}
             
@@ -82,17 +83,17 @@
                 <p class='mt10'>&copy; 2012-2013<br/>
                     <a href="http://www.spyrit.net" title="www.spyrit.net" target="_blank" class="company">{{ 'Spyrit' }}</a>
                 </p>
-                <p class='mt10'>{{ 'Powered by' }}</p>
+                <p class='mt10'>{{ 'base.power_by' | trans | capitalize }}</p>
                 <ul class="footer-links">
-                    <li><a href="https://github.com/fzaninotto/Faker" target="_blank">Faker</a></li>
+                    <li><a href="https://github.com/fzaninotto/Faker" target="_blank" title="Faker">Faker</a></li>
                     <li class="muted">·</li>
-                    <li><a href="http://silex.sensiolabs.org/" target="_blank">Silex</a></li>
+                    <li><a href="http://silex.sensiolabs.org/" target="_blank" title="Silex">Silex</a></li>
                     <li class="muted">·</li>
-                    <li><a href="http://twig.sensiolabs.org/" target="_blank">Twig</a></li>
+                    <li><a href="http://twig.sensiolabs.org/" target="_blank" title="Twig">Twig</a></li>
                     <li class="muted">·</li>
-                    <li><a href="http://symfony.com/components" target="_blank">Symfony2 Components</a></li>
+                    <li><a href="http://symfony.com/components" target="_blank" title="Symfony2 Components">Symfony2 Components</a></li>
                     <li class="muted">·</li>
-                    <li><a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a></li>
+                    <li><a href="http://twitter.github.com/bootstrap/" target="_blank" title="Twitter Bootstrap">Twitter Bootstrap</a></li>
                 </ul>
             </div>
         </footer>
