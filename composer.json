@@ -17,6 +17,9 @@
     "license": "GPL-3.0+",
     "minimum-stability": "dev",
     "require": {
+        "php": ">=5.3.3",
+        "ext-mbstring": "*",
+        "ext-SimpleXML": "*",
         "silex/silex": "1.0.*",
         "silex/web-profiler": "1.0.*",
         "swiftmailer/swiftmailer": "4.2.*",

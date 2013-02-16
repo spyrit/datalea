@@ -1,5 +1,5 @@
 {
-    "hash": "57ae9e9a681fcfed01b70abcd447ec11",
+    "hash": "29cfeb38bddb371dc1f264ec20f30427",
     "packages": [
         {
             "name": "doctrine/common",
@@ -58,11 +58,11 @@
             "description": "Common Library for Doctrine projects",
             "homepage": "http://www.doctrine-project.org",
             "keywords": [
-                "collections",
-                "spl",
-                "eventmanager",
                 "annotations",
-                "persistence"
+                "collections",
+                "eventmanager",
+                "persistence",
+                "spl"
             ]
         },
         {
@@ -80,8 +80,8 @@
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2",
-                "doctrine/common": ">=2.2.0,<=2.2.99"
+                "doctrine/common": ">=2.2.0,<=2.2.99",
+                "php": ">=5.3.2"
             },
             "time": "2012-11-25 18:06:51",
             "type": "library",
@@ -118,8 +118,8 @@
             "homepage": "http://www.doctrine-project.org",
             "keywords": [
                 "database",
-                "persistence",
                 "dbal",
+                "persistence",
                 "queryobject"
             ]
         },
@@ -163,9 +163,9 @@
             ],
             "description": "Faker is a PHP library that generates fake data for you.",
             "keywords": [
+                "data",
                 "faker",
-                "fixtures",
-                "data"
+                "fixtures"
             ]
         },
         {
@@ -187,15 +187,15 @@
                 "psr/log": ">=1.0,<2.0"
             },
             "require-dev": {
-                "mlehner/gelf-php": "1.0.*",
                 "doctrine/couchdb": "dev-master",
+                "mlehner/gelf-php": "1.0.*",
                 "raven/raven": "0.3.*"
             },
             "suggest": {
-                "mlehner/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
                 "ext-mongo": "Allow sending log messages to a MongoDB server",
-                "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+                "mlehner/gelf-php": "Allow sending log messages to a GrayLog2 server",
                 "raven/raven": "Allow sending log messages to a Sentry server"
             },
             "time": "2013-02-13 18:09:50",
@@ -272,8 +272,8 @@
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
             "homepage": "http://pimple.sensiolabs.org",
             "keywords": [
-                "dependency injection",
-                "container"
+                "container",
+                "dependency injection"
             ]
         },
         {
@@ -337,24 +337,24 @@
                 "symfony/routing": ">=2.1,<2.3-dev"
             },
             "require-dev": {
-                "twig/twig": ">=1.8.0,<2.0-dev",
-                "swiftmailer/swiftmailer": "4.2.*",
                 "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
-                "symfony/security": ">=2.1,<2.3-dev",
-                "symfony/config": ">=2.1,<2.3-dev",
-                "symfony/locale": ">=2.1,<2.3-dev",
-                "symfony/form": ">=2.1,<2.3-dev",
+                "swiftmailer/swiftmailer": "4.2.*",
                 "symfony/browser-kit": ">=2.1,<2.3-dev",
+                "symfony/config": ">=2.1,<2.3-dev",
                 "symfony/css-selector": ">=2.1,<2.3-dev",
+                "symfony/dom-crawler": ">=2.1,<2.3-dev",
                 "symfony/finder": ">=2.1,<2.3-dev",
+                "symfony/form": ">=2.1,<2.3-dev",
+                "symfony/locale": ">=2.1,<2.3-dev",
                 "symfony/monolog-bridge": ">=2.1,<2.3-dev",
+                "symfony/options-resolver": ">=2.1,<2.3-dev",
                 "symfony/process": ">=2.1,<2.3-dev",
+                "symfony/security": ">=2.1,<2.3-dev",
+                "symfony/serializer": ">=2.1,<2.3-dev",
                 "symfony/translation": ">=2.1,<2.3-dev",
                 "symfony/twig-bridge": ">=2.1,<2.3-dev",
                 "symfony/validator": ">=2.1,<2.3-dev",
-                "symfony/serializer": ">=2.1,<2.3-dev",
-                "symfony/dom-crawler": ">=2.1,<2.3-dev",
-                "symfony/options-resolver": ">=2.1,<2.3-dev"
+                "twig/twig": ">=1.8.0,<2.0-dev"
             },
             "suggest": {
                 "symfony/browser-kit": ">=2.1,<2.3-dev",
@@ -411,8 +411,8 @@
             },
             "require": {
                 "silex/silex": ">=1.0,<2.0",
-                "symfony/web-profiler-bundle": ">=2.2,<3.0",
-                "symfony/stopwatch": ">=2.2,<3.0"
+                "symfony/stopwatch": ">=2.2,<3.0",
+                "symfony/web-profiler-bundle": ">=2.2,<3.0"
             },
             "time": "2013-02-15 07:30:30",
             "type": "library",
@@ -454,8 +454,8 @@
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3",
-                "ext-mbstring": "*"
+                "ext-mbstring": "*",
+                "php": ">=5.3.3"
             },
             "suggest": {
                 "ext-iconv": "*"
@@ -480,8 +480,8 @@
             "description": "Spyrit Light Csv reader and writer library",
             "keywords": [
                 "csv",
-                "import",
-                "export"
+                "export",
+                "import"
             ]
         },
         {
@@ -522,8 +522,8 @@
             ],
             "description": "Spyrit Silex Tools and Utilities",
             "keywords": [
-                "silex",
                 "provider",
+                "silex",
                 "tools",
                 "utilities"
             ]
@@ -597,8 +597,8 @@
                 "symfony/dom-crawler": ">=2.0,<3.0"
             },
             "require-dev": {
-                "symfony/process": ">=2.0,<3.0",
-                "symfony/css-selector": ">=2.0,<3.0"
+                "symfony/css-selector": ">=2.0,<3.0",
+                "symfony/process": ">=2.0,<3.0"
             },
             "suggest": {
                 "symfony/process": "2.2.*"
@@ -1047,12 +1047,12 @@
                 "symfony/property-access": ">=2.2,<2.3-dev"
             },
             "require-dev": {
-                "symfony/validator": ">=2.2,<2.3-dev",
-                "symfony/http-foundation": ">=2.1,<2.3-dev"
+                "symfony/http-foundation": ">=2.1,<2.3-dev",
+                "symfony/validator": ">=2.2,<2.3-dev"
             },
             "suggest": {
-                "symfony/validator": "2.2.*",
-                "symfony/http-foundation": "2.2.*"
+                "symfony/http-foundation": "2.2.*",
+                "symfony/validator": "2.2.*"
             },
             "time": "2013-02-08 16:10:58",
             "type": "library",
@@ -1156,9 +1156,9 @@
             },
             "require-dev": {
                 "symfony/browser-kit": "2.2.*",
-                "symfony/console": "2.2.*",
                 "symfony/class-loader": ">=2.1,<3.0",
                 "symfony/config": ">=2.0,<3.0",
+                "symfony/console": "2.2.*",
                 "symfony/dependency-injection": ">=2.0,<3.0",
                 "symfony/finder": ">=2.0,<3.0",
                 "symfony/process": ">=2.0,<3.0",
@@ -1271,8 +1271,8 @@
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3",
                 "monolog/monolog": ">=1.3,<2.0",
+                "php": ">=5.3.3",
                 "symfony/http-kernel": ">=2.2,<2.3-dev"
             },
             "time": "2013-02-08 16:10:57",
@@ -1351,8 +1351,8 @@
             "description": "Symfony OptionsResolver Component",
             "homepage": "http://symfony.com",
             "keywords": [
-                "configuration",
                 "config",
+                "configuration",
                 "options"
             ]
         },
@@ -1450,15 +1450,15 @@
             "description": "Symfony PropertyAccess Component",
             "homepage": "http://symfony.com",
             "keywords": [
-                "reflection",
-                "array",
-                "injection",
-                "object",
                 "access",
+                "array",
                 "extraction",
                 "index",
+                "injection",
+                "object",
                 "property",
-                "property path"
+                "property path",
+                "reflection"
             ]
         },
         {
@@ -1480,15 +1480,15 @@
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "psr/log": ">=1.0,<2.0",
                 "doctrine/common": ">=2.2,<3.0",
+                "psr/log": ">=1.0,<2.0",
                 "symfony/config": ">=2.2,<2.3-dev",
                 "symfony/yaml": ">=2.0,<3.0"
             },
             "suggest": {
+                "doctrine/common": "~2.2",
                 "symfony/config": "2.2.*",
-                "symfony/yaml": "2.2.*",
-                "doctrine/common": "~2.2"
+                "symfony/yaml": "2.2.*"
             },
             "time": "2013-02-11 11:24:47",
             "type": "library",
@@ -1541,20 +1541,20 @@
                 "symfony/http-kernel": ">=2.1,<=2.3-dev"
             },
             "require-dev": {
-                "psr/log": ">=1.0,<2.0",
+                "doctrine/common": ">=2.2,<2.4-dev",
                 "doctrine/dbal": ">=2.2,<3.0",
+                "psr/log": ">=1.0,<2.0",
                 "symfony/form": ">=2.0,<3.0",
                 "symfony/routing": ">=2.2,<2.3-dev",
-                "symfony/validator": ">=2.2,<2.3-dev",
-                "doctrine/common": ">=2.2,<2.4-dev"
+                "symfony/validator": ">=2.2,<2.3-dev"
             },
             "suggest": {
+                "doctrine/dbal": "to use the built-in ACL implementation",
                 "symfony/class-loader": "2.2.*",
                 "symfony/finder": "2.2.*",
                 "symfony/form": "2.2.*",
-                "symfony/validator": "2.2.*",
                 "symfony/routing": "2.2.*",
-                "doctrine/dbal": "to use the built-in ACL implementation"
+                "symfony/validator": "2.2.*"
             },
             "time": "2013-02-11 11:26:43",
             "type": "library",
@@ -1710,19 +1710,19 @@
                 "symfony/form": "2.2.*",
                 "symfony/http-kernel": ">=2.2,<2.3-dev",
                 "symfony/routing": ">=2.2,<2.3-dev",
+                "symfony/security": ">=2.0,<2.3-dev",
                 "symfony/templating": ">=2.1,<3.0",
                 "symfony/translation": ">=2.0,<2.3-dev",
-                "symfony/yaml": ">=2.0,<3.0",
-                "symfony/security": ">=2.0,<2.3-dev"
+                "symfony/yaml": ">=2.0,<3.0"
             },
             "suggest": {
                 "symfony/form": "2.2.*",
                 "symfony/http-kernel": "2.2.*",
                 "symfony/routing": "2.2.*",
+                "symfony/security": "2.2.*",
                 "symfony/templating": "2.2.*",
                 "symfony/translation": "2.2.*",
-                "symfony/yaml": "2.2.*",
-                "symfony/security": "2.2.*"
+                "symfony/yaml": "2.2.*"
             },
             "time": "2013-02-08 16:10:57",
             "type": "symfony-bridge",
@@ -1773,17 +1773,17 @@
                 "symfony/translation": ">=2.0,<3.0"
             },
             "require-dev": {
+                "symfony/config": ">=2.2,<2.3-dev",
                 "symfony/http-foundation": ">=2.1,<3.0",
                 "symfony/locale": ">=2.0,<3.0",
-                "symfony/yaml": ">=2.0,<3.0",
-                "symfony/config": ">=2.2,<2.3-dev"
+                "symfony/yaml": ">=2.0,<3.0"
             },
             "suggest": {
-                "symfony/http-foundation": "2.2.*",
-                "symfony/yaml": "2.2.*",
-                "symfony/config": "2.2.*",
                 "doctrine/common": "~2.2",
-                "symfony/locale": "2.2.*"
+                "symfony/config": "2.2.*",
+                "symfony/http-foundation": "2.2.*",
+                "symfony/locale": "2.2.*",
+                "symfony/yaml": "2.2.*"
             },
             "time": "2013-02-11 11:11:43",
             "type": "library",
