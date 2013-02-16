@@ -8,11 +8,11 @@ use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints;
 
 /**
- * FakerConfigFileType
+ * ConfigFileType
  *
  * @author Charles SANQUER - Spyrit Systemes <charles.sanquer@spyrit.net>
  */
-class FakerConfigFileType extends AbstractType
+class ConfigFileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

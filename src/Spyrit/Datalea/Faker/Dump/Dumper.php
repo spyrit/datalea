@@ -94,7 +94,7 @@ class Dumper
     {
         $name = $this->config->getClassName(true).'_datalea_config';
         
-        $root = new FakerSimpleXMLElement('<?xml version=\'1.0\' encoding=\'utf-8\'?><dataleaConfig/>');
+        $root = new CdataSimpleXMLElement('<?xml version=\'1.0\' encoding=\'utf-8\'?><dataleaConfig/>');
         
         $root->addAttribute('classname', $this->config->getClassName());
         $root->addAttribute('locale', $this->config->getLocale());
@@ -439,7 +439,7 @@ JSON;
         $elementRootName = strtolower(str_ireplace('_', '', $name));
         $elementName = strtolower($this->config->getClassNameLastPart());
         
-        $root = new FakerSimpleXMLElement('<?xml version=\'1.0\' encoding=\'utf-8\'?><'.$elementRootName.'s/>');
+        $root = new CdataSimpleXMLElement('<?xml version=\'1.0\' encoding=\'utf-8\'?><'.$elementRootName.'s/>');
         
         foreach ($fakeData as $items) {
             $element = $root->addChild($elementName);

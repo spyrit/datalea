@@ -3,11 +3,11 @@
 namespace Spyrit\Datalea\Faker\Dump;
 
 /**
- * FakerSimpleXMLElement
+ * CdataSimpleXMLElement
  *
  * @author Charles Sanquer <charles.sanquer@spyrit.net>
  */
-class FakerSimpleXMLElement extends \SimpleXMLElement
+class CdataSimpleXMLElement extends \SimpleXMLElement
 {
     /**
      * Add CDATA text in a node
@@ -25,7 +25,7 @@ class FakerSimpleXMLElement extends \SimpleXMLElement
      * @param string $name The name of the child element to add.
      * @param string $cdata_text The CDATA value of the child element.
      * 
-     * @return FakerSimpleXMLElement child element
+     * @return CdataSimpleXMLElement child element
      */
     public function addChildCData($name, $cdataText)
     {

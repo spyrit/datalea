@@ -10,11 +10,11 @@ use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints;
 
 /**
- * FakerConfigType
+ * ConfigType
  *
  * @author Charles SANQUER - Spyrit Systemes <charles.sanquer@spyrit.net>
  */
-class FakerConfigType extends AbstractType
+class ConfigType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -93,7 +93,7 @@ class FakerConfigType extends AbstractType
             ->add('variableConfigs', 'collection', array(
 //                'required' => false,
                 'label' => 'Variables',
-                'type'   => new FakerVariableConfigType(),
+                'type'   => new VariableConfigType(),
                 'prototype' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -115,7 +115,7 @@ class FakerConfigType extends AbstractType
             ->add('columnConfigs', 'collection', array(
 //                'required' => false,
                 'label' => 'Columns',
-                'type'   => new FakerColumnConfigType(),
+                'type'   => new ColumnConfigType(),
                 'prototype' => true,
                 'allow_add' => true,
                 'allow_delete' => true,

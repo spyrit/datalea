@@ -9,11 +9,11 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints;
 
 /**
- * FakerVariableConfigType
+ * VariableConfigType
  *
  * @author Charles SANQUER - Spyrit Systemes <charles.sanquer@spyrit.net>
  */
-class FakerVariableConfigType extends AbstractType
+class VariableConfigType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

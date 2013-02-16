@@ -8,8 +8,8 @@ use Spyrit\Datalea\Faker\Dump\Dumper;
 use Spyrit\Datalea\Faker\Model\ColumnConfig;
 use Spyrit\Datalea\Faker\Model\Config;
 use Spyrit\Datalea\Faker\Model\VariableConfig;
-use Spyrit\Datalea\Form\Type\FakerConfigFileType;
-use Spyrit\Datalea\Form\Type\FakerConfigType;
+use Spyrit\Datalea\Form\Type\ConfigFileType;
+use Spyrit\Datalea\Form\Type\ConfigType;
 use Symfony\Component\HttpFoundation\Request;
 
 if (!defined('DS')) {
@@ -100,7 +100,7 @@ class MainControllerProvider implements ControllerProviderInterface
     
     public function loadConfigAction(Request $request, Application $app) 
     {
-        $configFileForm = $app['form.factory']->create(new FakerConfigFileType());
+        $configFileForm = $app['form.factory']->create(new ConfigFileType());
         
         if ('POST' == $request->getMethod()) {
             $configFileForm->bindRequest($request);
@@ -117,7 +117,7 @@ class MainControllerProvider implements ControllerProviderInterface
             $this->setDefaultConfig($config);
         }
         
-        $configForm = $app['form.factory']->create(new FakerConfigType(), $config);
+        $configForm = $app['form.factory']->create(new ConfigType(), $config);
         
         return $app['twig']->render('datalea/generate.html.twig', array(
             'form' => $configForm->createView(),
@@ -127,7 +127,7 @@ class MainControllerProvider implements ControllerProviderInterface
     
     public function generateAction(Request $request, Application $app) 
     {
-        $configFileForm = $app['form.factory']->create(new FakerConfigFileType());
+        $configFileForm = $app['form.factory']->create(new ConfigFileType());
         
         $config = new Config();
         
@@ -137,7 +137,7 @@ class MainControllerProvider implements ControllerProviderInterface
             $this->setDefaultConfig($config);
         }
         
-        $configForm = $app['form.factory']->create(new FakerConfigType(), $config);
+        $configForm = $app['form.factory']->create(new ConfigType(), $config);
         
         if ('POST' == $request->getMethod()) {
             $configForm->bindRequest($request);
