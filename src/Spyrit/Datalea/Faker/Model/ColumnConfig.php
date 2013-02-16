@@ -110,19 +110,19 @@ class ColumnConfig
             },
             $this->getValue()
         );
-            
+           
         switch ($this->getConvertMethod()) {
             case 'lowercase':
-                $value = strtolower($value);
+                $value = $this->tolower($value, 'UTF-8');
                 break;
             case 'uppercase':
-                $value = strtoupper($value);
+                $value = $this->toupper($value, 'UTF-8');
                 break;
             case 'capitalize':
-                $value = ucfirst($value);
+                $value = $this->ucfirst($value);
                 break;
             case 'capitalize_words':
-                $value = ucwords($value);
+                $value = $this->ucwords($value);
                 break;
             case 'absolute':
                 $value = abs($value);
@@ -131,16 +131,16 @@ class ColumnConfig
                 $value = $this->removeAccents($value);
                 break;
             case 'remove_accents_lowercase':
-                $value = strtolower($this->removeAccents($value));
+                $value = $this->tolower($this->removeAccents($value), 'UTF-8');
                 break;
             case 'remove_accents_uppercase':
-                $value = strtoupper($this->removeAccents($value));
+                $value = $this->toupper($this->removeAccents($value), 'UTF-8');
                 break;
             case 'remove_accents_capitalize':
-                $value = ucfirst($this->removeAccents($value));
+                $value = $this->ucfirst($this->removeAccents($value));
                 break;
             case 'remove_accents_capitalize_words':
-                $value = ucwords($this->removeAccents($value));
+                $value = $this->ucwords($this->removeAccents($value));
                 break;
             case 'as_bool':
                 $value = (bool) $value;
@@ -161,15 +161,43 @@ class ColumnConfig
         return $value;
     }
     
+    protected function tolower($str)
+    {
+        return mb_strtolower($str, 'UTF-8');
+    }
+    
+    protected function toupper($str)
+    {
+        return mb_strtoupper($str, 'UTF-8');
+    }
+    
+    protected function ucwords($str)
+    {
+        return  mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
+    }
+    
+    protected function ucfirst($str)
+    {
+        $length = mb_strlen($str);
+        if ($length > 1) {
+            $first = mb_substr($str, 0, 1, 'UTF-8');
+            $rest = mb_substr($str, 1, $length, 'UTF-8');
+            return  mb_strtoupper($first, 'UTF-8').$rest;
+        } else {
+            return  mb_strtoupper($str, 'UTF-8');
+        }
+    }
+
+
     /**
      * replace accent character by normal character
      *
      * @param string $string
-     * @param string $charset default = 'utf-8'
+     * @param string $charset default = 'UTF-8'
      *
      * @return string
      */
-    protected function removeAccents($string, $charset='utf-8')
+    protected function removeAccents($string, $charset='UTF-8')
     {
         $string = htmlentities($string, ENT_NOQUOTES, $charset);
         $string = preg_replace('#&([A-za-z])(?:acute|cedil|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $string);
