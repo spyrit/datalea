@@ -384,7 +384,12 @@ JSON;
         $name = $this->config->getClassName(true);
 
         $file = $dir.DS.$name.'.json';
-        file_put_contents($file, json_encode($this->getFakeData(), JSON_PRETTY_PRINT));
+        if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+            $json = json_encode($this->getFakeData(), JSON_PRETTY_PRINT);
+        } else {
+            $json = json_encode($this->getFakeData());
+        }
+        file_put_contents($file, $json);
 
         return $file;
     }
