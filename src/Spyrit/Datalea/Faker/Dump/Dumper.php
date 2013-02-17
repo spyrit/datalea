@@ -2,17 +2,17 @@
 
 namespace Spyrit\Datalea\Faker\Dump;
 
-use \DateTime;
-use \DOMDocument;
-use \Faker\Factory;
-use \InvalidArgumentException;
-use \RuntimeException;
-use \Spyrit\Datalea\Faker\Dump\Dumper;
-use \Spyrit\Datalea\Faker\Model\Config;
-use \Spyrit\LightCsv\CsvWriter;
-use \Symfony\Component\Filesystem\Filesystem;
-use \Symfony\Component\Yaml\Yaml;
-use \ZipArchive;
+use DateTime;
+use DOMDocument;
+use Faker\Factory;
+use InvalidArgumentException;
+use RuntimeException;
+use Spyrit\Datalea\Faker\Dump\Dumper;
+use Spyrit\Datalea\Faker\Model\Config;
+use Spyrit\Datalea\Faker\Model\UniqueTupleCollection;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Yaml\Yaml;
+use ZipArchive;
 
 if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
@@ -121,7 +121,6 @@ class Dumper
         foreach ($this->config->getVariableConfigs() as $variableConfig) {
             $variableElt = $variablesElt->addChild('variable');
             $variableElt->addAttribute('name', $variableConfig->getName());
-            $variableElt->addAttribute('unique', $variableConfig->getUnique());
             $variableElt->addChild('method', $variableConfig->getFakerMethod());
             $variableElt->addChildCData('argument1', $variableConfig->getFakerMethodArg1());
             $variableElt->addChildCData('argument2', $variableConfig->getFakerMethodArg2());
@@ -132,6 +131,7 @@ class Dumper
         foreach ($this->config->getColumnConfigs() as $columnConfig) {
             $columnElt = $columnsElt->addChild('column');
             $columnElt->addAttribute('name', $columnConfig->getName());
+            $columnElt->addAttribute('unique', $columnConfig->getUnique());
             $columnElt->addChildCData('value', $columnConfig->getValue());
             $columnElt->addChild('convert', $columnConfig->getConvertMethod());
         }
@@ -154,8 +154,6 @@ class Dumper
             throw new InvalidArgumentException('A Faker configuration must be set.');
         }
         
-        $uniqueValues = array();
-        
         $variableConfigs = $this->config->getVariableConfigs();
         $columnConfigs = $this->config->getColumnConfigs();
         
@@ -172,13 +170,24 @@ class Dumper
             $faker->seed($this->config->getSeed());
         }
         
+        $uniqueTupleCollection = new UniqueTupleCollection();
+        foreach ($columnConfigs as $columnConfig) {
+            $uniqueTuple = $columnConfig->createUniqueTuple($variableConfigs);
+            if ($uniqueTuple) {
+                $uniqueTupleCollection->addUniqueTuple($uniqueTuple);
+            }
+        }
+        
         $this->fakeData = array();
         for ($index = 1; $index <= $this->config->getFakeNumber(); $index++) {
+            //1 row
             $values = array();
             foreach ($variableConfigs as $variableConfig) {
-                $variableConfig->generateValue($faker, $values, $variableConfigs, $uniqueValues);
+                $variableConfig->generateValue($faker, $values, $variableConfigs, false, false, true);
             }
-
+            
+            $uniqueTupleCollection->unDuplicateValues($faker, $values, $variableConfigs);
+            
             $data = array();
             foreach ($columnConfigs as $columnConfig) {
                 $data[$columnConfig->getName()] = $columnConfig->replaceVariable($values);
@@ -255,7 +264,7 @@ DUMP;
         foreach ($fakeData as $item) {
             $values .= str_repeat($indentChar, $indent).'{'."\n";
             foreach ($item as $key => $value) {
-                $values .= str_repeat($indentChar, $indent*2).'"'.$key.'" => "'.$value.'",'."\n";
+                $values .= str_repeat($indentChar, $indent*2).'\''.$key.'\' => \''.$value.'\','."\n";
             }
             $values .= str_repeat($indentChar, $indent).'},'."\n";
         }

@@ -28,16 +28,30 @@ class ColumnConfig
     protected $convertMethod;
 
     /**
+     *
+     * @var bool
+     */
+    protected $unique;
+    
+    /**
+     *
+     * @var array
+     */
+    protected $usedVariables = array();
+    
+    /**
      * 
      * @param string $name default = null
      * @param string $value default = null
      * @param string $convertMethod default = null
+     * @param bool $unique default = false
      */
-    public function __construct($name = null, $value = null, $convertMethod = null)
+    public function __construct($name = null, $value = null, $convertMethod = null, $unique = false)
     {
         $this->setName($name);
         $this->setValue($value);
         $this->setConvertMethod($convertMethod);
+        $this->setUnique($unique);
     }
 
     public function getName()
@@ -69,10 +83,22 @@ class ColumnConfig
 
     public function setConvertMethod($convertMethod)
     {
-        $this->convertMethod = $convertMethod;
+        $this->convertMethod = (string) $convertMethod;
+        $this->usedVariables = array();
         return $this;
     }
 
+    public function getUnique()
+    {
+        return $this->unique;
+    }
+
+    public function setUnique($unique)
+    {
+        $this->unique = (bool) $unique;
+        return $this;
+    }
+    
     /**
      * 
      * @return array
@@ -96,7 +122,94 @@ class ColumnConfig
             'remove_accents_capitalize_words' => 'remove accents and capitalize words',
         );
     }
+    
+    /**
+     * 
+     * @return array
+     */
+    public function getUsedVariables()
+    {
+        if (empty($this->usedVariables)) {
+            if (preg_match_all('/%([a-zA-Z0-9_]+)%/', $this->getValue(), $matches, PREG_PATTERN_ORDER)) {
+                if (isset($matches[1])) {
+                    $this->usedVariables = $matches[1];
+                }
+            }
+        }
+        return $this->usedVariables;
+    }
+    
+    /**
+     * 
+     * @param array $variableConfigs
+     * @return \Spyrit\Datalea\Faker\Model\UniqueTuple
+     */
+    public function createUniqueTuple(array $variableConfigs = array())
+    {
+        $usedVariables = $this->getUsedVariables();
+        if ($this->getUnique() && !empty($usedVariables)) {
+            $usedVariableConfigs = array();
+            foreach ($variableConfigs as $variableConfig) {
+                if (in_array($variableConfig->getName(), $usedVariables)) {
+                    $usedVariableConfigs[$variableConfig->getName()] = $variableConfig;
+                }
+            }
+            
+            if(!empty($usedVariableConfigs)) {
+                return new UniqueTuple($this, $usedVariableConfigs);
+            }
+        }
+    }
+    
+    /**
+     * 
+     * @param \Faker\Generator $faker
+     * @param array $values generated value will be inserted into this array
+     * @param array $variableConfigs other variable configs to be replaced in faker method arguments if used
+     * @param array $uniqueColumns already generated columns which can not be generated again
+     * @param array $uniqueValues already generated values which can not be generated again
+     */
+    public function generateValues(\Faker\Generator $faker, array &$values, array $variableConfigs = array(), array &$uniqueColumns, array &$uniqueValues)
+    {
+        $usedVariables = $this->getUsedVariables();
         
+        if ($this->getUnique() && !empty($usedVariables)) {
+            if (!isset($uniqueColumns[$this->getName()])) {
+                $uniqueColumns[$this->getName()] = array();
+            }
+
+            $try = 0;
+            $inc = 0;
+            do {
+                $columnValues = array();
+                foreach ($usedVariables as $usedVariable) {
+                    if (isset($variableConfigs[$usedVariable])) {
+                        $variableConfigs[$usedVariable]->generateValue($faker, $values, $variableConfigs, $uniqueValues, true);
+                        $columnValues[$usedVariable] = $values[$usedVariable];
+                    }
+                }
+                
+                $column = implode('-', $columnValues);
+                $try++;
+                if ($try > 10 )
+                {
+                    $inc++;
+                    $column = is_numeric($column) ? $column+1 : $column.'_'.$inc;
+                }
+            } while (in_array($column, $uniqueColumns[$this->getName()]));
+
+            $uniqueColumns[$this->getName()][] = $column;
+        } else {
+            foreach ($usedVariables as $usedVariable) {
+                if (isset($variableConfigs[$usedVariable])) {
+                    $variableConfigs[$usedVariable]->generateValue($faker, $values, $variableConfigs, $uniqueValues, false);
+                }
+            }
+        }
+        
+        var_dump($columnValue);
+    }
+    
     /**
      * 
      * @param array $availableVariables
@@ -201,7 +314,7 @@ class ColumnConfig
     {
         $string = htmlentities($string, ENT_NOQUOTES, $charset);
         $string = preg_replace('#&([A-za-z])(?:acute|cedil|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $string);
-        $string = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $string); // pour les ligatures e.g. '&oelig;'
+        $string = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $string); // for ligatures e.g. '&oelig;'
         $string = html_entity_decode($string,ENT_NOQUOTES , $charset);
 
         return $string;

@@ -46,7 +46,7 @@ class ColumnConfigType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span6',
+                    'class' => 'control-group span5',
                 ),
                 'constraints' => array(
                     new Constraints\NotBlank(),
@@ -72,6 +72,19 @@ class ColumnConfigType extends AbstractType
                         'choices' => array_keys($convertMethods),
                     )),
                 )
+            ))
+            ->add('unique', 'checkbox', array(
+                'required' => false,
+                'label' => 'Unique',
+                'help' => 'Set this column to be unique through each generated item. Only works if the column use some variables.',
+                'help_type' => 'popover',
+                'help_popover_position' => 'top',
+                'attr' => array(
+                    'style' => 'width: 95%',
+                ),
+                'row_attr' => array(
+                    'class' => 'control-group span1',
+                ),
             ))
             ;
     }
