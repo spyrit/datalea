@@ -589,7 +589,7 @@ DUMP;
         }
 
         foreach ($files as $file) {
-            $zip->addFile($file, 'fakedata_'.$this->config->getClassNameLastPart().'_'.$date->format('Y-m-d_H-i-s').DS.basename($file));
+            $zip->addFile($file, 'datalea_'.$this->config->getClassNameLastPart().'_'.$date->format('Y-m-d_H-i-s').DS.basename($file));
         }
         $zip->close();
 

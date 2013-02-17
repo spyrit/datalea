@@ -155,7 +155,7 @@ class MainControllerProvider implements ControllerProviderInterface
                 return $app->stream($stream, 200, array(
                     'Content-Description' => 'File Transfer',
                     'Content-Type' => 'application/zip',
-                    'Content-Disposition' => 'attachment; filename=fakedata_'.$config->getClassNameLastPart().'_'.$date->format('Y-m-d_H-i-s').'.zip',
+                    'Content-Disposition' => 'attachment; filename=datalea_'.$config->getClassNameLastPart().'_'.$date->format('Y-m-d_H-i-s').'.zip',
                     'Content-Transfer-Encoding' => 'binary',
                     'Content-Length' => filesize($file),
                 ));
