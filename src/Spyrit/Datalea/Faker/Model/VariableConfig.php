@@ -34,7 +34,7 @@ class VariableConfig
      * @var mixed
      */
     protected $fakerMethodArg2;
-    
+
     /**
      *
      * @var mixed
@@ -48,7 +48,7 @@ class VariableConfig
     protected $increment = 0;
 
     /**
-     * 
+     *
      * @return array
      */
     public static function getAvailableFakerMethods()
@@ -175,9 +175,9 @@ class VariableConfig
     }
 
     /**
-     * 
-     * @param string $name default = null
-     * @param string $fakerMethod default = null
+     *
+     * @param string $name            default = null
+     * @param string $fakerMethod     default = null
      * @param string $fakerMethodArg1 default = null
      * @param string $fakerMethodArg2 default = null
      */
@@ -188,12 +188,12 @@ class VariableConfig
         $this->setFakerMethodArg1($fakerMethodArg1);
         $this->setFakerMethodArg2($fakerMethodArg2);
     }
-    
+
     public function getName()
     {
         return $this->name;
     }
-    
+
     public function getVarName()
     {
         return '%'.$this->name.'%';
@@ -202,6 +202,7 @@ class VariableConfig
     public function setName($name)
     {
         $this->name = preg_replace('/[^a-zA-Z0-9\-\s_]/', '', $name);
+
         return $this;
     }
 
@@ -213,6 +214,7 @@ class VariableConfig
     public function setFakerMethod($fakerMethod)
     {
         $this->fakerMethod = $fakerMethod;
+
         return $this;
     }
 
@@ -220,7 +222,7 @@ class VariableConfig
     {
         return $this->getFakerMethodArg1() !== null && $this->getFakerMethodArg1() !== '';
     }
-    
+
     public function getFakerMethodArg1()
     {
         return $this->fakerMethodArg1;
@@ -229,6 +231,7 @@ class VariableConfig
     public function setFakerMethodArg1($fakerMethodArg)
     {
         $this->fakerMethodArg1 = $fakerMethodArg;
+
         return $this;
     }
 
@@ -236,7 +239,7 @@ class VariableConfig
     {
         return $this->getFakerMethodArg2() !== null && $this->getFakerMethodArg2() !== '';
     }
-    
+
     public function getFakerMethodArg2()
     {
         return $this->fakerMethodArg2;
@@ -245,14 +248,15 @@ class VariableConfig
     public function setFakerMethodArg2($fakerMethodArg)
     {
         $this->fakerMethodArg2 = $fakerMethodArg;
+
         return $this;
     }
-    
+
     public function hasFakerMethodArg3()
     {
         return $this->getFakerMethodArg3() !== null && $this->getFakerMethodArg3() !== '';
     }
-    
+
     public function getFakerMethodArg3()
     {
         return $this->fakerMethodArg3;
@@ -261,24 +265,25 @@ class VariableConfig
     public function setFakerMethodArg3($fakerMethodArg)
     {
         $this->fakerMethodArg3 = $fakerMethodArg;
+
         return $this;
     }
 
     /**
-     * 
+     *
      * @param \Faker\Generator $faker
-     * @param array $values generated value will be inserted into this array
-     * @param array $variableConfigs other variable configs to be replaced in faker method arguments if used
-     * @param bool $force force generating value even if it already exists
-     * @param bool $useIncrement use increment suffix or add increment
-     * @param bool $resetIncrement reset current variable increment
+     * @param array            $values          generated value will be inserted into this array
+     * @param array            $variableConfigs other variable configs to be replaced in faker method arguments if used
+     * @param bool             $force           force generating value even if it already exists
+     * @param bool             $useIncrement    use increment suffix or add increment
+     * @param bool             $resetIncrement  reset current variable increment
      */
     public function generateValue(Generator $faker, array &$values, array $variableConfigs = array(), $force = false, $useIncrement = false, $resetIncrement = false)
     {
         if ($resetIncrement) {
             $this->increment = 0;
         }
-        
+
         if (!isset($values[$this->getName()]) || $force) {
             $value = $this->generate($faker, $values, $variableConfigs);
             if ($useIncrement) {
@@ -288,15 +293,15 @@ class VariableConfig
             $values[$this->getName()] = $value;
         }
     }
-    
+
     /**
-     * 
-     * @param \Faker\Generator $faker
-     * @param array $values generated value will be inserted into this array
-     * @param array $variableConfigs other variable configs to be replaced in faker method arguments if used
+     *
+     * @param  \Faker\Generator $faker
+     * @param  array            $values          generated value will be inserted into this array
+     * @param  array            $variableConfigs other variable configs to be replaced in faker method arguments if used
      * @return string
      */
-    protected function generate(Generator $faker, array &$values, array $variableConfigs = array()) 
+    protected function generate(Generator $faker, array &$values, array $variableConfigs = array())
     {
         $method = $this->getFakerMethod();
 
@@ -306,9 +311,9 @@ class VariableConfig
             case 'randomElement':
                 if ($this->hasFakerMethodArg1()) {
                     $args[] = array_map(
-                        'trim', 
+                        'trim',
                         explode(
-                            ',', 
+                            ',',
                             $this->replaceVariables($this->getFakerMethodArg1(), $faker, $values, $variableConfigs)
                         )
                     );
@@ -390,16 +395,17 @@ class VariableConfig
                 }
                 break;
         }
+
         return $value;
     }
 
     /**
      * replace variable in faker method arguments
-     * 
-     * @param string $str
-     * @param \Faker\Generator $faker
-     * @param array $values
-     * @param array $variableConfigs
+     *
+     * @param  string           $str
+     * @param  \Faker\Generator $faker
+     * @param  array            $values
+     * @param  array            $variableConfigs
      * @return string
      */
     protected function replaceVariables($str, Generator $faker, array &$values, array $variableConfigs = array())
@@ -409,7 +415,7 @@ class VariableConfig
                 if (!isset($values[$matches[1]]) && isset($variableConfigs[$matches[1]])) {
                     $variableConfigs[$matches[1]]->generateValue($faker, $values, $variableConfigs);
                 }
-            
+
                 return isset($values[$matches[1]]) ? $values[$matches[1]] : $matches[0];
             },
             $str

@@ -18,7 +18,7 @@ class ColumnConfigType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $convertMethods = ColumnConfig::getAvailableConvertMethods();
-        
+
         $builder
             ->add('name', 'text', array(
                 'required' => true,
@@ -98,7 +98,7 @@ class ColumnConfigType extends AbstractType
             'data_class' => 'Spyrit\Datalea\Faker\Model\ColumnConfig',
         ));
     }
-    
+
     public function getName()
     {
         return 'datalea_generator_column_config';

@@ -18,12 +18,12 @@ class VariableConfigType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $methodsChoices = VariableConfig::getAvailableFakerMethods();
-        
+
         $methods = array();
         foreach ($methodsChoices as $group => $methodsChoice) {
             $methods = array_merge($methods, array_keys($methodsChoice));
         }
-        
+
         $builder
             ->add('name', 'text', array(
                 'required' => true,
@@ -62,13 +62,13 @@ class VariableConfigType extends AbstractType
                     )),
                 )
             ));
-        
+
             $arguments = array(
                 'First',
                 'Second',
                 'Third',
             );
-            
+
             for ($i = 0; $i < count($arguments); $i++) {
                 $builder->add('fakerMethodArg'.($i+1), 'text', array(
                     'label' => 'Argument '.($i+1),
@@ -95,7 +95,7 @@ class VariableConfigType extends AbstractType
             'data_class' => 'Spyrit\Datalea\Faker\Model\VariableConfig',
         ));
     }
-    
+
     public function getName()
     {
         return 'datalea_generator_variable_config';

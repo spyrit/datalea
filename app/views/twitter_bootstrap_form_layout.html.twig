@@ -40,7 +40,7 @@
     </legend>
 {% endspaceless %}
 {% endblock collection_label %}
-    
+
 {% block collection_widget %}
 {% import _self as macros %}
 {% spaceless %}
@@ -98,14 +98,14 @@
     {% endif %}
 {% endif %}
 {% endspaceless %}
-{% endblock form_help %}  
-    
+{% endblock form_help %}
+
 {% block form_label_asterisk %}
 {% spaceless %}
     {% if required and required_asterisk %}<span class="required-asterisk">*</span>{% endif %}
 {% endspaceless %}
-{% endblock form_label_asterisk %}    
-    
+{% endblock form_label_asterisk %}
+
 {% block form_row %}
 {% spaceless %}
 {% set row_attr = row_attr|merge({'class': (row_attr.class|default('control-group'))|trim}) %}

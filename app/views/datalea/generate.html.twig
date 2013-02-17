@@ -8,11 +8,11 @@
 {% include 'datalea/config_file_form.html.twig' with {'form': configFileForm} %}
 
 <form action="{{ path('datalea_generate') }}" method="post" {{ form_enctype(form) }}>
-    
+
     {% if form.vars.errors|length > 0 %}
     <div class="alert alert-error">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <div class="control-group error"> 
+        <div class="control-group error">
             {{ form_errors(form) }}
         </div>
     </div>
@@ -20,7 +20,7 @@
 
     {{ form_row(form.variableConfigs) }}
     {{ form_row(form.columnConfigs) }}
-    
+
     <div class="row-fluid">
         <div class="span6">
             <fieldset>
@@ -35,7 +35,7 @@
                 </div>
             </fieldset>
         </div>
-            
+
         <div class="span6">
             <fieldset>
                 <legend>{{ 'Output' | trans }}</legend>
@@ -70,7 +70,7 @@
 {% block javascripts %}
 {{ parent() }}
 <script type=text/javascript>
-    
+
 jQuery(document).ready(function() {
     var $columnCollectionHolder = $('#datalea_generator_config_columnConfigs');
     var addColumnConfigSelector = '.add-columnConfigs';
@@ -79,46 +79,46 @@ jQuery(document).ready(function() {
     var removeConfigSelector = '.remove-collection-item-form';
     var $csvFormatOption = $('input[type="checkbox"][name^="datalea_generator_config"][value="csv"]')
     var $csvOptions = $('#csv-options');
-    
+
     $(addColumnConfigSelector).on('click', function(e) {
         addConfigForm($columnCollectionHolder);
     });
-    
+
     $(addVariableConfigSelector).on('click', function(e) {
         addConfigForm($variableCollectionHolder);
     });
-    
+
     addRemoveConfigListener($(removeConfigSelector));
-    
+
     $('select.select2-box').select2({
         width: 'resolve',
     });
-    
+
     $('select.select2-empty-box').select2({
         width: 'resolve',
         allowClear: true,
         placeholder: 'select'
     });
-    
+
     $('.required-asterisk').tooltip({
         title: 'required field'
     });
-    
+
     $('.help-popover').popover({
         html: true
         /*trigger: 'hover'*/
     });
-    
+
     $('.help-popover').click(function(e){
         e.preventDefault();
     });
-    
+
     $csvOptions.toggle($csvFormatOption.prop("checked"));
-    
+
     $csvFormatOption.click(function(e){
         $csvOptions.toggle($(this).prop("checked"));
     });
-    
+
     function addRemoveConfigListener($object)
     {
         $object.on('click', function(e) {
@@ -126,7 +126,7 @@ jQuery(document).ready(function() {
         });
     }
 
-    function addConfigForm($collectionHolder) 
+    function addConfigForm($collectionHolder)
     {
         var prototype = $collectionHolder.attr('data-prototype');
         var newForm = prototype.replace(/__name__/g, $collectionHolder.children().length);
@@ -146,4 +146,3 @@ jQuery(document).ready(function() {
 </script>
 
 {% endblock %}
-

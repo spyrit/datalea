@@ -36,7 +36,7 @@ class ConfigFileType extends AbstractType
             ))
             ;
     }
-    
+
     /**
      * {@inheritdoc}
      */

@@ -15,14 +15,14 @@ use \Spyrit\Datalea\Faker\Model\VariableConfig;
 class Loader
 {
     /**
-     * 
-     * @param string $file filename
+     *
+     * @param  string $file filename
      * @return Config
      */
     public function loadXmlFakerConfig($file)
     {
         $root = simplexml_load_file($file, '\\Spyrit\\Datalea\\Faker\\Dump\\CdataSimpleXMLElement', LIBXML_NOCDATA);
-        
+
         $config = new Config();
         if (isset($root['classname'])) {
             $config->setClassName((string) $root['classname']);
@@ -35,12 +35,12 @@ class Loader
         }
         if (isset($root['seed'])) {
             $config->setSeed((string) $root['seed']);
-        }        
-        
+        }
+
         if (isset($root->formats->format)) {
             $config->setFormats((array) $root->formats->format);
         }
-        
+
         if (isset($root->formatOptions)) {
             if (isset($root->formatOptions->csv)) {
                 $config->setCsvFormat(new CsvFormat(
@@ -52,7 +52,7 @@ class Loader
                 ));
             }
         }
-        
+
         if (isset($root->variables->variable)) {
             foreach ($root->variables->variable as $variable) {
                 $variableConfig = new VariableConfig();
@@ -64,7 +64,7 @@ class Loader
                 $config->addVariableConfig($variableConfig);
             }
         }
-        
+
         if (isset($root->columns->column)) {
             foreach ($root->columns->column as $column) {
                 $columnConfig = new ColumnConfig();
@@ -75,7 +75,7 @@ class Loader
                 $config->addColumnConfig($columnConfig);
             }
         }
-        
+
         return $config;
     }
 }

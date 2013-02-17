@@ -13,10 +13,10 @@ class UniqueTupleCollection
 {
     /**
      *
-     * @var array of \Spyrit\Datalea\Faker\Model\UniqueTuple 
+     * @var array of \Spyrit\Datalea\Faker\Model\UniqueTuple
      */
     protected $uniqueTuples = array();
-    
+
     public function __construct(array $uniqueTuples = array())
     {
         $this->uniqueTuples = $uniqueTuples;
@@ -30,38 +30,40 @@ class UniqueTupleCollection
     public function setUniqueTuples($uniqueTuples)
     {
         $this->uniqueTuples = $uniqueTuples;
+
         return $this;
     }
-    
+
     public function addUniqueTuple(UniqueTuple $uniqueTuple)
     {
         $this->uniqueTuples[$uniqueTuple->getColumnConfig()->getName()] = $uniqueTuple;
+
         return $this;
     }
-    
+
     public function hasUniqueTuple($name)
     {
         return isset($this->uniqueTuples[$name]);
     }
-    
+
     public function getUniqueTuple($name)
     {
         return $this->hasUniqueTuple($name) ? $this->uniqueTuples[$name] : null;
     }
-    
+
     /**
-     * 
+     *
      * @param \Faker\Generator $faker
-     * @param array $values
-     * @param array $variableConfigs
+     * @param array            $values
+     * @param array            $variableConfigs
      */
-    public function unDuplicateValues(Generator $faker, array &$values, array $variableConfigs) 
+    public function unDuplicateValues(Generator $faker, array &$values, array $variableConfigs)
     {
         $try = 0;
         do {
             $try++;
             $allUniques = true;
-            
+
             $uniqueTuplesToRegenerate = array();
             foreach ($this->uniqueTuples as $name => $uniqueTuple) {
                 if (!$uniqueTuple->areValuesUniques($values)) {
@@ -78,11 +80,11 @@ class UniqueTupleCollection
             }
 
             $useIncrement = $try > 10;
-            
+
             foreach ($variableConfigsToRegenerate as $name => $variableConfig) {
                 $variableConfig->generateValue($faker, $values, $variableConfigs, true, $useIncrement, false);
             }
         } while (!$allUniques);
     }
-    
+
 }

@@ -32,19 +32,19 @@ class ColumnConfig
      * @var bool
      */
     protected $unique;
-    
+
     /**
      *
      * @var array
      */
     protected $usedVariables = array();
-    
+
     /**
-     * 
-     * @param string $name default = null
-     * @param string $value default = null
+     *
+     * @param string $name          default = null
+     * @param string $value         default = null
      * @param string $convertMethod default = null
-     * @param bool $unique default = false
+     * @param bool   $unique        default = false
      */
     public function __construct($name = null, $value = null, $convertMethod = null, $unique = false)
     {
@@ -62,9 +62,10 @@ class ColumnConfig
     public function setName($name)
     {
         $this->name = preg_replace('/[^a-zA-Z0-9\-\s_]/', '', $name);
+
         return $this;
     }
-    
+
     public function getValue()
     {
         return $this->value;
@@ -73,9 +74,10 @@ class ColumnConfig
     public function setValue($value)
     {
         $this->value = $value;
+
         return $this;
     }
-    
+
     public function getConvertMethod()
     {
         return $this->convertMethod;
@@ -85,6 +87,7 @@ class ColumnConfig
     {
         $this->convertMethod = (string) $convertMethod;
         $this->usedVariables = array();
+
         return $this;
     }
 
@@ -96,11 +99,12 @@ class ColumnConfig
     public function setUnique($unique)
     {
         $this->unique = (bool) $unique;
+
         return $this;
     }
-    
+
     /**
-     * 
+     *
      * @return array
      */
     public static function getAvailableConvertMethods()
@@ -122,9 +126,9 @@ class ColumnConfig
             'remove_accents_capitalize_words' => 'remove accents and capitalize words',
         );
     }
-    
+
     /**
-     * 
+     *
      * @return array
      */
     public function getUsedVariables()
@@ -136,12 +140,13 @@ class ColumnConfig
                 }
             }
         }
+
         return $this->usedVariables;
     }
-    
+
     /**
-     * 
-     * @param array $variableConfigs
+     *
+     * @param  array                                   $variableConfigs
      * @return \Spyrit\Datalea\Faker\Model\UniqueTuple
      */
     public function createUniqueTuple(array $variableConfigs = array())
@@ -154,25 +159,25 @@ class ColumnConfig
                     $usedVariableConfigs[$variableConfig->getName()] = $variableConfig;
                 }
             }
-            
-            if(!empty($usedVariableConfigs)) {
+
+            if (!empty($usedVariableConfigs)) {
                 return new UniqueTuple($this, $usedVariableConfigs);
             }
         }
     }
-    
+
     /**
-     * 
+     *
      * @param \Faker\Generator $faker
-     * @param array $values generated value will be inserted into this array
-     * @param array $variableConfigs other variable configs to be replaced in faker method arguments if used
-     * @param array $uniqueColumns already generated columns which can not be generated again
-     * @param array $uniqueValues already generated values which can not be generated again
+     * @param array            $values          generated value will be inserted into this array
+     * @param array            $variableConfigs other variable configs to be replaced in faker method arguments if used
+     * @param array            $uniqueColumns   already generated columns which can not be generated again
+     * @param array            $uniqueValues    already generated values which can not be generated again
      */
     public function generateValues(\Faker\Generator $faker, array &$values, array $variableConfigs = array(), array &$uniqueColumns, array &$uniqueValues)
     {
         $usedVariables = $this->getUsedVariables();
-        
+
         if ($this->getUnique() && !empty($usedVariables)) {
             if (!isset($uniqueColumns[$this->getName()])) {
                 $uniqueColumns[$this->getName()] = array();
@@ -188,11 +193,10 @@ class ColumnConfig
                         $columnValues[$usedVariable] = $values[$usedVariable];
                     }
                 }
-                
+
                 $column = implode('-', $columnValues);
                 $try++;
-                if ($try > 10 )
-                {
+                if ($try > 10) {
                     $inc++;
                     $column = is_numeric($column) ? $column+1 : $column.'_'.$inc;
                 }
@@ -206,13 +210,13 @@ class ColumnConfig
                 }
             }
         }
-        
+
         var_dump($columnValue);
     }
-    
+
     /**
-     * 
-     * @param array $availableVariables
+     *
+     * @param  array  $availableVariables
      * @return string
      */
     public function replaceVariable(array $availableVariables)
@@ -223,7 +227,7 @@ class ColumnConfig
             },
             $this->getValue()
         );
-           
+
         switch ($this->getConvertMethod()) {
             case 'lowercase':
                 $value = $this->tolower($value, 'UTF-8');
@@ -270,37 +274,37 @@ class ColumnConfig
             default:
                 break;
         }
-            
+
         return $value;
     }
-    
+
     protected function tolower($str)
     {
         return mb_strtolower($str, 'UTF-8');
     }
-    
+
     protected function toupper($str)
     {
         return mb_strtoupper($str, 'UTF-8');
     }
-    
+
     protected function ucwords($str)
     {
         return  mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
     }
-    
+
     protected function ucfirst($str)
     {
         $length = mb_strlen($str);
         if ($length > 1) {
             $first = mb_substr($str, 0, 1, 'UTF-8');
             $rest = mb_substr($str, 1, $length, 'UTF-8');
+
             return  mb_strtoupper($first, 'UTF-8').$rest;
         } else {
             return  mb_strtoupper($str, 'UTF-8');
         }
     }
-
 
     /**
      * replace accent character by normal character

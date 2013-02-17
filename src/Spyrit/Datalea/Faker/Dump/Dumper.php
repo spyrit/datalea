@@ -30,15 +30,15 @@ class Dumper
      * @var Config
      */
     protected $config;
-    
+
     /**
      *
-     * @var array 
+     * @var array
      */
     protected $fakeData;
-    
+
     /**
-     * 
+     *
      * @param Config $config
      */
     public function __construct(Config $config)
@@ -47,26 +47,26 @@ class Dumper
     }
 
     /**
-     * 
+     *
      * @return array
      */
     public static function getAvailableFormats()
     {
         return array(
-            'csv' => 'CSV', 
-            'yaml' => 'YAML', 
-            'xml' => 'XML', 
+            'csv' => 'CSV',
+            'yaml' => 'YAML',
+            'xml' => 'XML',
             'json' => 'JSON',
             'sql' => 'SQL',
-            'php' => 'PHP', 
-            'perl' => 'Perl', 
-            'ruby' => 'Ruby', 
-            'python' => 'Python', 
+            'php' => 'PHP',
+            'perl' => 'Perl',
+            'ruby' => 'Ruby',
+            'python' => 'Python',
         );
     }
-    
+
     /**
-     * 
+     *
      * @return Config
      */
     public function getConfig()
@@ -75,37 +75,38 @@ class Dumper
     }
 
     /**
-     * 
+     *
      * @param Config $config
-     * 
+     *
      * @return Dumper
      */
     public function setConfig(Config $config)
     {
         $this->config = $config;
+
         return $this;
     }
-    
+
     /**
-     * 
+     *
      * @return string
      */
     public function saveConfigAsXML($dir)
     {
         $name = $this->config->getClassName(true).'_datalea_config';
-        
+
         $root = new CdataSimpleXMLElement('<?xml version=\'1.0\' encoding=\'utf-8\'?><dataleaConfig/>');
-        
+
         $root->addAttribute('classname', $this->config->getClassName());
         $root->addAttribute('locale', $this->config->getLocale());
         $root->addAttribute('seed', $this->config->getSeed());
         $root->addAttribute('fakenumber', $this->config->getFakeNumber());
-        
+
         $formatsElt = $root->addChild('formats');
         foreach ($this->config->getFormats() as $format) {
             $formatElt = $formatsElt->addChild('format', $format);
         }
-        
+
         $csvFormat = $this->config->getCsvFormat();
         if ($csvFormat && $this->config->hasFormat('csv')) {
             $formatOptionsElt = $root->addChild('formatOptions');
@@ -116,7 +117,7 @@ class Dumper
             $csvElt->addChild('eol', $csvFormat->getEol());
             $csvElt->addChildCData('escape', $csvFormat->getEscape());
         }
-        
+
         $variablesElt = $root->addChild('variables');
         foreach ($this->config->getVariableConfigs() as $variableConfig) {
             $variableElt = $variablesElt->addChild('variable');
@@ -126,7 +127,7 @@ class Dumper
             $variableElt->addChildCData('argument2', $variableConfig->getFakerMethodArg2());
             $variableElt->addChildCData('argument3', $variableConfig->getFakerMethodArg3());
         }
-        
+
         $columnsElt = $root->addChild('columns');
         foreach ($this->config->getColumnConfigs() as $columnConfig) {
             $columnElt = $columnsElt->addChild('column');
@@ -135,41 +136,42 @@ class Dumper
             $columnElt->addChildCData('value', $columnConfig->getValue());
             $columnElt->addChild('convert', $columnConfig->getConvertMethod());
         }
-        
+
         $file = $dir.DS.$name.'.xml';
-        
+
         $rootDom = dom_import_simplexml($root);
         $dom = new DOMDocument('1.0', 'UTF-8');
         $dom->formatOutput = true;
         $rootDom = $dom->importNode($rootDom, true);
         $rootDom = $dom->appendChild($rootDom);
-        
+
         $dom->save($file);
+
         return $file;
     }
-    
+
     protected function generateFakeData()
     {
         if (empty($this->config)) {
             throw new InvalidArgumentException('A Faker configuration must be set.');
         }
-        
+
         $variableConfigs = $this->config->getVariableConfigs();
         $columnConfigs = $this->config->getColumnConfigs();
-        
+
         if (!count($columnConfigs)) {
             throw new InvalidArgumentException('the configuration must have one column configuration at least.');
         }
-        
+
         if ($this->config->getFakeNumber() < 1) {
             throw new InvalidArgumentException('The number of fake elements to generate must be greater than 0.');
         }
-        
+
         $faker = Factory::create($this->config->getLocale());
         if ($this->config->getSeed() !== null) {
             $faker->seed($this->config->getSeed());
         }
-        
+
         $uniqueTupleCollection = new UniqueTupleCollection();
         foreach ($columnConfigs as $columnConfig) {
             $uniqueTuple = $columnConfig->createUniqueTuple($variableConfigs);
@@ -177,7 +179,7 @@ class Dumper
                 $uniqueTupleCollection->addUniqueTuple($uniqueTuple);
             }
         }
-        
+
         $this->fakeData = array();
         for ($index = 1; $index <= $this->config->getFakeNumber(); $index++) {
             //1 row
@@ -185,9 +187,9 @@ class Dumper
             foreach ($variableConfigs as $variableConfig) {
                 $variableConfig->generateValue($faker, $values, $variableConfigs, false, false, true);
             }
-            
+
             $uniqueTupleCollection->unDuplicateValues($faker, $values, $variableConfigs);
-            
+
             $data = array();
             foreach ($columnConfigs as $columnConfig) {
                 $data[$columnConfig->getName()] = $columnConfig->replaceVariable($values);
@@ -197,7 +199,7 @@ class Dumper
     }
 
     /**
-     * 
+     *
      * @return array
      */
     public function getFakeData()
@@ -205,27 +207,28 @@ class Dumper
         if (empty($this->fakeData)) {
             $this->generateFakeData();
         }
+
         return $this->fakeData;
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function dumpPHP($dir)
     {
         $format = <<<DUMP
-<?php 
+<?php
 \$%s = array(
 %s
 );
 
 DUMP;
         $fakeData = $this->getFakeData();
-        
+
         $indent = 4;
         $indentChar = ' ';
-        
+
         $values = '';
         foreach ($fakeData as $item) {
             $values .= str_repeat($indentChar, $indent).'array('."\n";
@@ -234,17 +237,17 @@ DUMP;
             }
             $values .= str_repeat($indentChar, $indent).'),'."\n";
         }
-        
+
         $name = $this->config->getClassName(true);
-        
+
         $file = $dir.DS.$name.'.php';
         file_put_contents($file, sprintf($format, $name, $values));
-        
+
         return $file;
     }
-    
+
     /**
-     * 
+     *
      * @return string
      */
     public function dumpPerl($dir)
@@ -256,10 +259,10 @@ my %%%s = (
 
 DUMP;
         $fakeData = $this->getFakeData();
-        
+
         $indent = 2;
         $indentChar = ' ';
-        
+
         $values = '';
         foreach ($fakeData as $item) {
             $values .= str_repeat($indentChar, $indent).'{'."\n";
@@ -268,15 +271,15 @@ DUMP;
             }
             $values .= str_repeat($indentChar, $indent).'},'."\n";
         }
-        
+
         $file = $dir.DS.$this->config->getClassName(true).'.pl';
         file_put_contents($file, sprintf($format, $this->config->getClassNameLastPart(), $values));
-        
+
         return $file;
     }
-    
+
     /**
-     * 
+     *
      * @return string
      */
     public function dumpPython($dir)
@@ -288,10 +291,10 @@ DUMP;
 
 DUMP;
         $fakeData = $this->getFakeData();
-        
+
         $indent = 2;
         $indentChar = ' ';
-        
+
         $values = '';
         $first1 = true;
         foreach ($fakeData as $item) {
@@ -301,7 +304,7 @@ DUMP;
                 $values .= ','."\n";
             }
             $values .= str_repeat($indentChar, $indent).'{';
-            
+
             $first2 = true;
             foreach ($item as $key => $value) {
                 if ($first2) {
@@ -312,18 +315,18 @@ DUMP;
                 }
                 $values .= str_repeat($indentChar, $indent*2).'\''.$key.'\': \''.$value.'\'';
             }
-            
+
             $values .= "\n".str_repeat($indentChar, $indent).'}';
         }
-        
+
         $file = $dir.DS.$this->config->getClassName(true).'.py';
         file_put_contents($file, sprintf($format, $this->config->getClassNameLastPart(), $values));
-        
+
         return $file;
     }
-    
+
     /**
-     * 
+     *
      * @return string
      */
     public function dumpRuby($dir)
@@ -335,10 +338,10 @@ DUMP;
 
 DUMP;
         $fakeData = $this->getFakeData();
-        
+
         $indent = 2;
         $indentChar = ' ';
-        
+
         $values = '';
         $first1 = true;
         foreach ($fakeData as $item) {
@@ -348,7 +351,7 @@ DUMP;
                 $values .= ','."\n";
             }
             $values .= str_repeat($indentChar, $indent).'{';
-            
+
             $first2 = true;
             foreach ($item as $key => $value) {
                 if ($first2) {
@@ -359,18 +362,18 @@ DUMP;
                 }
                 $values .= str_repeat($indentChar, $indent*2).'\''.$key.'\' => \''.$value.'\'';
             }
-            
+
             $values .= "\n".str_repeat($indentChar, $indent).'}';
         }
-        
+
         $file = $dir.DS.$this->config->getClassName(true).'.rb';
         file_put_contents($file, sprintf($format, $this->config->getClassNameLastPart(), $values));
-        
+
         return $file;
     }
-    
+
     /**
-     * 
+     *
      * @return string
      */
     public function dumpJSON($dir)
@@ -379,15 +382,15 @@ DUMP;
 %s;
 JSON;
         $name = $this->config->getClassName(true);
-        
+
         $file = $dir.DS.$name.'.json';
         file_put_contents($file, json_encode($this->getFakeData(), JSON_PRETTY_PRINT));
-        
+
         return $file;
     }
-    
+
     /**
-     * 
+     *
      * @return string
      */
     public function dumpYAML($dir)
@@ -396,81 +399,83 @@ JSON;
         $data = array(
             $className => array(),
         );
-        
+
         $fakeData = $this->getFakeData();
-        
+
         $name = $this->config->getClassName(true);
-        
+
         $itemName = $this->config->getClassNameLastPart();
-        
+
         $i = 1 ;
         foreach ($fakeData as $items) {
             $data[$className][$itemName.'_'.$i] = $items;
             $i++;
         }
-        
+
         $file = $dir.DS.$name.'.yml';
         file_put_contents($file, Yaml::dump($data,4));
-        
+
         return $file;
     }
-    
+
     /**
-     * 
+     *
      * @return string
      */
     public function dumpCSV($dir)
     {
         $fakeData = $this->getFakeData();
-        
+
         $name = $this->config->getClassName(true);
         $file = $dir.DS.$name.'.csv';
-        
+
         $csvWriter = $this->config->createCsvWriter();
         $csvWriter->setFilename($file);
-                
+
         $csvWriter->writeRow(array_keys($fakeData[0]));
         $csvWriter->writeRows($fakeData);
         $csvWriter->close();
+
         return $file;
     }
-    
+
     /**
-     * 
+     *
      * @return string
      */
     public function dumpXML($dir)
     {
         $fakeData = $this->getFakeData();
-        
+
         $name = $this->config->getClassName(true);
-        
+
         $elementRootName = strtolower(str_ireplace('_', '', $name));
         $elementName = strtolower($this->config->getClassNameLastPart());
-        
+
         $root = new CdataSimpleXMLElement('<?xml version=\'1.0\' encoding=\'utf-8\'?><'.$elementRootName.'s/>');
-        
+
         foreach ($fakeData as $items) {
             $element = $root->addChild($elementName);
             foreach ($items as $column => $value) {
                 $element->addChild(strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $column)), $value);
             }
         }
-        
+
         $file = $dir.DS.$name.'.xml';
-        
+
         $rootDom = dom_import_simplexml($root);
         $dom = new DOMDocument('1.0', 'UTF-8');
         $dom->formatOutput = true;
         $rootDom = $dom->importNode($rootDom, true);
         $rootDom = $dom->appendChild($rootDom);
-        
+
         $dom->save($file);
+
         return $file;
     }
-    
+
     /**
-     * 
+     *
      * @return string
      */
     public function dumpSQL($dir)
@@ -488,11 +493,11 @@ INSERT INTO %s (%s) VALUES
 SET FOREIGN_KEY_CHECKS = 1;
 DUMP;
         $fakeData = $this->getFakeData();
-        
+
         $name = $this->config->getClassName(true);
-        
+
         $columns = array_keys($fakeData[0]);
-        
+
         $values = '';
         $first = true;
         foreach ($fakeData as $item) {
@@ -503,20 +508,20 @@ DUMP;
             }
             $values .= '(\''.implode('\', \'', $item).'\')';
         }
-        
+
         $file = $dir.DS.$name.'.sql';
         file_put_contents($file, sprintf($format, $name, implode(', ', $columns), $values));
-        
+
         return $file;
     }
-    
+
     /**
-     * 
-     * @param string $tmpDir
+     *
+     * @param string   $tmpDir
      * @param DateTime $date
-     * 
+     *
      * @return string zip filename
-     * 
+     *
      * @throws RuntimeException
      */
     public function dump($tmpDir, $date = null)
@@ -524,22 +529,22 @@ DUMP;
         $date = $date instanceof DateTime ? $date : new DateTime();
 
         $fs = new Filesystem();
-        
+
         $workingDir = time().'_'.uniqid();
         $workingPath = $tmpDir.DS.$workingDir;
-        
+
         if (!$fs->exists($workingPath)) {
             $fs->mkdir($workingPath, 0777);
         }
-        
+
         if (!$this->config->hasSeed()) {
             $this->config->generateSeed();
         }
-        
+
         $files = array();
-        
+
         $files[] = $this->saveConfigAsXML($workingPath);
-        
+
         foreach ($this->config->getFormats() as $format) {
             switch ($format) {
                 case 'csv':
@@ -571,18 +576,18 @@ DUMP;
                     break;
             }
         }
-        
+
         $zipname = $tmpDir.DS.'archive_'.$workingDir.'.zip';
         $zip = new ZipArchive();
         if ($zip->open($zipname, ZipArchive::CREATE)!==TRUE) {
             throw new RuntimeException;("cannot create zip archive $filename\n");
         }
-        
+
         foreach ($files as $file) {
             $zip->addFile($file, 'fakedata_'.$this->config->getClassNameLastPart().'_'.$date->format('Y-m-d_H-i-s').DS.basename($file));
         }
         $zip->close();
-        
+
         return $zipname;
     }
 }

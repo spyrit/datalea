@@ -17,13 +17,13 @@ class UniqueTuple
      * @var ColumnConfig
      */
     protected $columnConfig;
-    
+
     /**
      *
      * @var array of \Spyrit\Datalea\Faker\Model\VariableConfig
      */
     protected $variableConfigs;
-    
+
     /**
      *
      * @var array
@@ -31,18 +31,18 @@ class UniqueTuple
     protected $values = array();
 
     /**
-     * 
+     *
      * @param ColumnConfig $columnConfig
-     * @param array $variableConfigs
+     * @param array        $variableConfigs
      */
     public function __construct(ColumnConfig $columnConfig, array $variableConfigs = array())
     {
         $this->setColumnConfig($columnConfig);
         $this->setVariableConfigs($variableConfigs);
     }
-    
+
     /**
-     * 
+     *
      * @return ColumnConfig
      */
     public function getColumnConfig()
@@ -51,18 +51,19 @@ class UniqueTuple
     }
 
     /**
-     * 
-     * @param ColumnConfig $columnConfig
+     *
+     * @param  ColumnConfig $columnConfig
      * @return UniqueTuple
      */
     public function setColumnConfig(ColumnConfig $columnConfig)
     {
         $this->columnConfig = $columnConfig;
+
         return $this;
     }
 
     /**
-     * 
+     *
      * @return array of \Spyrit\Datalea\Faker\Model\VariableConfig
      */
     public function getVariableConfigs()
@@ -71,22 +72,23 @@ class UniqueTuple
     }
 
     /**
-     * 
-     * @param array of \Spyrit\Datalea\Faker\Model\VariableConfig $variableConfigs
+     *
+     * @param  array of \Spyrit\Datalea\Faker\Model\VariableConfig $variableConfigs
      * @return UniqueTuple
      */
     public function setVariableConfigs(array $variableConfigs)
     {
         $this->variableConfigs = $variableConfigs;
+
         return $this;
     }
 
     /**
-     * 
-     * @param array $values
+     *
+     * @param  array   $values
      * @return boolean
      */
-    public function areValuesUniques(array $values) 
+    public function areValuesUniques(array $values)
     {
         $valuesToCheck = array();
         foreach ($this->variableConfigs as $variableConfig) {
@@ -94,10 +96,11 @@ class UniqueTuple
                 $valuesToCheck[] = $values[$variableConfig->getName()];
             }
         }
-        
+
         $valuesToCheckString = implode('-', $valuesToCheck);
         if (!in_array($valuesToCheckString, $this->values)) {
             $this->values[] = $valuesToCheckString;
+
             return true;
         } else {
             return false;

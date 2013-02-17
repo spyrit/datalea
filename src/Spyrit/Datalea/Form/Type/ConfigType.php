@@ -20,7 +20,7 @@ class ConfigType extends AbstractType
     {
         $locales = Config::getAvailableFakerLocale();
         $formats = Dumper::getAvailableFormats();
-        
+
         $builder
             ->add('className', 'text', array(
                 'required' => true,
@@ -110,7 +110,7 @@ class ConfigType extends AbstractType
                         'exactMessage' => 'You must set exactly {{ limit }} variable(s).',
                     )),
                 )
-                
+
             ))
             ->add('columnConfigs', 'collection', array(
 //                'required' => false,
@@ -132,7 +132,7 @@ class ConfigType extends AbstractType
                         'exactMessage' => 'You must set exactly {{ limit }} column(s).',
                     )),
                 )
-                
+
             ))
             ->add('formats', 'choice', array(
                 'required' => true,
@@ -164,7 +164,7 @@ class ConfigType extends AbstractType
             ));
             ;
     }
-    
+
     /**
      * {@inheritdoc}
      */
