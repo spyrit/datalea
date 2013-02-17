@@ -117,7 +117,7 @@ class MainControllerProvider implements ControllerProviderInterface
             $this->setDefaultConfig($config);
         }
         
-        $configForm = $app['form.factory']->create(new ConfigType(), $config);
+        $configForm = $app['form.factory']->create(new ConfigType(), $config, $app['datalea']);
         
         return $app['twig']->render('datalea/generate.html.twig', array(
             'form' => $configForm->createView(),
@@ -137,7 +137,7 @@ class MainControllerProvider implements ControllerProviderInterface
             $this->setDefaultConfig($config);
         }
         
-        $configForm = $app['form.factory']->create(new ConfigType(), $config);
+        $configForm = $app['form.factory']->create(new ConfigType(), $config, $app['datalea']);
         
         if ('POST' == $request->getMethod()) {
             $configForm->bindRequest($request);

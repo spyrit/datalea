@@ -74,9 +74,9 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     $app['web_dir'] = realpath($appdir.DS.'..'.DS.'web');
 
     // get configs
-    if (file_exists($app['app_dir'].DS.'config'.DS.'config.php'))
-    $config = require_once $app['app_dir'].DS.'config'.DS.'config.php';
-    else if (file_exists($app['app_dir'].DS.'config'.DS.'config.yml')) {
+    if (file_exists($app['app_dir'].DS.'config'.DS.'config.php')) {
+        $config = require_once $app['app_dir'].DS.'config'.DS.'config.php';
+    } elseif (file_exists($app['app_dir'].DS.'config'.DS.'config.yml')) {
         try {
             $config = Yaml::parse($app['app_dir'].DS.'config'.DS.'config.yml');
         } catch (ParseException $e) {
@@ -127,6 +127,14 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     if (!$fs->exists($app['uploads_dir'])) {
         $fs->mkdir($app['uploads_dir'], 0777);
     }
+    
+    // Application specific parameters
+    $app['datalea'] = array(
+        'max_variables' => isset($config['max_variables']) ? (int) $config['max_variables'] : 100,
+        'max_columns' => isset($config['max_columns']) ? (int) $config['max_columns'] : 80,
+        'max_rows' => isset($config['max_rows']) ? (int) $config['max_rows'] : 2000,
+    );
+    
     /*
      * add service providers
      */

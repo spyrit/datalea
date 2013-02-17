@@ -3,4 +3,7 @@ return array(
     'locale_fallback' => 'en',
     'umask' => 0000,
     'cache_access' => 0777,
+    'max_variables' => 100,
+    'max_columns' => 80,
+    'max_rows' => 2000,
 );

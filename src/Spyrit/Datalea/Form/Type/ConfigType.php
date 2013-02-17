@@ -87,7 +87,7 @@ class ConfigType extends AbstractType
                 ),
                 'constraints' => array(
                     new Constraints\Type('integer'),
-                    new Constraints\Range(array('min' => 1, 'max' => 2000)),
+                    new Constraints\Range(array('min' => 1, 'max' => $options['max_rows'])),
                 )
             ))
             ->add('variableConfigs', 'collection', array(
@@ -104,7 +104,7 @@ class ConfigType extends AbstractType
                 'constraints' => array(
                     new Constraints\Count(array(
                         'min' => 1,
-                        'max' => 100,
+                        'max' => $options['max_variables'],
                         'minMessage' => 'You must set {{ limit }} variable(s) or more.',
                         'maxMessage' => 'You must set {{ limit }} variable(s) or less.',
                         'exactMessage' => 'You must set exactly {{ limit }} variable(s).',
@@ -126,7 +126,7 @@ class ConfigType extends AbstractType
                 'constraints' => array(
                     new Constraints\Count(array(
                         'min' => 0,
-                        'max' => 100,
+                        'max' => $options['max_columns'],
                         'minMessage' => 'You must set {{ limit }} column(s) or more.',
                         'maxMessage' => 'You must set {{ limit }} column(s) or less.',
                         'exactMessage' => 'You must set exactly {{ limit }} column(s).',
@@ -170,10 +170,20 @@ class ConfigType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Spyrit\Datalea\Faker\Model\Config',
-            'cascade_validation' => true,
-        ));
+        $resolver
+            ->setDefaults(array(
+                'data_class' => 'Spyrit\Datalea\Faker\Model\Config',
+                'cascade_validation' => true,
+                'max_variables' => 100,
+                'max_columns' => 80,
+                'max_rows' => 2000,
+            ))
+            ->setAllowedTypes(array(
+                'max_variables' => array('int'),
+                'max_columns' => array('int'),
+                'max_rows' => array('int'),
+            ))
+        ;
     }
 
     public function getName()
