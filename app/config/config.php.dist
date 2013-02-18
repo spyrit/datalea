@@ -6,4 +6,5 @@ return array(
     'max_variables' => 100,
     'max_columns' => 80,
     'max_rows' => 2000,
+    'google_analytics_account' => '',
 );

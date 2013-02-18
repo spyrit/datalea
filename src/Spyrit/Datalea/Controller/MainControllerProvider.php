@@ -116,7 +116,11 @@ class MainControllerProvider implements ControllerProviderInterface
             $this->setDefaultConfig($config);
         }
 
-        $configForm = $app['form.factory']->create(new ConfigType(), $config, $app['datalea']);
+        $configForm = $app['form.factory']->create(new ConfigType(), $config, array(
+            'max_variables' => $app['datalea']['max_variables'],
+            'max_columns' => $app['datalea']['max_columns'],
+            'max_rows' => $app['datalea']['max_rows'],
+        ));
 
         return $app['twig']->render('datalea/generate.html.twig', array(
             'form' => $configForm->createView(),
@@ -136,7 +140,11 @@ class MainControllerProvider implements ControllerProviderInterface
             $this->setDefaultConfig($config);
         }
 
-        $configForm = $app['form.factory']->create(new ConfigType(), $config, $app['datalea']);
+        $configForm = $app['form.factory']->create(new ConfigType(), $config, array(
+            'max_variables' => $app['datalea']['max_variables'],
+            'max_columns' => $app['datalea']['max_columns'],
+            'max_rows' => $app['datalea']['max_rows'],
+        ));
 
         if ('POST' == $request->getMethod()) {
             $configForm->bindRequest($request);
