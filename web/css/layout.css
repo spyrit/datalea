@@ -271,7 +271,8 @@ h1, h2, h3, h4, h5, h6, h7 {
 #column-configs .control-group.convert-method .control-label{ width: 80px; }
 #column-configs .control-group.convert-method .controls{ margin-left: 90px; } /* previous one width + 10px */
 
-
+#column-configs .control-group.unique .control-label{ width: 80px; }
+#column-configs .control-group.unique .controls{ margin-left: 90px; } /* previous one width + 10px */
 
 #variables .control-group.name .control-label{ width: 80px; }
 #variables .control-group.name .controls{ margin-left: 90px; } /* previous one width + 10px */
@@ -281,11 +282,6 @@ h1, h2, h3, h4, h5, h6, h7 {
 
 #variables .control-group.argument .control-label{ width: 110px; }
 #variables .control-group.argument .controls{ margin-left: 120px; } /* previous one width + 10px */
-
-#variables .control-group.unique .control-label{ width: 80px; }
-#variables .control-group.unique .controls{ margin-left: 90px; } /* previous one width + 10px */
-
-
 
 /* buttons styles */
 

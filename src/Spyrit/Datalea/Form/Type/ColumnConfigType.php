@@ -62,7 +62,7 @@ class ColumnConfigType extends AbstractType
                 'choices' => $convertMethods,
                 'attr' => array(
                     'class' => 'select2-empty-box',
-//                    'style' => 'width: 95%',
+                    'style' => 'width: 100%',
                 ),
                 'row_attr' => array(
                     'class' => 'convert-method',
@@ -83,7 +83,7 @@ class ColumnConfigType extends AbstractType
                     'style' => 'width: 95%',
                 ),
                 'row_attr' => array(
-                    'class' => 'control-group span1',
+                    'class' => 'unique',
                 ),
             ))
             ;
