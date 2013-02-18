@@ -54,6 +54,7 @@ class Dumper
     {
         return array(
             'csv' => 'CSV',
+            'excel' => 'Excel',
             'yaml' => 'YAML',
             'xml' => 'XML',
             'json' => 'JSON',
@@ -448,6 +449,47 @@ JSON;
      *
      * @return string
      */
+    public function dumpExcel($dir)
+    {
+        $fakeData = $this->getFakeData();
+        $name = $this->config->getClassName(true);
+        $file = $dir.DS.$name.'.xlsx';
+        
+        $excel = new \PHPExcel();
+        $sheet = $excel->getActiveSheet();
+        
+        $sheet->setTitle($this->config->getClassNameLastPart());
+        
+        $col = 0;
+        $row = 1;
+        
+        $header = array_keys($fakeData[0]);
+        foreach ($header as $key) {
+            $sheet->setCellValueByColumnAndRow($col, $row, $key);
+            $sheet->getColumnDimensionByColumn($col)->setAutoSize(true);
+            $col++;
+        }
+        
+        foreach ($fakeData as $item) {
+            $col = 0;
+            $row++;
+            foreach ($item as $value) {
+                $sheet->setCellValueByColumnAndRow($col, $row, $value);
+                $col++;
+            }
+        }
+        
+        $writer = new \PHPExcel_Writer_Excel2007($excel);
+        $writer->setPreCalculateFormulas(false);
+        $writer->save($file);
+        
+        return $file;
+    }
+    
+    /**
+     *
+     * @return string
+     */
     public function dumpXML($dir)
     {
         $fakeData = $this->getFakeData();
@@ -554,6 +596,9 @@ DUMP;
             switch ($format) {
                 case 'csv':
                     $files[] = $this->dumpCSV($workingPath);
+                    break;
+                case 'excel':
+                    $files[] = $this->dumpExcel($workingPath);
                     break;
                 case 'yaml':
                     $files[] = $this->dumpYAML($workingPath);
