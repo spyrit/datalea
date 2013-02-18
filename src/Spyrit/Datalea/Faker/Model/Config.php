@@ -100,11 +100,20 @@ class Config
         return $this->setSeed(mt_rand(0, 50000));
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getSeed()
     {
         return $this->seed;
     }
 
+    /**
+     * 
+     * @param int $seed
+     * @return \Spyrit\Datalea\Faker\Model\Config
+     */
     public function setSeed($seed)
     {
         $this->seed = $seed !== null && $seed != '' ? (int) $seed : null;
@@ -112,11 +121,20 @@ class Config
         return $this;
     }
 
+    /**
+     * 
+     * @param bool $withoutSlashes
+     * @return string
+     */
     public function getClassName($withoutSlashes = false)
     {
         return $withoutSlashes ? str_ireplace('\\', '_', $this->className) : $this->className;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getClassNameLastPart()
     {
         $res = preg_match('/([a-zA-Z0-9]+)$/', $this->className, $matches);
