@@ -38,9 +38,9 @@ class CsvFormat
      * @var string
      */
     protected $delimiter;
-    
+
     /**
-     * 
+     *
      * @param string $delimiter
      * @param string $enclosure
      * @param string $encoding
@@ -55,7 +55,7 @@ class CsvFormat
         $this->setEol($eol);
         $this->setEscape($escape);
     }
-    
+
     public static function getAvailableEols()
     {
         return array(
@@ -63,7 +63,7 @@ class CsvFormat
             'unix' => 'unix',
         );
     }
-    
+
     public static function getAvailableEncodings()
     {
         return array(
@@ -73,7 +73,7 @@ class CsvFormat
             'UTF-8' => 'UTF-8',
         );
     }
-    
+
     public function getEol()
     {
         return $this->eol;
@@ -82,6 +82,7 @@ class CsvFormat
     public function setEol($eol)
     {
         $this->eol = in_array($eol, self::getAvailableEols()) ? $eol : 'windows' ;
+
         return $this;
     }
 
@@ -94,6 +95,7 @@ class CsvFormat
     {
         $this->encoding = in_array($encoding, self::getAvailableEncodings()) ? $encoding : 'WINDOWS-1252' ;
         $this->encoding = $encoding;
+
         return $this;
     }
 
@@ -105,6 +107,7 @@ class CsvFormat
     public function setEnclosure($enclosure)
     {
         $this->enclosure = $enclosure;
+
         return $this;
     }
 
@@ -116,6 +119,7 @@ class CsvFormat
     public function setEscape($escape)
     {
         $this->escape = $escape;
+
         return $this;
     }
 
@@ -127,6 +131,7 @@ class CsvFormat
     public function setDelimiter($delimiter)
     {
         $this->delimiter = $delimiter;
+
         return $this;
     }
 }

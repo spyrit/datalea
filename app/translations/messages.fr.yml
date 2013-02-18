@@ -1,1 +1,20 @@
-'Datalea - a random test data generator': 'Datalea - un générateur aleatoire de données de test'
+base:
+  subtitle: Generateur de données de test avancé
+  power_by: propulsé par
+
+menu:
+  about: à propos
+  generate: générateur
+  github: projet github
+
+about:
+  title: 'Datalea - un générateur aleatoire de données de test'
+  based_on: "Basé sur la bibliothèque de %name% :"
+  description:
+    title: "Besoin de données de tests réalistes ?"
+    line1: Un générateur aléatoire de données, hautement configurable, pouvant générer des données de test dans de multiples formats.
+    line2: ""
+  try_datalea: Essayez le générateur Datalea
+  try_it: Essayez le
+  fork_github: Voir les sources sur Github
+  fork_me: code source

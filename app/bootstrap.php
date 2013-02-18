@@ -51,7 +51,7 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     }
 
     $app = new Application();
-    
+
     /*
      * define environment variables
      */
@@ -65,7 +65,7 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
             ExceptionHandler::register();
         }
     }
-    
+
     /*
      * define main paths
      */
@@ -74,21 +74,20 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     $app['web_dir'] = realpath($appdir.DS.'..'.DS.'web');
 
     // get configs
-    if (file_exists($app['app_dir'].DS.'config'.DS.'config.php'))
-    $config = require_once $app['app_dir'].DS.'config'.DS.'config.php';
-    else if (file_exists($app['app_dir'].DS.'config'.DS.'config.yml')) {
+    if (file_exists($app['app_dir'].DS.'config'.DS.'config.php')) {
+        $config = require_once $app['app_dir'].DS.'config'.DS.'config.php';
+    } elseif (file_exists($app['app_dir'].DS.'config'.DS.'config.yml')) {
         try {
             $config = Yaml::parse($app['app_dir'].DS.'config'.DS.'config.yml');
         } catch (ParseException $e) {
             printf("Unable to parse the YAML string: %s in config file", $e->getMessage());
             exit();
         }
-    }
-    else {
+    } else {
         printf("no config file config file");
         exit();
     }
-    
+
     //set umask
     $umask = isset($config['umask']) && is_int($config['umask']) ? $config['umask'] : 0002;
     umask($umask);
@@ -96,7 +95,7 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     //create cache and log directories
     $app['cache_dir'] = $appdir.DS.'cache';
     $app['log_dir'] = $appdir.DS.'logs';
-    
+
     if (!$fs->exists($app['cache_dir'])) {
         $rights = isset($config['cache_access']) && is_int($config['cache_access']) ? $config['cache_access'] : 0775;
         $fs->mkdir(array(
@@ -105,7 +104,7 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
             $app['cache_dir'].DS.'twig',
             $app['cache_dir'].DS.'profiler',
                 ), $rights);
-        
+
         $fs->chmod($app['cache_dir'], $rights);
         $fs->chmod($app['cache_dir'].DS.'http', $rights);
         $fs->chmod($app['cache_dir'].DS.'twig', $rights);
@@ -116,17 +115,24 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
         $fs->mkdir($app['log_dir'], 0775);
         $fs->chmod($app['log_dir'], 0775);
     }
-    
-    
+
     $app['data_dir'] = $app['root_dir'].DS.'data';
     if (!$fs->exists($app['data_dir'])) {
         $fs->mkdir($app['data_dir'], 0777);
     }
-    
+
     $app['uploads_dir'] = $app['web_dir'].DS.'uploads';
     if (!$fs->exists($app['uploads_dir'])) {
         $fs->mkdir($app['uploads_dir'], 0777);
     }
+
+    // Application specific parameters
+    $app['datalea'] = array(
+        'max_variables' => isset($config['max_variables']) ? (int) $config['max_variables'] : 100,
+        'max_columns' => isset($config['max_columns']) ? (int) $config['max_columns'] : 80,
+        'max_rows' => isset($config['max_rows']) ? (int) $config['max_rows'] : 2000,
+    );
+
     /*
      * add service providers
      */
@@ -145,14 +151,15 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     $app->register(new ValidatorServiceProvider());
 
     $app->register(new ServiceControllerServiceProvider());
-    
+
     // must be registered before twig
     $app->register(new FormServiceProvider(), array(
         'form.secret' => '4fws6dg4w6df4<qg4sh4646qfgsd4',
     ));
-    
+
     $app['form.extensions'] = $app->share($app->extend('form.extensions', function ($extensions) use ($app) {
         $extensions[] = new BootstrapFormExtension();
+
         return $extensions;
     }));
 
@@ -170,16 +177,17 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
                 $translator->addResource('yaml', $app['app_dir'].DS.'translations'.DS.$domain.'.'.$lang.'.yml', $lang);
             }
         }
+
         return $translator;
     }));
-    
+
      $app->before(function () use ($app) {
         if ($locale = $app['request']->get('_locale')) {
             $app['locale'] = $locale;
             $app['translator']->setLocale($app['locale']);
         }
     });
-    
+
     // add twig templating
     $app->register(new TwigServiceProvider(), array(
         'twig.path' => __DIR__.'/views',
@@ -197,10 +205,9 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
 
     $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
         // add custom globals, filters, tags, ...
-
         return $twig;
     }));
-    
+
     // Web Profiler and Monolog
     if ($app['debug']) {
         $app->register(new MonologServiceProvider(), array(
@@ -210,10 +217,10 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
         $app->register($p = new WebProfilerServiceProvider(), array(
             'profiler.cache_dir' => $app['cache_dir'].DS.'profiler',
         ));
-        
+
         $app->mount('/_profiler', $p);
     }
-    
+
     //add swiftmailer with default SMTP transport
     if (!empty($config['swiftmailer'])) {
         $app->register(new SwiftmailerServiceProvider(), array(

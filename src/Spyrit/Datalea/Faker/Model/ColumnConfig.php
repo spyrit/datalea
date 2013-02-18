@@ -28,16 +28,30 @@ class ColumnConfig
     protected $convertMethod;
 
     /**
-     * 
-     * @param string $name default = null
-     * @param string $value default = null
-     * @param string $convertMethod default = null
+     *
+     * @var bool
      */
-    public function __construct($name = null, $value = null, $convertMethod = null)
+    protected $unique;
+
+    /**
+     *
+     * @var array
+     */
+    protected $usedVariables = array();
+
+    /**
+     *
+     * @param string $name          default = null
+     * @param string $value         default = null
+     * @param string $convertMethod default = null
+     * @param bool   $unique        default = false
+     */
+    public function __construct($name = null, $value = null, $convertMethod = null, $unique = false)
     {
         $this->setName($name);
         $this->setValue($value);
         $this->setConvertMethod($convertMethod);
+        $this->setUnique($unique);
     }
 
     public function getName()
@@ -48,9 +62,10 @@ class ColumnConfig
     public function setName($name)
     {
         $this->name = preg_replace('/[^a-zA-Z0-9\-\s_]/', '', $name);
+
         return $this;
     }
-    
+
     public function getValue()
     {
         return $this->value;
@@ -59,9 +74,10 @@ class ColumnConfig
     public function setValue($value)
     {
         $this->value = $value;
+
         return $this;
     }
-    
+
     public function getConvertMethod()
     {
         return $this->convertMethod;
@@ -69,12 +85,26 @@ class ColumnConfig
 
     public function setConvertMethod($convertMethod)
     {
-        $this->convertMethod = $convertMethod;
+        $this->convertMethod = (string) $convertMethod;
+        $this->usedVariables = array();
+
+        return $this;
+    }
+
+    public function getUnique()
+    {
+        return $this->unique;
+    }
+
+    public function setUnique($unique)
+    {
+        $this->unique = (bool) $unique;
+
         return $this;
     }
 
     /**
-     * 
+     *
      * @return array
      */
     public static function getAvailableConvertMethods()
@@ -96,10 +126,97 @@ class ColumnConfig
             'remove_accents_capitalize_words' => 'remove accents and capitalize words',
         );
     }
-        
+
     /**
-     * 
-     * @param array $availableVariables
+     *
+     * @return array
+     */
+    public function getUsedVariables()
+    {
+        if (empty($this->usedVariables)) {
+            if (preg_match_all('/%([a-zA-Z0-9_]+)%/', $this->getValue(), $matches, PREG_PATTERN_ORDER)) {
+                if (isset($matches[1])) {
+                    $this->usedVariables = $matches[1];
+                }
+            }
+        }
+
+        return $this->usedVariables;
+    }
+
+    /**
+     *
+     * @param  array                                   $variableConfigs
+     * @return \Spyrit\Datalea\Faker\Model\UniqueTuple
+     */
+    public function createUniqueTuple(array $variableConfigs = array())
+    {
+        $usedVariables = $this->getUsedVariables();
+        if ($this->getUnique() && !empty($usedVariables)) {
+            $usedVariableConfigs = array();
+            foreach ($variableConfigs as $variableConfig) {
+                if (in_array($variableConfig->getName(), $usedVariables)) {
+                    $usedVariableConfigs[$variableConfig->getName()] = $variableConfig;
+                }
+            }
+
+            if (!empty($usedVariableConfigs)) {
+                return new UniqueTuple($this, $usedVariableConfigs);
+            }
+        }
+    }
+
+    /**
+     *
+     * @param \Faker\Generator $faker
+     * @param array            $values          generated value will be inserted into this array
+     * @param array            $variableConfigs other variable configs to be replaced in faker method arguments if used
+     * @param array            $uniqueColumns   already generated columns which can not be generated again
+     * @param array            $uniqueValues    already generated values which can not be generated again
+     */
+    public function generateValues(\Faker\Generator $faker, array &$values, array $variableConfigs = array(), array &$uniqueColumns, array &$uniqueValues)
+    {
+        $usedVariables = $this->getUsedVariables();
+
+        if ($this->getUnique() && !empty($usedVariables)) {
+            if (!isset($uniqueColumns[$this->getName()])) {
+                $uniqueColumns[$this->getName()] = array();
+            }
+
+            $try = 0;
+            $inc = 0;
+            do {
+                $columnValues = array();
+                foreach ($usedVariables as $usedVariable) {
+                    if (isset($variableConfigs[$usedVariable])) {
+                        $variableConfigs[$usedVariable]->generateValue($faker, $values, $variableConfigs, $uniqueValues, true);
+                        $columnValues[$usedVariable] = $values[$usedVariable];
+                    }
+                }
+
+                $column = implode('-', $columnValues);
+                $try++;
+                if ($try > 10) {
+                    $inc++;
+                    $column = is_numeric($column) ? $column+1 : $column.'_'.$inc;
+                }
+            } while (in_array($column, $uniqueColumns[$this->getName()]));
+
+            $uniqueColumns[$this->getName()][] = $column;
+        } else {
+            foreach ($usedVariables as $usedVariable) {
+                if (isset($variableConfigs[$usedVariable])) {
+                    $variableConfigs[$usedVariable]->generateValue($faker, $values, $variableConfigs, $uniqueValues, false);
+                }
+            }
+        }
+
+        var_dump($columnValue);
+    }
+
+    /**
+     *
+     * @param  array  $availableVariables
      * @return string
      */
     public function replaceVariable(array $availableVariables)
@@ -110,19 +227,19 @@ class ColumnConfig
             },
             $this->getValue()
         );
-            
+
         switch ($this->getConvertMethod()) {
             case 'lowercase':
-                $value = strtolower($value);
+                $value = $this->tolower($value, 'UTF-8');
                 break;
             case 'uppercase':
-                $value = strtoupper($value);
+                $value = $this->toupper($value, 'UTF-8');
                 break;
             case 'capitalize':
-                $value = ucfirst($value);
+                $value = $this->ucfirst($value);
                 break;
             case 'capitalize_words':
-                $value = ucwords($value);
+                $value = $this->ucwords($value);
                 break;
             case 'absolute':
                 $value = abs($value);
@@ -131,16 +248,16 @@ class ColumnConfig
                 $value = $this->removeAccents($value);
                 break;
             case 'remove_accents_lowercase':
-                $value = strtolower($this->removeAccents($value));
+                $value = $this->tolower($this->removeAccents($value), 'UTF-8');
                 break;
             case 'remove_accents_uppercase':
-                $value = strtoupper($this->removeAccents($value));
+                $value = $this->toupper($this->removeAccents($value), 'UTF-8');
                 break;
             case 'remove_accents_capitalize':
-                $value = ucfirst($this->removeAccents($value));
+                $value = $this->ucfirst($this->removeAccents($value));
                 break;
             case 'remove_accents_capitalize_words':
-                $value = ucwords($this->removeAccents($value));
+                $value = $this->ucwords($this->removeAccents($value));
                 break;
             case 'as_bool':
                 $value = (bool) $value;
@@ -157,23 +274,51 @@ class ColumnConfig
             default:
                 break;
         }
-            
+
         return $value;
     }
-    
+
+    protected function tolower($str)
+    {
+        return mb_strtolower($str, 'UTF-8');
+    }
+
+    protected function toupper($str)
+    {
+        return mb_strtoupper($str, 'UTF-8');
+    }
+
+    protected function ucwords($str)
+    {
+        return  mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
+    }
+
+    protected function ucfirst($str)
+    {
+        $length = mb_strlen($str);
+        if ($length > 1) {
+            $first = mb_substr($str, 0, 1, 'UTF-8');
+            $rest = mb_substr($str, 1, $length, 'UTF-8');
+
+            return  mb_strtoupper($first, 'UTF-8').$rest;
+        } else {
+            return  mb_strtoupper($str, 'UTF-8');
+        }
+    }
+
     /**
      * replace accent character by normal character
      *
      * @param string $string
-     * @param string $charset default = 'utf-8'
+     * @param string $charset default = 'UTF-8'
      *
      * @return string
      */
-    protected function removeAccents($string, $charset='utf-8')
+    protected function removeAccents($string, $charset='UTF-8')
     {
         $string = htmlentities($string, ENT_NOQUOTES, $charset);
         $string = preg_replace('#&([A-za-z])(?:acute|cedil|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $string);
-        $string = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $string); // pour les ligatures e.g. '&oelig;'
+        $string = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $string); // for ligatures e.g. '&oelig;'
         $string = html_entity_decode($string,ENT_NOQUOTES , $charset);
 
         return $string;

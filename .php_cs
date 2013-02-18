@@ -2,6 +2,7 @@
 
 $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->exclude(array(
+      'app/cache',
       'model/om',
       'model/map',
       'vendor',

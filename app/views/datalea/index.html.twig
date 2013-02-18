@@ -6,21 +6,18 @@
 {% block header_content %}
 <div class="row">
     <div class="span7">
-        <h1>{{ 'Need realistic sample data ?' }}</h1>
+        <h1>{{ 'about.description.title'|trans() }}</h1>
+        <p>{{ 'about.description.line1'|trans() }}</p>
         <p>
-            DATALEA vous permet facilement de générer des données de test vraiment réalistes et de les exporter dans le format de votre choix. 
+            {{ 'about.description.line2'|trans() }}<br/>
+            {{ 'about.based_on'|trans({'%name%': 'Francois Zaninotto'}) }} <a href="https://github.com/fzaninotto/Faker" target="_blank" title="{{ 'Faker' }}">{{ 'Faker' }}</a>
         </p>
-        
-        <p>
-            DATALEA prend en charge la gestion des dépendances entre les champs ou l’unicité des données, et vous permet de recharger votre configuration pour l’adapter et recréer rapidement un nouveau jeu de données. Un atout précieux pour tester vos applications de manière fiable.
-        </p>
-        
-        <a href="{{ path('datalea_generate') }}" title="{{ 'Try Datalea generator' }}" class="btn btn-large btn mt20"><i class="icon-beaker icon-large"></i> {{ 'Try it now' }}</a>
-        <a href="https://github.com/spyrit/datalea" class="btn btn-primary btn-large mt20 ml20" target="_blank"><i class="icon-github-alt icon-large"></i> {{ 'Fork me on Github' }}</a>
+        <a href="{{ path('datalea_generate') }}" title="{{ 'about.try_datalea'|trans|capitalize }}" class="btn btn-large btn mt20"><i class="icon-beaker icon-large"></i>{{ 'about.try_it'|trans|capitalize }}</a>
+        <a href="https://github.com/spyrit/datalea" class="btn btn-primary btn-large mt20 ml20" target="_blank" title="{{ 'about.fork_github'|trans|capitalize}}"><i class="icon-github-alt icon-large"></i> {{ 'about.fork_me'|trans|capitalize }}</a>
     </div>
 
     <div class="span4 offset1">
-        <img src="img/db.png" alt="Generate data" title="Generate data" />
+        <img src="/img/db.png" alt="Generate data" title="{{ 'Generate data'|trans|capitalize }}" />
     </div>
 </div>
 {% endblock header_content %}
@@ -185,21 +182,6 @@
             </div>
 
         </div>
-</section>
-
-
-<section class="section">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <h2>{{ 'Datalea - a random test data generator' }}</h2>
-                <p>{{ 'A highly customizable random data generator to dump test data in various output format.' }}<br/>{{ 'Based on Francois Zaninotto' }} <a href="https://github.com/fzaninotto/Faker" target="_blank">{{ 'Faker Library' }}</a></p>
-                <a href="{{ path('datalea_generate') }}" title="Try Datalea generator" class="btn btn-large"><i class="icon-beaker icon-large"></i>  {{ 'Try it now' }}</a>
-                <a href="https://github.com/spyrit/datalea" class="btn btn-primary btn-large" target="_blank" ><i class="icon-github icon-large"></i> {{ 'Fork me on Github' | trans }}</a>
-            </div>
-
-        </div>
-    </div>
 </section>
 
 {% endblock %}
