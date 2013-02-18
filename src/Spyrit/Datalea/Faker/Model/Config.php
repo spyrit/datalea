@@ -78,31 +78,6 @@ class Config
         );
     }
 
-    public static function getAvailableFakerLocale()
-    {
-        return array(
-            'bg_BG' => 'Bulgarian - Bulgaria',
-            'cs_CZ' => 'Czech - Czech Republic',
-            'da_DK' => 'Danish - Denmark',
-            'de_AT' => 'German - Austria',
-            'de_DE' => 'German - Germany',
-            'en_GB' => 'English - United Kingdom',
-            'en_US' => 'English - United States',
-            'es_AR' => 'Spanish - Argentina',
-            'es_ES' => 'Spanish - Spain',
-            'fi_FI' => 'Finnish - Finland',
-            'fr_FR' => 'French - France',
-            'it_IT' => 'Italian - Italy',
-            'pl_PL' => 'Polish - Poland',
-            'pt_BR' => 'Portuguese - Brazil',
-            'ru_RU' => 'Russian - Russia',
-            'sk_SK' => 'Slovak - Slovakia',
-            'sr_Cyrl_RS' => 'Serbian (Cyrillic) - Serbia',
-            'sr_Latn_RS' => 'Serbian (Latin) - Serbia',
-            'tr_TR' => 'Turkish - Turkey',
-        );
-    }
-
     public function getLocale()
     {
         return $this->locale;

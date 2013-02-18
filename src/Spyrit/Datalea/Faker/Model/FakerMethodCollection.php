@@ -77,13 +77,8 @@ class FakerMethodCollection
             if (!isset($result[$fakerMethod->getProvider()])) {
                 $result[$fakerMethod->getProvider()] = array();
             }
-            $args = '';
             
-            foreach ($fakerMethod->getArguments() as $arg => $default) {
-                $args .= $arg.' = '.$default;
-            }
-            
-            $result[$fakerMethod->getProvider()][$fakerMethod->getMethod()] = $fakerMethod->getMethod().(!empty($args) ? '('.$args.')' : '');
+            $result[$fakerMethod->getProvider()][$fakerMethod->getMethod()] = $fakerMethod->getMethodForSelect();
         }
         
         return $result;
@@ -99,7 +94,46 @@ class FakerMethodCollection
         return $collection->getFakerMethodsForSelect();
     }
     
+    /**
+     * 
+     * @param string $culture
+     * @return string
+     */
+    public static function getCultureLabel($culture)
+    {
+        $cultures = self::getAvailableFakerCulture();
+        return isset($cultures[$culture]) ? $cultures[$culture] : '';
+    }
     
+    /**
+     * 
+     * @return array
+     */
+    public static function getAvailableFakerCulture()
+    {
+        return array(
+            'bg_BG' => 'Bulgarian - Bulgaria',
+            'cs_CZ' => 'Czech - Czech Republic',
+            'da_DK' => 'Danish - Denmark',
+            'de_AT' => 'German - Austria',
+            'de_DE' => 'German - Germany',
+            'en_GB' => 'English - United Kingdom',
+            'en_US' => 'English - United States',
+            'es_AR' => 'Spanish - Argentina',
+            'es_ES' => 'Spanish - Spain',
+            'fi_FI' => 'Finnish - Finland',
+            'fr_FR' => 'French - France',
+            'it_IT' => 'Italian - Italy',
+            'pl_PL' => 'Polish - Poland',
+            'pt_BR' => 'Portuguese - Brazil',
+            'ru_RU' => 'Russian - Russia',
+            'sk_SK' => 'Slovak - Slovakia',
+            'sr_Cyrl_RS' => 'Serbian (Cyrillic) - Serbia',
+            'sr_Latn_RS' => 'Serbian (Latin) - Serbia',
+            'tr_TR' => 'Turkish - Turkey',
+        );
+    }
+
     /**
      * 
      * @return \Spyrit\Datalea\Faker\Model\FakerMethodCollection
@@ -537,25 +571,25 @@ class FakerMethodCollection
                 'examples'=> array('\'2003-03-15 02:00:49\''),
             ),
             array(
-                'provider' => 'DateTime', 'method' => 'dateTimeThisCentury(format = \'Y-m-d H:i:s\')', 
+                'provider' => 'DateTime', 'method' => 'dateTimeThisCentury', 
                 'culture' => '', 
                 'arguments' => array('format' => '\'Y-m-d H:i:s\''), 
                 'examples'=> array('\'1915-05-30 19:28:21\''),
             ),
             array(
-                'provider' => 'DateTime', 'method' => 'dateTimeThisDecade(format = \'Y-m-d H:i:s\')', 
+                'provider' => 'DateTime', 'method' => 'dateTimeThisDecade', 
                 'culture' => '', 
                 'arguments' => array('format' => '\'Y-m-d H:i:s\''), 
                 'examples'=> array('\'2007-05-29 22:30:48\''),
             ),
             array(
-                'provider' => 'DateTime', 'method' => 'dateTimeThisYear(format = \'Y-m-d H:i:s\')', 
+                'provider' => 'DateTime', 'method' => 'dateTimeThisYear', 
                 'culture' => '', 
                 'arguments' => array('format' => '\'Y-m-d H:i:s\''), 
                 'examples'=> array('\'2011-02-27 20:52:14\''),
             ),
             array(
-                'provider' => 'DateTime', 'method' => 'dateTimeThisMonth(format = \'Y-m-d H:i:s\')', 
+                'provider' => 'DateTime', 'method' => 'dateTimeThisMonth', 
                 'culture' => '', 
                 'arguments' => array('format' => '\'Y-m-d H:i:s\''), 
                 'examples'=> array('\'2011-10-23 13:46:23\''),

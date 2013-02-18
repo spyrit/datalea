@@ -3,11 +3,11 @@
 namespace Spyrit\Datalea\Form\Type;
 
 use \Spyrit\Datalea\Faker\Dump\Dumper;
-use \Spyrit\Datalea\Faker\Model\Config;
+use \Spyrit\Datalea\Faker\Model\FakerMethodCollection;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Constraints;
+use \Symfony\Component\Validator\Constraints;
 
 /**
  * ConfigType
@@ -18,7 +18,7 @@ class ConfigType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $locales = Config::getAvailableFakerLocale();
+        $locales = FakerMethodCollection::getAvailableFakerCulture();
         $formats = Dumper::getAvailableFormats();
 
         $builder
