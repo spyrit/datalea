@@ -17,7 +17,7 @@ class VariableConfigType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $methodsChoices = FakerMethodCollection::getAvailableFakerMethods();
+        $methodsChoices = FakerMethodCollection::getAvailableFakerMethodsForSelect();
 
         $methods = array();
         foreach ($methodsChoices as $group => $methodsChoice) {
