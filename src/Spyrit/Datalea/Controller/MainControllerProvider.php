@@ -41,7 +41,12 @@ class MainControllerProvider implements ControllerProviderInterface
             ->get('/{_locale}', $controller.'homeAction')
             ->value('_locale', 'en')
             ->bind('datalea_homepage');
-
+        
+        $controllers
+            ->get('/{_locale}/tutorial', $controller.'tutorialAction')
+            ->value('_locale', 'en')
+            ->bind('datalea_tutorial');
+        
         // config form
         $controllers
             ->match('/{_locale}/generate', $controller.'generateAction')
@@ -58,8 +63,17 @@ class MainControllerProvider implements ControllerProviderInterface
 
     public function homeAction(Request $request, Application $app)
     {
-        return $app['twig']->render('datalea/index.html.twig', array(
-        ));
+        return $app['twig']->render('datalea/index.html.twig', array());
+    }
+    
+    public function tutorialAction(Request $request, Application $app)
+    {
+        return $app['twig']->render('datalea/tutorial.html.twig', array());
+    }
+    
+    public function aboutAction(Request $request, Application $app)
+    {
+        return $app['twig']->render('datalea/about.html.twig', array());
     }
 
     protected function setUserExampleConfig(Config $config)

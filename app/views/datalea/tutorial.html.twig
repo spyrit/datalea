@@ -16,23 +16,76 @@
             <div class="row">
 
                 <div class="span12">
+                    <h1>{{ 'Tutorial' }}</h1>
+                    
+                    <h2>{{ 'Génération d\'une liste utilisateur' }}</h2>
+                    <p>Pour illustrer le fonctionnement de DATALEA, prenons l’un des cas les plus classiques : la génération d’une liste d’utilisateurs. Un utilisateur, c’est une personne physique, avec un prénom et un nom. Mais comme utilisateur du site, il a aussi une adresse électronique, un login et un mot de passe. Mais différentes données ne sont pas indépendantes. L’email est de la forme prenom.nom@nomdelasociete.com, et le login est composé de la première lettre du prenom et du nom, en minuscule. Il nous faut aussi un numéro de téléphone.</p>
+                    <p>Voyons comment obtenir cela avec DATALEA.</p>
+                    
+                    <ol>
+                        <li>
+                            <p class="bold">Tout d’abord nous définissions les paramètres généraux du fichier :<p>
+                            <ul>
+                                <li>La langue / le pays (ce qui permettra d’avoir des numéros de téléphone</li>
+                                <li>L’encodage </li>
+                                <li>Puis nous allons définir quatre variables : le prenom, le nom, le mot de passe, la société.</li>
+                            </ul>
+                            <p>
+                            [screenshot]
+                            </p>
+                        </li>
+                        <li>
+                            <p class="bold">Puis nous allons définir les colonnes du fichier en fonction de ces variables.</p>
+                            <ul>
+                                <li>La colonne « prenom » reprend telle quelle la variable prenom, sans autre modification.</li>
+                                <li>De même la colonne « nom » reprend telle quelle la variable nom.</li>
+                                <li>La colonne « email » est défini en concaténant la variable prenom, la chaîne « . », la variable nom, et la chaîne de caractères représentant la suite « @nomdelasociete.com ». A noter que nous appliquons la fonction XXX pour convertir le prénom et le nom afin qu’ils soient compatibles avec une adresse email (en minuscule, sans accents etc.).</li>
+                                <li>La colonne « login » est également construite à partir des variables « prenom » et « email », en appliquant la fonction YYY qui permet de ne prendre que la première lettre du prenom et la fonction ZZZ qui convertit le nom en remplaçant les caractères accentués, espaces etc.</li>
+                                <li>Comme le login doit être unique dans l’application, on coche la case « unique » pour que DATALEA assure l’unicité des données dans cette colonne.</li>
+                            </ul>
+                            
+                            <p>La colonne « password » appelle la variable « mot de passe » en lui appliquant la fonction d’encryptage souhaitée.</p>
+                            
+                            <p>[screenshot]</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+                    
+    <section class="section gray">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <div class="well mb0">
+                        <p><i class="icon-lightbulb"></i> A noter : il est possible de générer deux colonnes, l’une avec le mot de passe en clair, l’autre avec le mot de passe encrypté. La seconde est destinée à être insérée en base dans l’application, la première permet de connaître les mots de passes pour pouvoir effectuer les tests avec les comptes utilisateurs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+                    
+    <section class="section">
+        <div class="container">
+            <div class="row">
 
+                <div class="span12">
+                    
+                    <p>Il ne reste plus qu’à choisir le ou les formats d’export attendu. Si l’on choisit le CSV, une ligne supplémentaire permet de préciser les options propres à ce format.
+                    Puis on clique sur « Generate data » pour télécharger les données, regroupées dans une archive ZIP. Ce fichier contient un fichier pour chaque format d’export séléctionné, plus un fichier XML contenant l’ensemble de la définition du jeu de test.
+                    Pour générer un nouveau jeu de test, il suffit de recharger ce fichier XML. </p>
+                    <p>
+                    [screenshot]
+                    </p>    
+                    
+                    <p>
+                    Le formulaire est aussitôt pré-rempli avec les précédents paramètres. Nous pouvons alors le modifier si besoin et générer de nouvelles données.</p>
+                    
                 </div>
 
             </div>
         </div>
-</section>
-
-<section class="gray section">
-    <div class="container">
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-
-
-    </div>
 </section>
 
 {% endblock %}
