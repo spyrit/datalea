@@ -454,22 +454,22 @@ JSON;
         $fakeData = $this->getFakeData();
         $name = $this->config->getClassName(true);
         $file = $dir.DS.$name.'.xlsx';
-        
+
         $excel = new \PHPExcel();
         $sheet = $excel->getActiveSheet();
-        
+
         $sheet->setTitle($this->config->getClassNameLastPart());
-        
+
         $col = 0;
         $row = 1;
-        
+
         $header = array_keys($fakeData[0]);
         foreach ($header as $key) {
             $sheet->setCellValueByColumnAndRow($col, $row, $key);
             $sheet->getColumnDimensionByColumn($col)->setAutoSize(true);
             $col++;
         }
-        
+
         foreach ($fakeData as $item) {
             $col = 0;
             $row++;
@@ -478,14 +478,14 @@ JSON;
                 $col++;
             }
         }
-        
+
         $writer = new \PHPExcel_Writer_Excel2007($excel);
         $writer->setPreCalculateFormulas(false);
         $writer->save($file);
-        
+
         return $file;
     }
-    
+
     /**
      *
      * @return string

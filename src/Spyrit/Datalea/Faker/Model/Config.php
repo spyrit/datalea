@@ -101,7 +101,7 @@ class Config
     }
 
     /**
-     * 
+     *
      * @return int
      */
     public function getSeed()
@@ -110,8 +110,8 @@ class Config
     }
 
     /**
-     * 
-     * @param int $seed
+     *
+     * @param  int                                $seed
      * @return \Spyrit\Datalea\Faker\Model\Config
      */
     public function setSeed($seed)
@@ -122,8 +122,8 @@ class Config
     }
 
     /**
-     * 
-     * @param bool $withoutSlashes
+     *
+     * @param  bool   $withoutSlashes
      * @return string
      */
     public function getClassName($withoutSlashes = false)
@@ -132,7 +132,7 @@ class Config
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getClassNameLastPart()
