@@ -7,9 +7,13 @@
 <div class="row">
     <div class="span7">
         <h1>{{ 'Need realistic sample data ?' }}</h1>
-        <p>At vero eos et accusam et justo duo dolores et ea rebum. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+        <p>
+            DATALEA vous permet facilement de générer des données de test vraiment réalistes et de les exporter dans le format de votre choix. 
+        </p>
+        
+        <p>
+            DATALEA prend en charge la gestion des dépendances entre les champs ou l’unicité des données, et vous permet de recharger votre configuration pour l’adapter et recréer rapidement un nouveau jeu de données. Un atout précieux pour tester vos applications de manière fiable.
+        </p>
         
         <a href="{{ path('datalea_generate') }}" title="{{ 'Try Datalea generator' }}" class="btn btn-large btn mt20"><i class="icon-beaker icon-large"></i> {{ 'Try it now' }}</a>
         <a href="https://github.com/spyrit/datalea" class="btn btn-primary btn-large mt20 ml20" target="_blank"><i class="icon-github-alt icon-large"></i> {{ 'Fork me on Github' }}</a>
@@ -26,21 +30,22 @@
 <section class="section">
     <div id="how-does-it-works" class="container">
 
-            <div class="row title">
+        
+        <div class="row title">
                 <div class="span12">
                     <center><h2>{{ 'Ready in 4 steps' }}</h2></center>
                 </div>
             </div>
         
-            <div class="row content">
+        <div class="row content">
                 
                 <div class="span3">
                     <div class="circle">
                         <div class="icon">
-                            <i class="icon-cogs"></i>
+                            <i class="icon-pencil"></i>
                         </div>
                         <div class="description">
-                            {{ 'Set your parameters' }}
+                            {{ 'Define primary data<br />for use as variables' }} 
                         </div>
                     </div>
                 </div>
@@ -51,9 +56,7 @@
                             <i class="icon-columns"></i>
                         </div>
                         <div class="description">
-                            {{ 'Define variables and combine item for' }}<br />
-                            {{ 'creating your' }}<br />
-                            {{ 'columns' }}
+                           {{ 'Created columns<br>combining variables' }} 
                         </div>
                     </div>
                 </div>
@@ -61,10 +64,10 @@
                 <div class="span3">
                     <div class="circle">
                         <div class="icon">
-                            <i class="icon-inbox"></i>
+                            <i class="icon-cogs"></i>
                         </div>
                         <div class="description">
-                            {{ 'Choose your favorite output formats' }}
+                            {{ 'Set parameters and output format' }} 
                         </div>
                     </div>
                 </div>
@@ -75,7 +78,7 @@
                             <i class="icon-cloud-download"></i>
                         </div>
                         <div class="description">
-                            {{ 'Download your data' }}
+                            {{ 'Download your data <br /><span style="color: #00a0dd ; "><i class="icon-plus-sign"></i> config file</span>' }} 
                         </div>
                     </div>
                 </div>
@@ -85,7 +88,7 @@
             <div class="row bonus">
                 <div class="span12">
                     <center>
-                        <i class="icon-plus-sign"></i> Extras bonus : save your whole data generation configuration to re-use and improve it later.
+                        <span style="color: #00a5db;"><i class="icon-plus-sign"></i> Extras bonus :</span> save your whole data generation configuration to re-use and improve it later.
                     </center>
                 </div>
             </div>

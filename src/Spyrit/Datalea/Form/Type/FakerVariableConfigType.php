@@ -44,7 +44,7 @@ class FakerVariableConfigType extends AbstractType
             ))
             ->add('fakerMethod', 'choice', array(
                 'required' => true,
-                'label' => 'Method (See <a target="_blank" href="https://github.com/fzaninotto/Faker#formatters">Faker Formatters</a>)',
+                'label' => 'Method',
                 'help' => 'Select the Faker Formatter method to generate a random value for this variable.<br/> Some methods can have arguments.',
                 'help_type' => 'popover',
 //                'help_popover_trigger' => 'click',

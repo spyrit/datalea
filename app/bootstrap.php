@@ -25,6 +25,7 @@ use \Symfony\Component\HttpKernel\Exception\HttpException;
 use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use \Symfony\Component\Yaml\Exception\ParseException;
 use \Symfony\Component\Yaml\Yaml;
+use \Symfony\Component\Translation\Loader\YamlFileLoader;
 
 // get environment constants or set default
 if (!defined('DS')) {
@@ -160,6 +161,25 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
         'locale_fallback' => empty($config['locale_fallback']) ? 'en' : $config['locale_fallback'],
     ));
 
+    $app['translator'] = $app->share($app->extend('translator', function($translator, $app) {
+        $translator->addLoader('yaml', new YamlFileLoader());
+        $languages = array('en', 'fr');
+        $domains = array('messages', 'validators');
+        foreach ($languages as $lang) {
+            foreach ($domains as $domain) {
+                $translator->addResource('yaml', $app['app_dir'].DS.'translations'.DS.$domain.'.'.$lang.'.yml', $lang);
+            }
+        }
+        return $translator;
+    }));
+    
+     $app->before(function () use ($app) {
+        if ($locale = $app['request']->get('_locale')) {
+            $app['locale'] = $locale;
+            $app['translator']->setLocale($app['locale']);
+        }
+    });
+    
     // add twig templating
     $app->register(new TwigServiceProvider(), array(
         'twig.path' => __DIR__.'/views',

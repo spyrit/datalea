@@ -92,7 +92,7 @@ class FakerConfigType extends AbstractType
             ))
             ->add('variableConfigs', 'collection', array(
 //                'required' => false,
-                'label' => 'Variables',
+                'label' => 'Variables <small>- More details about available methods, see <a target="_blank" href="https://github.com/fzaninotto/Faker#formatters">Faker Formatters</a></small>',
                 'type'   => new FakerVariableConfigType(),
                 'prototype' => true,
                 'allow_add' => true,
