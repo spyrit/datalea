@@ -16,7 +16,6 @@ if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
 }
 
-
 /**
  * MainControllerProvider
  *
@@ -31,39 +30,39 @@ class MainControllerProvider implements ControllerProviderInterface
 
         // controller name to use with method name (instead of using function closure for controller)
         $controller = 'Spyrit\Datalea\Controller\MainControllerProvider::';
-        
+
         // set as many controllers as you want
         $controllers
             ->get('/{_locale}/about', $controller.'homeAction')
             ->value('_locale', 'en')
             ->bind('datalea_about');
-        
+
         $controllers
             ->get('/{_locale}', $controller.'homeAction')
             ->value('_locale', 'en')
             ->bind('datalea_homepage');
-        
+
         // config form
         $controllers
             ->match('/{_locale}/generate', $controller.'generateAction')
-            ->value('_locale', 'en')   
+            ->value('_locale', 'en')
             ->bind('datalea_generate'); //route name for use with url generator
 
         $controllers
             ->post('/{_locale}/load/config', $controller.'loadConfigAction')
-            ->value('_locale', 'en')  
+            ->value('_locale', 'en')
             ->bind('datalea_load_config');
-        
+
         return $controllers;
     }
-    
+
     public function homeAction(Request $request, Application $app)
     {
         return $app['twig']->render('datalea/index.html.twig', array(
         ));
     }
-    
-    protected function setUserExampleConfig(Config $config) 
+
+    protected function setUserExampleConfig(Config $config)
     {
         $config->setClassname('User');
         $config->setFakeNumber(100);
@@ -85,8 +84,8 @@ class MainControllerProvider implements ControllerProviderInterface
         $config->addColumnConfig(new ColumnConfig('email', $var1->getVarName().'.'.$var2->getVarName().'@'.$var3->getVarName(), 'remove_accents_lowercase'));
         $config->addColumnConfig(new ColumnConfig($var4->getName(), $var4->getVarName()));
     }
-    
-    protected function setDefaultConfig(Config $config) 
+
+    protected function setDefaultConfig(Config $config)
     {
         $config->setClassname('');
         $config->setFakeNumber(10);
@@ -97,11 +96,11 @@ class MainControllerProvider implements ControllerProviderInterface
         $config->addVariableConfig($var1);
         $config->addColumnConfig(new ColumnConfig($var1->getName(), $var1->getVarName()));
     }
-    
-    public function loadConfigAction(Request $request, Application $app) 
+
+    public function loadConfigAction(Request $request, Application $app)
     {
         $configFileForm = $app['form.factory']->create(new ConfigFileType());
-        
+
         if ('POST' == $request->getMethod()) {
             $configFileForm->bindRequest($request);
 
@@ -111,34 +110,34 @@ class MainControllerProvider implements ControllerProviderInterface
                 $config = $loader->loadXmlFakerConfig($data['configFile']->getPathname());
             }
         }
-        
+
         if (!isset($config) || !$config instanceof Config) {
             $config = new Config();
             $this->setDefaultConfig($config);
         }
-        
-        $configForm = $app['form.factory']->create(new ConfigType(), $config);
-        
+
+        $configForm = $app['form.factory']->create(new ConfigType(), $config, $app['datalea']);
+
         return $app['twig']->render('datalea/generate.html.twig', array(
             'form' => $configForm->createView(),
             'configFileForm' => $configFileForm->createView(),
         ));
     }
-    
-    public function generateAction(Request $request, Application $app) 
+
+    public function generateAction(Request $request, Application $app)
     {
         $configFileForm = $app['form.factory']->create(new ConfigFileType());
-        
+
         $config = new Config();
-        
+
         if ('GET' == $request->getMethod() && $request->get('reset', 0) != 1) {
             $this->setUserExampleConfig($config);
         } else {
             $this->setDefaultConfig($config);
         }
-        
-        $configForm = $app['form.factory']->create(new ConfigType(), $config);
-        
+
+        $configForm = $app['form.factory']->create(new ConfigType(), $config, $app['datalea']);
+
         if ('POST' == $request->getMethod()) {
             $configForm->bindRequest($request);
 
@@ -146,7 +145,7 @@ class MainControllerProvider implements ControllerProviderInterface
                 $config = $configForm->getData();
                 $config->generateColumns();
                 $date = new \DateTime();
-                
+
                 $dumper = new Dumper($config);
                 $file = $dumper->dump(realpath(sys_get_temp_dir()).DS.'Datalea', $date);
                 $stream = function () use ($file) {
@@ -156,7 +155,7 @@ class MainControllerProvider implements ControllerProviderInterface
                 return $app->stream($stream, 200, array(
                     'Content-Description' => 'File Transfer',
                     'Content-Type' => 'application/zip',
-                    'Content-Disposition' => 'attachment; filename=fakedata_'.$config->getClassNameLastPart().'_'.$date->format('Y-m-d_H-i-s').'.zip',
+                    'Content-Disposition' => 'attachment; filename=datalea_'.$config->getClassNameLastPart().'_'.$date->format('Y-m-d_H-i-s').'.zip',
                     'Content-Transfer-Encoding' => 'binary',
                     'Content-Length' => filesize($file),
                 ));

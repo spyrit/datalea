@@ -18,7 +18,7 @@ class ColumnConfigType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $convertMethods = ColumnConfig::getAvailableConvertMethods();
-        
+
         $builder
             ->add('name', 'text', array(
                 'required' => true,
@@ -73,6 +73,19 @@ class ColumnConfigType extends AbstractType
                     )),
                 )
             ))
+            ->add('unique', 'checkbox', array(
+                'required' => false,
+                'label' => 'Unique',
+                'help' => 'Set this column to be unique through each generated item. Only works if the column use some variables.',
+                'help_type' => 'popover',
+                'help_popover_position' => 'top',
+                'attr' => array(
+                    'style' => 'width: 95%',
+                ),
+                'row_attr' => array(
+                    'class' => 'control-group span1',
+                ),
+            ))
             ;
     }
 
@@ -85,7 +98,7 @@ class ColumnConfigType extends AbstractType
             'data_class' => 'Spyrit\Datalea\Faker\Model\ColumnConfig',
         ));
     }
-    
+
     public function getName()
     {
         return 'datalea_generator_column_config';

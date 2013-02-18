@@ -19,7 +19,7 @@ class CsvFormatType extends AbstractType
     {
         $eols = CsvFormat::getAvailableEols();
         $encodings = CsvFormat::getAvailableEncodings();
-        
+
         $builder
             ->add('delimiter', 'text', array(
                 'required' => true,
@@ -122,7 +122,7 @@ class CsvFormatType extends AbstractType
             'data_class' => 'Spyrit\Datalea\Faker\Model\CsvFormat',
         ));
     }
-    
+
     public function getName()
     {
         return 'datalea_generator_csv_format';

@@ -18,12 +18,12 @@ class VariableConfigType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $methodsChoices = VariableConfig::getAvailableFakerMethods();
-        
+
         $methods = array();
         foreach ($methodsChoices as $group => $methodsChoice) {
             $methods = array_merge($methods, array_keys($methodsChoice));
         }
-        
+
         $builder
             ->add('name', 'text', array(
                 'required' => true,
@@ -61,58 +61,29 @@ class VariableConfigType extends AbstractType
                         'choices' => $methods,
                     )),
                 )
-            ))
-            ->add('fakerMethodArg1', 'text', array(
-                'label' => 'Argument 1',
-                'help' => 'First argument for faker method if available (see method name).',
-                'help_type' => 'popover',
-                'help_popover_position' => 'right',
-                'required' => false,
-                'attr' => array(
-                    'style' => 'width: 95%',
-                ),
-                'row_attr' => array(
-                    'class' => 'argument first-arg',
-                ),
-            ))
-            ->add('fakerMethodArg2', 'text', array(
-                'label' => 'Argument 2',
-                'help' => 'Second argument for faker method if available (see method name)',
-                'help_type' => 'popover',
-                'required' => false,
-                'attr' => array(
-                    'style' => 'width: 95%',
-                ),
-                'row_attr' => array(
-                    'class' => 'argument second-arg',
-                ),
-            ))
-            ->add('fakerMethodArg3', 'text', array(
-                'label' => 'Argument 3',
-                'help' => 'Third argument for faker method if available (see method name)',
-                'help_type' => 'popover',
-                'required' => false,
-                'attr' => array(
-                    'style' => 'width: 95%',
-                ),
-                'row_attr' => array(
-                    'class' => 'argument third-arg',
-                ),
-            ))
-            ->add('unique', 'checkbox', array(
-                'required' => false,
-                'label' => 'Unique',
-                'help' => 'Set this variable to be unique through each generated item',
-                'help_type' => 'popover',
-                'help_popover_position' => 'top',
-                'attr' => array(
-                    'style' => 'width: 95%',
-                ),
-                'row_attr' => array(
-                    'class' => 'unique',
-                ),
-            ))
-            ;
+            ));
+
+            $arguments = array(
+                'first',
+                'second',
+                'third',
+            );
+
+            for ($i = 0; $i < count($arguments); $i++) {
+                $builder->add('fakerMethodArg'.($i+1), 'text', array(
+                    'label' => 'Argument '.($i+1),
+                    'help' => ucfirst($arguments[$i]).' argument for faker method if available (see method name).',
+                    'help_type' => 'popover',
+                    'help_popover_position' => $i == 0 ? 'right' : 'top',
+                    'required' => false,
+                    'attr' => array(
+                        'style' => 'width: 95%',
+                    ),
+                    'row_attr' => array(
+                        'class' => 'argument '.$arguments[$i].'-arg',
+                    ),
+                ));
+            }
     }
 
     /**
@@ -124,7 +95,7 @@ class VariableConfigType extends AbstractType
             'data_class' => 'Spyrit\Datalea\Faker\Model\VariableConfig',
         ));
     }
-    
+
     public function getName()
     {
         return 'datalea_generator_variable_config';
