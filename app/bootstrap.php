@@ -207,6 +207,7 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
     $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
         // add custom globals, filters, tags, ...
         $twig->addGlobal('google_analytics_account', $app['datalea']['google_analytics_account']);
+
         return $twig;
     }));
 
