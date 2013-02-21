@@ -85,7 +85,7 @@ class FakerMethodCollection
 
         return $result;
     }
-
+    
     /**
      *
      * @return array
@@ -93,10 +93,9 @@ class FakerMethodCollection
     public static function getAvailableFakerMethodsForSelect()
     {
         $collection = static::createDefaultCollection();
-
         return $collection->getFakerMethodsForSelect();
     }
-
+    
     /**
      *
      * @param  string $culture
@@ -139,7 +138,8 @@ class FakerMethodCollection
     }
 
     /**
-     *
+     * create a default FakerMethodCollection with all available Faker methods
+     * 
      * @return \Spyrit\Datalea\Faker\Model\FakerMethodCollection
      */
     public static function createDefaultCollection()
@@ -712,10 +712,25 @@ class FakerMethodCollection
                 'examples'=> array(7),
             ),
             array(
-                'provider' => 'Base', 'method' => 'randomNumber',
+                'provider' => 'Base',
+                'method' => 'randomDigitNotNull',
+                'culture' => '',
+                'arguments' => array(),
+                'examples'=> array(5),
+            ),
+            array(
+                'provider' => 'Base', 
+                'method' => 'randomNumber',
                 'culture' => '',
                 'arguments' => array('nbDigits' => 'NULL'),
                 'examples'=> array(79907610),
+            ),
+            array(
+                'provider' => 'Base', 
+                'method' => 'randomFloat',
+                'culture' => '',
+                'arguments' => array('nbMaxDecimals' => 'NULL', 'min' => '0', 'max' => 'NULL'),
+                'examples'=> array(48.8932),
             ),
             array(
                 'provider' => 'Base',
