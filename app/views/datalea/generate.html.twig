@@ -5,66 +5,90 @@
 {% form_theme form 'datalea/form/fields.html.twig' %}
 
 {% block body %}
-{% include 'datalea/config_file_form.html.twig' with {'form': configFileForm} %}
-
-<form action="{{ path('datalea_generate') }}" method="post" {{ form_enctype(form) }}>
-
-    {% if form.vars.errors|length > 0 %}
-    <div class="alert alert-error">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <div class="control-group error">
-            {{ form_errors(form) }}
+<div class="accordion" id="configs">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <h3><a class="accordion-toggle no-decorate" data-toggle="collapse" data-parent="#configs" href="#load-config">
+                {{ 'Loading an existing configuration'|trans|capitalize }}
+            </a></h3>
+        </div>
+        <div id="load-config" class="accordion-body collapse">
+            <div class="accordion-inner">
+                {% include 'datalea/config_file_form.html.twig' with {'form': configFileForm} %}
+            </div>
         </div>
     </div>
-    {% endif %}
-
-    {{ form_row(form.variableConfigs) }}
-    {{ form_row(form.columnConfigs) }}
-
-    <div class="row-fluid">
-        <div class="span6">
-            <fieldset>
-                <legend>{{ 'Settings' | trans }}</legend>
-                <div class="row-fluid">
-                    {{ form_row(form.className) }}
-                    {{ form_row(form.locale) }}
-                </div>
-                <div class="row-fluid">
-                    {{ form_row(form.seed) }}
-                    {{ form_row(form.fakeNumber) }}
-                </div>
-            </fieldset>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <h3><a class="accordion-toggle no-decorate" data-toggle="collapse" data-parent="#configs" href="#create-config">
+                 {{ 'create your configuration and generate your data'|trans|capitalize }}
+            </a></h3>
         </div>
+        <div id="create-config" class="accordion-body collapse in">
+            <div class="accordion-inner">
+                <form action="{{ path('datalea_generate') }}" method="post" {{ form_enctype(form) }}>
 
-        <div class="span6">
-            <fieldset>
-                <legend>{{ 'Output' | trans }}</legend>
-                {{ form_row(form.formats) }}
-                <p><i class="icon-plus"></i> Generator XML Configuration</p>
-            </fieldset>
-            <fieldset id="csv-options">
-                <legend>{{ 'CSV Options' | trans }}</legend>
-                <div class="row-fluid">
-                {{ form_row(form.csvFormat.encoding) }}
-                {{ form_row(form.csvFormat.eol) }}
-                {{ form_row(form.csvFormat.delimiter) }}
-                {{ form_row(form.csvFormat.enclosure) }}
-                {{ form_row(form.csvFormat.escape) }}
-                </div>
-            </fieldset>
+                    {% if form.vars.errors|length > 0 %}
+                    <div class="alert alert-error">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <div class="control-group error">
+                            {{ form_errors(form) }}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {{ form_row(form.variableConfigs) }}
+                    {{ form_row(form.columnConfigs) }}
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <fieldset>
+                                <legend>{{ 'Settings' | trans }}</legend>
+                                <div class="row-fluid">
+                                    {{ form_row(form.className) }}
+                                    {{ form_row(form.locale) }}
+                                </div>
+                                <div class="row-fluid">
+                                    {{ form_row(form.seed) }}
+                                    {{ form_row(form.fakeNumber) }}
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="span6">
+                            <fieldset>
+                                <legend>{{ 'Output' | trans }}</legend>
+                                {{ form_row(form.formats) }}
+                                <p><i class="icon-plus"></i> Generator XML Configuration</p>
+                            </fieldset>
+                            <fieldset id="csv-options">
+                                <legend>{{ 'CSV Options' | trans }}</legend>
+                                <div class="row-fluid">
+                                {{ form_row(form.csvFormat.encoding) }}
+                                {{ form_row(form.csvFormat.eol) }}
+                                {{ form_row(form.csvFormat.delimiter) }}
+                                {{ form_row(form.csvFormat.enclosure) }}
+                                {{ form_row(form.csvFormat.escape) }}
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    {{ form_rest(form) }}
+                     <div class="row-fluid">
+                        <div class="offset4 span4">
+                            <input type="submit" class="btn btn-large btn-block btn-primary" value="{{ 'Generate' | trans }}" />
+                        </div>
+                        <div class="span1">
+                            <a href="{{ path('datalea_generate', {'reset': 1}) }}" class="btn btn-block btn-warning" title="{{ 'Reset the generator config' | trans }}">{{ 'Reset' | trans }}</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-    {{ form_rest(form) }}
-     <div class="row-fluid">
-        <div class="offset4 span4">
-            <input type="submit" class="btn btn-large btn-block btn-primary" value="{{ 'Generate' | trans }}" />
-        </div>
-        <div class="span1">
-            <a href="{{ path('datalea_generate', {'reset': 1}) }}" class="btn btn-block btn-warning" title="{{ 'Reset the generator config' | trans }}">{{ 'Reset' | trans }}</a>
-        </div>
-    </div>
-</form>
-
+</div>
+                
+                
 {% endblock %}
 
 {% block javascripts %}

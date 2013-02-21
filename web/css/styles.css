@@ -83,6 +83,6 @@ table td select {
     padding-right: 5px;
 }
 
-a.help-popover:hover {
+a.no-decorate, a.no-decorate:hover, a.help-popover:hover {
     text-decoration: none;
 }

@@ -14,3 +14,7 @@ about:
   try_it: Try it
   fork_github: Fork me on Github
   fork_me: Fork me
+
+config_file:
+  description1: When you generate and download your data, a %file% file is added to the archive.
+  description2: This file can be loaded to retrieve a previously used Datalea configuration.

@@ -1,3 +1,8 @@
+<p>
+    {{ 'config_file.description1'|trans({'%file%': '<strong>datalea_config.xml</strong>'})|raw}}<br/>
+    {{ 'config_file.description2'|trans}}
+</p>
+
 <form action="{{ path('datalea_load_config') }}" method="post" {{ form_enctype(form) }} style="width: 100%" class="form-inline">
     {% if form.vars.errors|length > 0 %}
     <div class="alert alert-error">
@@ -8,10 +13,6 @@
     </div>
     {% endif %}
     <fieldset>
-        <legend>{{ 'Existing Configuration' | trans }}</legend>
-            {##
-            {{ form_row(form.configFile) }}
-            {##}
             {{ form_errors(form.configFile) }}
             {{ form_label(form.configFile) }}
             {{ form_widget(form.configFile) }}

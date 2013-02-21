@@ -20,7 +20,7 @@ class ConfigFileType extends AbstractType
             ->add('configFile', 'file', array(
                 'required' => true,
                 'label' => 'Configuration File',
-                'help' => 'Select a Datalea configuration XML file',
+                'help' => 'Select your <strong>*_datalea_config.xml</strong> file. ',
                 'help_type' => 'popover',
                 'help_popover_position' => 'right',
                 'constraints' => array(
