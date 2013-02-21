@@ -85,6 +85,56 @@ class FakerMethodCollection
 
         return $result;
     }
+
+    /**
+     * 
+     * @return array
+     */
+    public function getMethodsByCulture()
+    {
+        $result = array();
+        foreach ($this->fakerMethods as $fakerMethod) {
+            $cultures = $fakerMethod->getCultures();
+            foreach ($cultures as $culture) {
+                if (!isset($result[$culture])) {
+                    $result[$culture] = array();
+                }
+                $result[$culture][] = $fakerMethod->getMethod();
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * 
+     * @param bool $withProviderKeys
+     * @return array
+     */
+    public function toArray($withProviderKeys = false)
+    {
+        $result = array();
+        foreach ($this->fakerMethods as $fakerMethod) {
+            $array = array(
+                'provider' => $fakerMethod->getProvider(),
+                'method' => $fakerMethod->getMethod(),
+                'arguments' => $fakerMethod->getArguments(),
+                'cultures' => $fakerMethod->getCultures(),
+                'examples' => $fakerMethod->getExamples(),
+            );
+            
+            if ($withProviderKeys) {
+                if (!isset($result[$fakerMethod->getProvider()])) {
+                    $result[$fakerMethod->getProvider()] = array();
+                }
+                $result[$fakerMethod->getProvider()][$fakerMethod->getMethod()] = $array;
+            } else {
+                $result[$fakerMethod->getMethod()] = $array;
+            }
+        }
+
+        return $result;
+    }
     
     /**
      *

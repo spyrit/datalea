@@ -122,8 +122,12 @@ class MainControllerProvider implements ControllerProviderInterface
             'max_rows' => $app['datalea']['max_rows'],
         ));
 
+        $fakerMethods = \Spyrit\Datalea\Faker\Model\FakerMethodCollection::createDefaultCollection();
+        
         return $app['twig']->render('datalea/generate.html.twig', array(
             'form' => $configForm->createView(),
+            'fakerMethods' => $fakerMethods->toArray(),
+            'fakerMethodsCulture' => $fakerMethods->getMethodsByCulture(),
             'configFileForm' => $configFileForm->createView(),
         ));
     }
@@ -170,9 +174,13 @@ class MainControllerProvider implements ControllerProviderInterface
             }
         }
 
+        $fakerMethods = \Spyrit\Datalea\Faker\Model\FakerMethodCollection::createDefaultCollection();
+        
         // display the form
         return $app['twig']->render('datalea/generate.html.twig', array(
             'form' => $configForm->createView(),
+            'fakerMethods' => $fakerMethods->toArray(),
+            'fakerMethodsCulture' => $fakerMethods->getMethodsByCulture(),
             'configFileForm' => $configFileForm->createView(),
         ));
     }

@@ -72,6 +72,9 @@
 <script type=text/javascript>
 
 jQuery(document).ready(function() {
+    var fakerMethods = {{ fakerMethods|json_encode()|raw }};
+    var fakerMethodsCulture = {{ fakerMethodsCulture|json_encode()|raw }};
+    
     var $columnCollectionHolder = $('#datalea_generator_config_columnConfigs');
     var addColumnConfigSelector = '.add-columnConfigs';
     var $variableCollectionHolder = $('#datalea_generator_config_variableConfigs');
