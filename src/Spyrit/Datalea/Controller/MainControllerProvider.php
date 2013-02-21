@@ -80,8 +80,8 @@ class MainControllerProvider implements ControllerProviderInterface
         $config->addVariableConfig($var4);
         $config->addColumnConfig(new ColumnConfig($var1->getName(), $var1->getVarName()));
         $config->addColumnConfig(new ColumnConfig($var2->getName(), $var2->getVarName()));
-        $config->addColumnConfig(new ColumnConfig('username', $var1->getVarName().'.'.$var2->getVarName(), 'remove_accents_lowercase'));
-        $config->addColumnConfig(new ColumnConfig('email', $var1->getVarName().'.'.$var2->getVarName().'@'.$var3->getVarName(), 'remove_accents_lowercase'));
+        $config->addColumnConfig(new ColumnConfig('username', $var1->getVarName().'.'.$var2->getVarName(), 'remove_accents_lowercase', true));
+        $config->addColumnConfig(new ColumnConfig('email', $var1->getVarName().'.'.$var2->getVarName().'@'.$var3->getVarName(), 'remove_accents_lowercase', true));
         $config->addColumnConfig(new ColumnConfig($var4->getName(), $var4->getVarName()));
     }
 
