@@ -53,16 +53,24 @@ class Dumper
     public static function getAvailableFormats()
     {
         return array(
-            'csv' => 'CSV',
-            'excel' => 'Excel',
-            'yaml' => 'YAML',
-            'xml' => 'XML',
-            'json' => 'JSON',
-            'sql' => 'SQL',
-            'php' => 'PHP',
-            'perl' => 'Perl',
-            'ruby' => 'Ruby',
-            'python' => 'Python',
+            'spreadsheet' => array(
+                'csv' => 'CSV',
+                'excel' => 'Excel',
+            ),
+            'standard' => array(
+                'yaml' => 'YAML',
+                'xml' => 'XML',
+                'json' => 'JSON',
+            ),
+            'database' => array(
+                'sql' => 'SQL',
+            ),
+            'programming' => array(
+                'php' => 'PHP',
+                'perl' => 'Perl',
+                'ruby' => 'Ruby',
+                'python' => 'Python',
+            ),
         );
     }
 

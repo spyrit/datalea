@@ -178,19 +178,19 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fzaninotto/Faker",
-                "reference": "fe9c56fa5bc5761a626c5d41ae3168bff9e5660a"
+                "url": "https://github.com/fzaninotto/Faker.git",
+                "reference": "5d0abf6d629e246f388f355738b90857be25c629"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/fe9c56fa5bc5761a626c5d41ae3168bff9e5660a",
-                "reference": "fe9c56fa5bc5761a626c5d41ae3168bff9e5660a",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/5d0abf6d629e246f388f355738b90857be25c629",
+                "reference": "5d0abf6d629e246f388f355738b90857be25c629",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2013-02-11 13:47:46",
+            "time": "2013-02-20 16:49:53",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -223,13 +223,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Seldaek/monolog",
-                "reference": "48f22f4519ed17b4754c4b561101d19aeb0d0236"
+                "url": "https://github.com/Seldaek/monolog.git",
+                "reference": "047488810f0a1d2f97190a8dd1cd52359afa0ede"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/48f22f4519ed17b4754c4b561101d19aeb0d0236",
-                "reference": "48f22f4519ed17b4754c4b561101d19aeb0d0236",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/047488810f0a1d2f97190a8dd1cd52359afa0ede",
+                "reference": "047488810f0a1d2f97190a8dd1cd52359afa0ede",
                 "shasum": ""
             },
             "require": {
@@ -248,7 +248,7 @@
                 "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
                 "raven/raven": "Allow sending log messages to a Sentry server"
             },
-            "time": "2013-02-13 18:09:50",
+            "time": "2013-02-21 09:08:33",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -370,12 +370,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Silex.git",
-                "reference": "44183a2cbf103ae95fc92d59438e92c1b70908d6"
+                "reference": "f683583bff57a943feb40da1f9d8663fff0d7f27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Silex/zipball/44183a2cbf103ae95fc92d59438e92c1b70908d6",
-                "reference": "44183a2cbf103ae95fc92d59438e92c1b70908d6",
+                "url": "https://api.github.com/repos/fabpot/Silex/zipball/f683583bff57a943feb40da1f9d8663fff0d7f27",
+                "reference": "f683583bff57a943feb40da1f9d8663fff0d7f27",
                 "shasum": ""
             },
             "require": {
@@ -411,7 +411,7 @@
                 "symfony/css-selector": ">=2.1,<2.3-dev",
                 "symfony/dom-crawler": ">=2.1,<2.3-dev"
             },
-            "time": "2013-02-18 14:02:01",
+            "time": "2013-02-19 08:41:40",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -451,20 +451,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/Silex-WebProfiler.git",
-                "reference": "917c0d7576bfad8d85c148feb45e4b82aad569f0"
+                "reference": "d23a571f4b370aa040e2de7db24bf203b4745148"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/Silex-WebProfiler/zipball/917c0d7576bfad8d85c148feb45e4b82aad569f0",
-                "reference": "917c0d7576bfad8d85c148feb45e4b82aad569f0",
+                "url": "https://api.github.com/repos/sensiolabs/Silex-WebProfiler/zipball/d23a571f4b370aa040e2de7db24bf203b4745148",
+                "reference": "d23a571f4b370aa040e2de7db24bf203b4745148",
                 "shasum": ""
             },
             "require": {
                 "silex/silex": ">=1.0,<2.0",
-                "symfony/web-profiler-bundle": ">=2.2,<3.0",
-                "symfony/stopwatch": ">=2.2,<3.0"
+                "symfony/web-profiler-bundle": ">=2.2-RC1,<3.0",
+                "symfony/stopwatch": ">=2.2-RC1,<3.0"
             },
-            "time": "2013-02-15 07:30:30",
+            "time": "2013-02-19 15:30:35",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -633,13 +633,13 @@
             "target-dir": "Symfony/Component/BrowserKit",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/BrowserKit",
-                "reference": "v2.2.0-RC2"
+                "url": "https://github.com/symfony/BrowserKit.git",
+                "reference": "f95dd17eaa548908ea97e9ca27144844d1812dfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/BrowserKit/zipball/v2.2.0-RC2",
-                "reference": "v2.2.0-RC2",
+                "url": "https://api.github.com/repos/symfony/BrowserKit/zipball/f95dd17eaa548908ea97e9ca27144844d1812dfd",
+                "reference": "f95dd17eaa548908ea97e9ca27144844d1812dfd",
                 "shasum": ""
             },
             "require": {
@@ -653,7 +653,7 @@
             "suggest": {
                 "symfony/process": "2.2.*"
             },
-            "time": "2013-02-08 16:10:53",
+            "time": "2013-02-17 12:53:31",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -738,19 +738,19 @@
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Config",
-                "reference": "v2.2.0-RC1"
+                "url": "https://github.com/symfony/Config.git",
+                "reference": "9e3732662f0fd958eeab0f42d30af40aea3dad2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/v2.2.0-RC1",
-                "reference": "v2.2.0-RC1",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/9e3732662f0fd958eeab0f42d30af40aea3dad2e",
+                "reference": "9e3732662f0fd958eeab0f42d30af40aea3dad2e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2013-01-31 18:27:04",
+            "time": "2013-02-17 12:27:42",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1080,13 +1080,13 @@
             "target-dir": "Symfony/Component/Form",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Form",
-                "reference": "v2.2.0-RC2"
+                "url": "https://github.com/symfony/Form.git",
+                "reference": "5972324b2baac1be783f3df2d54d7fd4cb0c00b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Form/zipball/v2.2.0-RC2",
-                "reference": "v2.2.0-RC2",
+                "url": "https://api.github.com/repos/symfony/Form/zipball/5972324b2baac1be783f3df2d54d7fd4cb0c00b5",
+                "reference": "5972324b2baac1be783f3df2d54d7fd4cb0c00b5",
                 "shasum": ""
             },
             "require": {
@@ -1104,7 +1104,7 @@
                 "symfony/validator": "2.2.*",
                 "symfony/http-foundation": "2.2.*"
             },
-            "time": "2013-02-08 16:10:58",
+            "time": "2013-02-19 07:14:41",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1139,19 +1139,19 @@
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/HttpFoundation",
-                "reference": "v2.2.0-RC2"
+                "url": "https://github.com/symfony/HttpFoundation.git",
+                "reference": "45d7243bf80397a478320c3b30d2fa2aa88fefaa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.2.0-RC2",
-                "reference": "v2.2.0-RC2",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/45d7243bf80397a478320c3b30d2fa2aa88fefaa",
+                "reference": "45d7243bf80397a478320c3b30d2fa2aa88fefaa",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2013-02-11 12:46:49",
+            "time": "2013-02-17 13:09:02",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1189,13 +1189,13 @@
             "target-dir": "Symfony/Component/HttpKernel",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/HttpKernel",
-                "reference": "cec254f40ea9baaa2b90de7ca6de236de76823eb"
+                "url": "https://github.com/symfony/HttpKernel.git",
+                "reference": "b6ceb27eb815950d04c2795f5e9b2ede5690c539"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/cec254f40ea9baaa2b90de7ca6de236de76823eb",
-                "reference": "cec254f40ea9baaa2b90de7ca6de236de76823eb",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/b6ceb27eb815950d04c2795f5e9b2ede5690c539",
+                "reference": "b6ceb27eb815950d04c2795f5e9b2ede5690c539",
                 "shasum": ""
             },
             "require": {
@@ -1223,7 +1223,7 @@
                 "symfony/dependency-injection": "2.2.*",
                 "symfony/finder": "2.2.*"
             },
-            "time": "2013-02-13 01:35:51",
+            "time": "2013-02-20 22:12:30",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1412,19 +1412,19 @@
             "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Process",
-                "reference": "v2.2.0-RC1"
+                "url": "https://github.com/symfony/Process.git",
+                "reference": "dd5c62d414fd2a755717cc14a381cef54ec35205"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/v2.2.0-RC1",
-                "reference": "v2.2.0-RC1",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/dd5c62d414fd2a755717cc14a381cef54ec35205",
+                "reference": "dd5c62d414fd2a755717cc14a381cef54ec35205",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2013-01-31 18:27:04",
+            "time": "2013-02-18 21:28:10",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1870,13 +1870,13 @@
             "target-dir": "Symfony/Bundle/WebProfilerBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/WebProfilerBundle",
-                "reference": "87ce0629173ebd265bbfd011fd35b95ba89c6864"
+                "url": "https://github.com/symfony/WebProfilerBundle.git",
+                "reference": "47dca74f9987989f95e88fa6aa289546a698ba61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/WebProfilerBundle/zipball/87ce0629173ebd265bbfd011fd35b95ba89c6864",
-                "reference": "87ce0629173ebd265bbfd011fd35b95ba89c6864",
+                "url": "https://api.github.com/repos/symfony/WebProfilerBundle/zipball/47dca74f9987989f95e88fa6aa289546a698ba61",
+                "reference": "47dca74f9987989f95e88fa6aa289546a698ba61",
                 "shasum": ""
             },
             "require": {
@@ -1890,7 +1890,7 @@
                 "symfony/dependency-injection": ">=2.0,<3.0",
                 "symfony/stopwatch": ">=2.2,<2.4-dev"
             },
-            "time": "2013-02-11 10:13:11",
+            "time": "2013-02-18 21:28:20",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -2019,18 +2019,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "ac86c6368c8b1ed27adb436af54d0398b64cab1f"
+                "reference": "15336c154c960f7e55e8b9fc1043ce7764ed7edc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/ac86c6368c8b1ed27adb436af54d0398b64cab1f",
-                "reference": "ac86c6368c8b1ed27adb436af54d0398b64cab1f",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/15336c154c960f7e55e8b9fc1043ce7764ed7edc",
+                "reference": "15336c154c960f7e55e8b9fc1043ce7764ed7edc",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2013-02-17 19:51:08",
+            "time": "2013-02-21 06:47:52",
             "type": "library",
             "extra": {
                 "branch-alias": {
