@@ -196,7 +196,7 @@ class ColumnConfig
 
                 $column = implode('-', $columnValues);
                 $try++;
-                if ($try > 10) {
+                if ($try > 4) {
                     $inc++;
                     $column = is_numeric($column) ? $column+1 : $column.'_'.$inc;
                 }
