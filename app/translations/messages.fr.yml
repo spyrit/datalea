@@ -1,20 +1,190 @@
+global:
+  date_format: d/m/Y
+
+project:
+  title: Datalea
+  
 base:
   subtitle: Generateur de données de test avancé
   power_by: propulsé par
 
 menu:
+  homepage: accueil
+  tutorial: tutoriel
   about: à propos
   generate: générateur
   github: projet github
 
-about:
-  title: 'Datalea - un générateur aleatoire de données de test'
+home:
+  header:
+    generate_data: Generate data
+    
+  steps:
+    title: Prêt en 4 étapes
+    1: Définissez les données<br />de base à utiliser<br /> en variables
+    2: Créez les colonnes<br>en combinant les variables
+    3: Paramétrez et choisissez les formats d'export
+    4:
+      download: Téléchargez vos données
+      file: fichier de config.
+    bonus:
+      title: Extras bonus
+      description: sauvegardez l'ensemble de votre configuration de génération pour l'améliorer et la réutiliser plus tard.
+  
+  how_it_works:
+    title: Comment ça marche ?
+    screencast:
+      title: Screencast
+      text: Lorem ipsum dolor sit amet. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+    
+  latest_news:
+    title: Dernières nouvelles
+    news1: "Publication de l'aplication en ligne version SaaS de DATALEA. Rien à installer: essayez-la en ligne !"
+    news1_date: 2013-02-15
+    news2: "Ajout d'une nouvelle fonctionnalité : DATALEA supporte désormais l'unicité des valeurs par colonne."
+    news2_date: 2013-02-07
+    news3: "La toute première version de DATALEA est enfin disponible sur GitHub. Longue vie à DATALEA!"
+    news3_date: 2013-01-30
+
+  faq:
+    title: F.A.Q.
+    question1: Quelle est la différence entre les variables et les colonnes ?
+    answer1: Les données de base correspondent aux informations métiers "source", qui peuvent ensuite être utilisées comme des variables pour définir les colonnes du fichier exporté. Par exemple si l'on doit générer des comptes utilisateurs, le prénom et le nom sont des données de base ; dans le fichier final, on aura besoin d'une colonne "login", qui pourra être produit en combinant prénom et nom, convertis en minuscule et sans accents, avec un point entre les deux.
+    question2: Puis-je avoir un compte utilisateur sur DATALEA pour enregistrer ma configuration ?
+    answer2: Il n'est pas prévu à ce jour de comptes utilisateurs sur le site DATALEA. Mais l'archive téléchargée à la fin du processus contient un fichier XML reprenant l'ensemble des données de configuration du jeu de test. Cela permet de recharger ce fichier XML si vous avez besoin de regénérer un nouveau jeu de données.
+    question3: Y a-t-il des conditions d’utilisation particulières ?
+    answer3: "L'utilisation du site DATALEA pour générer des données est libre, et vous pouvez utiliser sans restriction les données de test produites par ce site. Attention, il s'agit bien de données de test : aucune responsabilité ne sera assumée concernant l'import de ces données en production. Vous pouvez par ailleurs forker DATALEA sur github. DATALEA est placé sous licence LGPL, ce qui vous engage à republier toute modification que vous apporterez au code."
+  
+  testimonial:
+    title: Que disent-ils à son propos ?
+    1: Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    2: Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
+    
+   
   based_on: "Basé sur la bibliothèque de %name% :"
   description:
     title: "Besoin de données de tests réalistes ?"
-    line1: Un générateur aléatoire de données, hautement configurable, pouvant générer des données de test dans de multiples formats.
-    line2: ""
+    line1: "DATALEA vous permet facilement de générer des données de test vraiment réalistes et de les exporter dans le format de votre choix."
+    line2: "DATALEA prend en charge la gestion des dépendances entre les champs ou l’unicité des données, et vous permet de recharger votre configuration pour l’adapter et recréer rapidement un nouveau jeu de données. Un atout précieux pour tester vos applications de manière fiable."
   try_datalea: Essayez le générateur Datalea
   try_it: Essayez le
   fork_github: Voir les sources sur Github
   fork_me: code source
+
+about:
+  title: 'À propos'
+  based_on: "Basé sur la librairie de %name% : "
+  try_datalea: Essayez Datalea
+  fork_github: Forkez-nous sur Github
+  fork_me: Forkez-nous
+  
+  
+  text1: DALALEA est une application open source sous licence LGPL développée par SPYRIT systèmes d’information, dans le cadre de ses activités de Recherche & Développement1.
+  text2: ""
+  components_used:
+    text: "DATALEA a été réalisé en utilisant les composants et outils suivants :"
+    silex: Le micro-framework <a href="http://silex.sensiolabs.org/" class="bold">Silex</a> accompagné des <a href="http://symfony.com/components" class="bold" >Composants Symfony 2</a> de Sensio Labs pour la partie applicative
+    bootstrap: <a href="http://twitter.github.com/bootstrap/" class="bold">Bootstrap</a> de Twitter pour les interfaces utilisateurs
+    faker: La bibliothèque <a href="https://github.com/fzaninotto/Faker" class="bold">Faker</a> de F. Zaninotto pour la génération des données
+
+
+  prerequisite: 
+    title: Prérequis techniques
+    text1: DATALEA est utilisable en mode SaaS sur ce site, sans autre prérequis qu’un navigateur récent interprétant le HTML 5.
+    text2: "Si vous préférez téléchargez l’application sur GitHub pour l’adapter à vos besoins, les prérequis sont les suivants :"
+    php: PHP version 5.3.x ou supérieur
+    server: Serveur d'execution Apache/NginX/autres...
+  
+  confidentiality:
+    title: Confidentialité
+    text1: Le site DATALEA ne conserve ni les données aléatoires générées, ni les données de configuration des jeux de test. La configuration est restituée sous forme d’un fichier XML présent dans l’archive téléchargée, et reste donc placée sous la seule responsabilité de l’utilisateur.
+  
+  thanks: Merci à eux !
+  
+tutorial:
+  title: Tutoriel
+  subtitle1: Génération d'une liste utilisateur
+  text1: "Pour illustrer le fonctionnement de DATALEA, prenons l’un des cas les plus classiques : la génération d’une liste d’utilisateurs. Un utilisateur, c’est une personne physique, avec un prénom et un nom. Mais comme utilisateur du site, il a aussi une adresse électronique, un login et un mot de passe. Mais différentes données ne sont pas indépendantes. L’email est de la forme prenom.nom@nomdelasociete.com, et le login est composé de la première lettre du prenom et du nom, en minuscule. Il nous faut aussi un numéro de téléphone."
+  text2: "Voyons comment obtenir cela avec DATALEA."
+  steps:
+    1: 
+      text: "Tout d’abord nous définissions les paramètres généraux du fichier :"
+      language: La langue / le pays (ce qui permettra d’avoir des numéros de téléphone
+      encode: L’encodage 
+      variables: "Puis nous allons définir quatre variables : le prenom, le nom, le mot de passe, la société."
+    2:
+      text: "Puis nous allons définir les colonnes du fichier en fonction de ces variables."
+      column_firstname: La colonne « prenom » reprend telle quelle la variable prenom, sans autre modification.
+      column_lastname: De même la colonne « nom » reprend telle quelle la variable nom.
+      column_email: "La colonne « email » est défini en concaténant la variable prenom, la chaîne « . », la variable nom, et la chaîne de caractères représentant la suite « @nomdelasociete.com ». A noter que nous appliquons la fonction XXX pour convertir le prénom et le nom afin qu’ils soient compatibles avec une adresse email (en minuscule, sans accents etc.)."
+      column_login: "La colonne « login » est également construite à partir des variables « prenom » et « email », en appliquant la fonction YYY qui permet de ne prendre que la première lettre du prenom et la fonction ZZZ qui convertit le nom en remplaçant les caractères accentués, espaces etc."
+      column_login_password: "Comme le login doit être unique dans l’application, on coche la case « unique » pour que DATALEA assure l’unicité des données dans cette colonne."
+      note: "La colonne « password » appelle la variable « mot de passe » en lui appliquant la fonction d’encryptage souhaitée."
+  note1: "A noter : il est possible de générer deux colonnes, l’une avec le mot de passe en clair, l’autre avec le mot de passe encrypté. La seconde est destinée à être insérée en base dans l’application, la première permet de connaître les mots de passes pour pouvoir effectuer les tests avec les comptes utilisateurs.</p>"
+  text3: Il ne reste plus qu’à choisir le ou les formats d’export attendu. Si l’on choisit le CSV, une ligne supplémentaire permet de préciser les options propres à ce format.Puis on clique sur « Generate data » pour télécharger les données, regroupées dans une archive ZIP. Ce fichier contient un fichier pour chaque format d’export séléctionné, plus un fichier XML contenant l’ensemble de la définition du jeu de test.Pour générer un nouveau jeu de test, il suffit de recharger ce fichier XML.
+  text4: Le formulaire est aussitôt pré-rempli avec les précédents paramètres. Nous pouvons alors le modifier si besoin et générer de nouvelles données.
+  
+introduction:
+  title: Introduction
+  text1: "La phase de test est une étape importante dans la réalisation d’une application. Bien réaliser les tests nécessite de disposer de données adaptées, permettant de valider l’application de manière globale : non seulement les tests fonctionnels unitaires, mais aussi les performances face à de grande volumes de données ou encore la pertinence de l’ergonomie face à des données réelles. Quel développeur n’a pas fait l’expérience de devoir repasser sur un écran qui marchait très bien avec 5 données de test, mais s’avérait inexploitable après quelques temps de fonctionnement lorsqu’il y avait plusieurs centaines ou milliers de lignes ?"
+  text2: Générer un grand volume de données qualifiées et réellement représentatives est une opération complexe qui prend du temps.  DATALEA apporte une réponse à ce besoin. Issu de l’expérience de développement de SPYRIT, DATALEA est une solution avancée de génération de données de tests multiformat.
+  assets:
+    text: "Ses principaux atouts :"
+    variables: La gestion de variables métiers réutilisables et combinables pour définir les colonnes du fichier d’export
+    unicity: La gestion de l’unicité des données sur certaines colonnes 
+    config_variables: "L’enregistrement de la configuration d’un jeu de données  dans un fichier XML pour reprendre, adapter et générer rapidement un nouveau jeu."
+  note1: DATALEA est absolument gratuit, utilisable directement en ligne en mode SaaS sur ce site web, ou téléchargeable sur GitHub pour être librement adapté.
+  
+generator:
+  form:
+    variables:
+      title: Variables
+      name: Nom
+      name_help: "Définissez le nom de la variable à utiliser dans la ou les colonnes et son \"pattern\" : <strong>%variable_name%</strong>"
+      method: Méthode
+      method_help: "Choisissez la méthode Faker pour générer une valuer aléatoire pour cette variable.<br/> Certaines méthodes peuvent prendre des paramètres en arguments."
+      argument1: Argument 1
+      argument1_help: "Premier argument de la méthode Faker - si disponible (cf. nom des méthodes)."
+      argument2: Argument 2
+      argument2_help: "Second  argument de la méthode Faker - si disponible (cf. nom des méthodes)."
+      argument3: Argument 3
+      argument3_help: "Troisième Second  argument de la méthode Faker - si disponible (cf. nom des méthodes)."
+    columns:
+      title: Colonnes
+      name: Nom
+      name_help: "Définissez le nom de la colonne"
+      value: Value
+      value_help: "Définissez la valeur de la colonne. Vous pouvez y insérer plusieurs \"patterns\" de variables <strong>%variable_name%</strong> qui vont être remplacées par des variables."
+      convert: Convert
+      convert_help: "Select a filter to transform the column value after variable substitution."
+      unique: Unique
+      unique_help: "Définissez cette colonne comme unique pour que les données générées à chaque ligne soient uniques. Ne fonctionne que si la colonne utilise des variables."
+    settings:
+      title: Paramètres
+      class: Classe ou base de données
+      class_help: "Définissez le nom de la classe objet ou de la base de données pour laquelle les données sont générées"
+      language: Langue
+      seed: Graine
+      seed_help: "Définissez une valeur (graine) pour toujours obtenir le même ensemble de données."
+      row_number: Nombre de ligne
+      row_number_help: "Le nombre de lignes à générer pour chaque colonne."
+    output:
+      title: Sortie 
+      formats: Formats de sortie
+      formats_help: ""
+      generator: Configuration XML de génération
+    csv:
+      title: Options CSV
+      encoding: Encodage
+      eof: Fin de ligne
+      delimiter: Délimiteur
+      enclosure: Encerclement
+      escape: Echapement
+    configuration:
+      title: Configuration existante
+      file: Fichier de configuration
+      file_help: Selectionnez un fichier de configuration reconnu par DATALEA
+    buttons:
+      generate: Générer
+      reset: Réinitialiser
+      load: Charger

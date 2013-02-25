@@ -1,20 +1,190 @@
+global:
+  date_format: Y-m-d
+
+project:
+  title: Datalea
+
 base:
   subtitle: Advanced test data generator
   power_by: powered by
 
 menu:
+  homepage: homepage
+  tutorial: tutorial
   about: about
   generate: generator
   github: github project
+  introduction: introduction
 
-about:
-  title: 'Datalea - a random test data generator'
+home:
+  header:
+    generate_data: Generate data
+    
+  steps:
+    title: Ready in 4 steps
+    1: Define primary data<br />for use as variables
+    2: Created columns<br>combining variables
+    3: Set parameters and output format
+    4:
+      download: Download your data
+      file: config file 
+    bonus:
+      title: Extras bonus
+      description: save your whole data generation configuration to re-use and improve it later.
+  
+  how_it_works:
+    title: How does it work ?
+    screencast:
+      title: Screencast
+      text: Lorem ipsum dolor sit amet. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+    
+  latest_news:
+    title: Latest news
+    news1: "Public release of this website offering a SaaS version of DATALEAD. Nothing to install: try it now online!"
+    news1_date: 2013-02-15
+    news2: "A new feature has been added : DATALEA is now able to ensure unicity on any column."
+    news2_date: 2013-02-07
+    news3: "The very first release of DATALEA is now available on GitHub. Long life to DATALEA !"
+    news3_date: 2013-01-30
+
+  faq:
+    title: F.A.Q.
+    question1: Which is the diference between variables and columns ?
+    answer1: Primary data correspond to the source information, which can be used as variables to define the columns of the exported file. For example, if we want to generate user accounts, the first and last name are primary data, in the final file, you will need a column "login", which can be produced by combining first and last name, converted lower case and without accents, with a dot between the two.
+    question2: Can I have a DATALEA user account to save my configuration ?
+    answer2: User account are not planned at this moment for the online DATALEA version. But the downloaded archive at the end of the process contains an XML file containing all the configuration data of the test set. This allows reloading the XML file if you need to regenerate a new set of data.
+    question3: Is there any special conditions of use ?
+    answer3: "Use of the DATALEA online application to generate data is free, and you can use generated test data without restriction. Attention, these are test data: no liability is assumed for importing data into production. You can also fork DATALEA on github. DATALEA is licensed under the LGPL, which commits you to republish any changes that you make to the code."
+  
+  testimonial:
+    title: What do people say about it ?
+    1: Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    2: Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
+    
+   
   based_on: "Based on %name%'s library : "
   description: 
     title: "Need realistic sample data ?"
-    line1: A highly customizable random data generator to dump test data in various output format.
-    line2: ""
+    line1: "DATALEA is an easy way to generate very realistic test data and export them in your favorite file format."
+    line2: "DATALEA supports logical dependency between fields or data unicity and lets you export and reload your own configuration file to adapt and recreate the same improved data set. A valuable asset to reliably test your applications."
   try_datalea: Try Datalea generator
-  try_it: Try it
+  try_it: Try it now !
   fork_github: Fork me on Github
   fork_me: Fork me
+
+about:
+  title: About
+  based_on: "Based on %name%'s library : "
+  try_datalea: Try Datalea generator
+  fork_github: Fork me on Github
+  fork_me: Fork me
+  
+  
+  text1: DALALEA is an open source LGPL application  developed by SPYRIT Systèmes d'Information, through its Research & Development activity.
+  text2: ""
+  components_used:
+    text: "DATALEA was made using the following components and tools:"
+    silex: The micro-framework <a href="http://silex.sensiolabs.org/" class="bold">Silex</a> based on <a href="http://symfony.com/components" class="bold" >Symfony 2 Components</a> from Sensio Labs for applicative part
+    bootstrap: <a href="http://twitter.github.com/bootstrap/" class="bold">Bootstrap</a> from Twitter for the UI
+    faker: The <a href="https://github.com/fzaninotto/Faker" class="bold">Faker</a> library from F. Zaninotto for the data generation
+
+  prerequisite: 
+    title: Technical Prerequiste
+    text1: DATALEA can be used in SaaS with a modern HTML 5 browser (which is the only one prerequiste).
+    text2: "If you prefer to download the application on GitHub to suit your needs, the prerequisites are:"
+    php: PHP 5.3.x or greater
+    server: Execution serveur (Apache/NginX/others...)
+  
+  confidentiality:
+    title: Confidentiality
+    text1: The site does not retain the DATALEA random generated data or the configuration data test sets. Configuration is returned as an XML file in the downloaded archive, and remains under the only responsibility of the user.
+  
+  thanks: Thank you !
+  
+tutorial:
+  title: Tutorial
+  subtitle1: Generate a user list
+  text1: "To illustrate the way of working of DATALEA, take one of the most classic situation : the generation of a list of users. A user is an individual with a name and a surname. But as a user of the site, it also has an email address, a username and password. But different data are not independent. The email has the form firstname.lastname @ nomdelasociete.com, and the login is composed of the first letter of the first name and the name in lowercase. We also need a phone number."
+  text2: "Now, see how to get this result with DATALEA."
+  steps:
+    1: 
+      text: "First of all, we define the global file parameters."
+      language: The language / the country (which will giv us phone numbers)
+      encode: The encoding
+      variables: "Then, we will define four variables : the first name, the lastname, the password and the company."
+    2:
+      text: "Then we define the columns of the file based on these variables."
+      column_firstname: The column "firstname" takes the variable first_name as is, without further modification.
+      column_lastname: In the same way the column "lastname" takes the variable name as is.
+      column_email: "The \"email\" column is defined by concatenating the first name variable, the string \". \", the \"first name\" variable and the character string that represents the sequence \" @ nomdelasociete.com \". Note that we apply the function to convert XXX first and last name to be compatible with an email address (lowercase, without accents etc..). "
+      column_login: "The \"login\" column is also assembled from the variables \"first_name\" and \"email\" YYY by applying the function that allows you to take only the first letter of the first name and the function that converts the name ZZZ replacing accented characters, spaces etc.. "
+      column_login_password: "As the login must be unique within the application, check the box \"unique\" for DATALEA ensures the uniqueness of the data in this column."
+      note: "The column \"password\" call the \"password\" variable applying the encryption function desired."
+  note1: "Note: it is possible to generate two columns, one with the password in plain text, the other with the encrypted password. The second is to be inserted into the base application, the first allows to know the passwords to perform tests with user accounts."
+  text3: It only remains to choose the export formats expected. If you choose the CSV, a new line allows you to specify additional options specific to this format. Then, click on "Generate Data" to download data, aggregated in a ZIP archive. This archive contains a file for each export format handpicked, plus an XML file containing the entire set definition test. To generate a new test set, just reload the XML file.
+  text4: Once the form is pre-filled with the previous parameters. We can modify it if necessary, and generate new data.
+  
+introduction:
+  title: Introduction
+  text1: "The test phase is an important step in the realization of an application. Well perform the tests requires the availability of suitable data to validate the application holistically: not only functional unit tests, but performance against large volumes of data and the relevance of ergonomics face real data. Which developer has never experienced having to go to a screen that worked very well with 5 test data, but proved unusable after some time of operation when there were hundreds or thousands of lines?"
+  text2: "Generate a large amount of qualified and representative data is a complex process that takes time. DATALEA provides an answer to this need. From the development experience spyrit, DATALEA is an advanced generation of test data multiformat."
+  assets:
+    text: "Its main strengths"
+    variables: The management of reusable and combinable business variables to define the columns of the export file
+    unicity: Management of the uniqueness of data on certain columns
+    config_variables: "Saving the configuration of a set of data in an XML file to use, adapt and quickly generate a new set of data."
+    note1: DATALEA is absolutely free, directly usable in an online SaaS mode or downloadable from GitHub to be freely adapted.
+  
+generator:
+  form:
+    variables:
+      title: Variables
+      name: Name
+      name_help: "Set the variable name to use in column value with the pattern <strong>%variable_name%</strong>"
+      method: Method
+      method_help: "Select the Faker Formatter method to generate a random value for this variable.<br/> Some methods can have arguments."
+      argument1: Argument 1
+      argument1_help: "First argument for faker method if available (see method name)."
+      argument2: Argument 2
+      argument2_help: "Second argument for faker method if available (see method name)."
+      argument3: Argument 3
+      argument3_help: "Third argument for faker method if available (see method name)."
+    columns:
+      title: Columns
+      name: Name
+      name_help: "Set the column name"
+      value: Value
+      value_help: "Set the column value. You can insert some variable pattern <strong>%variable_name%</strong> which will be replaced by random generated value."
+      convert: Convert
+      convert_help: "Select a filter to transform the column value after variable substitution."
+      unique: Unique
+      unique_help: "Set this column to be unique through each generated item. Only works if the column use some variables."
+    settings:
+      title: Settings
+      class: Class or table name
+      class_help: "set the item object class name or the database table name"
+      language: Language
+      seed: Seed
+      seed_help: "Set a seed to get always the same set of random values"
+      row_number: Number of rows
+      row_number_help: "The number of rows with random columns to generate"
+    output:
+      title: Output 
+      formats: Output formats
+      formats_help: ""
+      generator: XML generator configuration
+    csv:
+      title: CSV options
+      encoding: Encoding
+      eof: End of line
+      delimiter: Delimiter
+      enclosure: Enclosure
+      escape: Escape
+    configuration:
+      title: Existing Configuration
+      file: Configuration File
+      file_help: Select a Datalea configuration XML file
+    buttons:
+      generate: Generate
+      reset: Reset
+      load: Load
