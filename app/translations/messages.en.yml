@@ -188,3 +188,7 @@ generator:
       generate: Generate
       reset: Reset
       load: Load
+
+config_file:
+  description1: When you generate and download your data, a %file% file is added to the archive.
+  description2: This file can be loaded to retrieve a previously used Datalea configuration.

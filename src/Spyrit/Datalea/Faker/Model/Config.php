@@ -66,18 +66,6 @@ class Config
         $this->csvFormat = new CsvFormat(';', '"', 'WINDOWS-1252', "\r\n", "\\");
     }
 
-    public static function getAvailableFormats()
-    {
-        return array(
-            'csv' => 'CSV',
-            'yaml' => 'YAML',
-            'php' => 'PHP array',
-            'xml' => 'XML',
-            'json' => 'JSON',
-            'sql' => 'SQL',
-        );
-    }
-
     public function getLocale()
     {
         return $this->locale;

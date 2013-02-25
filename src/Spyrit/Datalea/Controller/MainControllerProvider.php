@@ -2,15 +2,18 @@
 
 namespace Spyrit\Datalea\Controller;
 
-use Silex\Application;
-use Silex\ControllerProviderInterface;
-use Spyrit\Datalea\Faker\Dump\Dumper;
-use Spyrit\Datalea\Faker\Model\ColumnConfig;
-use Spyrit\Datalea\Faker\Model\Config;
-use Spyrit\Datalea\Faker\Model\VariableConfig;
-use Spyrit\Datalea\Form\Type\ConfigFileType;
-use Spyrit\Datalea\Form\Type\ConfigType;
-use Symfony\Component\HttpFoundation\Request;
+use \DateTime;
+use \Silex\Application;
+use \Silex\ControllerProviderInterface;
+use \Spyrit\Datalea\Faker\Dump\Dumper;
+use \Spyrit\Datalea\Faker\Dump\Loader;
+use \Spyrit\Datalea\Faker\Model\ColumnConfig;
+use \Spyrit\Datalea\Faker\Model\Config;
+use \Spyrit\Datalea\Faker\Model\FakerMethodCollection;
+use \Spyrit\Datalea\Faker\Model\VariableConfig;
+use \Spyrit\Datalea\Form\Type\ConfigFileType;
+use \Spyrit\Datalea\Form\Type\ConfigType;
+use \Symfony\Component\HttpFoundation\Request;
 
 if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
@@ -130,7 +133,7 @@ class MainControllerProvider implements ControllerProviderInterface
 
             if ($configFileForm->isValid()) {
                 $data = $configFileForm->getData();
-                $loader = new \Spyrit\Datalea\Faker\Dump\Loader();
+                $loader = new Loader();
                 $config = $loader->loadXmlFakerConfig($data['configFile']->getPathname());
             }
         }
@@ -146,7 +149,7 @@ class MainControllerProvider implements ControllerProviderInterface
             'max_rows' => $app['datalea']['max_rows'],
         ));
 
-        $fakerMethods = \Spyrit\Datalea\Faker\Model\FakerMethodCollection::createDefaultCollection();
+        $fakerMethods = FakerMethodCollection::createDefaultCollection();
         
         return $app['twig']->render('datalea/generate.html.twig', array(
             'form' => $configForm->createView(),
@@ -162,10 +165,12 @@ class MainControllerProvider implements ControllerProviderInterface
 
         $config = new Config();
 
-        if ('GET' == $request->getMethod() && $request->get('reset', 0) != 1) {
-            $this->setUserExampleConfig($config);
-        } else {
-            $this->setDefaultConfig($config);
+        if ('GET' == $request->getMethod()) { 
+            if ($request->get('reset', 0) != 1) {
+                $this->setUserExampleConfig($config);
+            } else {
+                $this->setDefaultConfig($config);
+            }
         }
 
         $configForm = $app['form.factory']->create(new ConfigType(), $config, array(
@@ -180,7 +185,7 @@ class MainControllerProvider implements ControllerProviderInterface
             if ($configForm->isValid()) {
                 $config = $configForm->getData();
                 $config->generateColumns();
-                $date = new \DateTime();
+                $date = new DateTime();
 
                 $dumper = new Dumper($config);
                 $file = $dumper->dump(realpath(sys_get_temp_dir()).DS.'Datalea', $date);
@@ -198,7 +203,7 @@ class MainControllerProvider implements ControllerProviderInterface
             }
         }
 
-        $fakerMethods = \Spyrit\Datalea\Faker\Model\FakerMethodCollection::createDefaultCollection();
+        $fakerMethods = FakerMethodCollection::createDefaultCollection();
         
         // display the form
         return $app['twig']->render('datalea/generate.html.twig', array(
