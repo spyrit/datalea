@@ -69,13 +69,12 @@ class Loader
             foreach ($root->columns->column as $column) {
                 $columnConfig = new ColumnConfig();
                 $columnConfig->setName($column['name']);
-                $columnConfig->setUnique($column['unique']);
+                $columnConfig->setUnique(!empty($column['unique']));
                 $columnConfig->setValue((string) $column->value);
                 $columnConfig->setConvertMethod((string) $column->convert);
                 $config->addColumnConfig($columnConfig);
             }
         }
-
         return $config;
     }
 }
