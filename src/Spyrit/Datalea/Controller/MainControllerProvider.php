@@ -104,8 +104,8 @@ class MainControllerProvider implements ControllerProviderInterface
         $config->addVariableConfig($var4);
         $config->addColumnConfig(new ColumnConfig($var1->getName(), $var1->getVarName()));
         $config->addColumnConfig(new ColumnConfig($var2->getName(), $var2->getVarName()));
-        $config->addColumnConfig(new ColumnConfig('username', $var1->getVarName().'.'.$var2->getVarName(), 'remove_accents_lowercase'));
-        $config->addColumnConfig(new ColumnConfig('email', $var1->getVarName().'.'.$var2->getVarName().'@'.$var3->getVarName(), 'remove_accents_lowercase'));
+        $config->addColumnConfig(new ColumnConfig('username', $var1->getVarName().'.'.$var2->getVarName(), 'remove_accents_lowercase', true));
+        $config->addColumnConfig(new ColumnConfig('email', $var1->getVarName().'.'.$var2->getVarName().'@'.$var3->getVarName(), 'remove_accents_lowercase', true));
         $config->addColumnConfig(new ColumnConfig($var4->getName(), $var4->getVarName()));
     }
 
@@ -140,10 +140,18 @@ class MainControllerProvider implements ControllerProviderInterface
             $this->setDefaultConfig($config);
         }
 
-        $configForm = $app['form.factory']->create(new ConfigType(), $config, $app['datalea']);
+        $configForm = $app['form.factory']->create(new ConfigType(), $config, array(
+            'max_variables' => $app['datalea']['max_variables'],
+            'max_columns' => $app['datalea']['max_columns'],
+            'max_rows' => $app['datalea']['max_rows'],
+        ));
 
+        $fakerMethods = \Spyrit\Datalea\Faker\Model\FakerMethodCollection::createDefaultCollection();
+        
         return $app['twig']->render('datalea/generate.html.twig', array(
             'form' => $configForm->createView(),
+            'fakerMethods' => $fakerMethods->toArray(),
+            'fakerMethodsCulture' => $fakerMethods->getMethodsByCulture(),
             'configFileForm' => $configFileForm->createView(),
         ));
     }
@@ -160,7 +168,11 @@ class MainControllerProvider implements ControllerProviderInterface
             $this->setDefaultConfig($config);
         }
 
-        $configForm = $app['form.factory']->create(new ConfigType(), $config, $app['datalea']);
+        $configForm = $app['form.factory']->create(new ConfigType(), $config, array(
+            'max_variables' => $app['datalea']['max_variables'],
+            'max_columns' => $app['datalea']['max_columns'],
+            'max_rows' => $app['datalea']['max_rows'],
+        ));
 
         if ('POST' == $request->getMethod()) {
             $configForm->bindRequest($request);
@@ -186,9 +198,13 @@ class MainControllerProvider implements ControllerProviderInterface
             }
         }
 
+        $fakerMethods = \Spyrit\Datalea\Faker\Model\FakerMethodCollection::createDefaultCollection();
+        
         // display the form
         return $app['twig']->render('datalea/generate.html.twig', array(
             'form' => $configForm->createView(),
+            'fakerMethods' => $fakerMethods->toArray(),
+            'fakerMethodsCulture' => $fakerMethods->getMethodsByCulture(),
             'configFileForm' => $configFileForm->createView(),
         ));
     }

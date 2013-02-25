@@ -44,8 +44,11 @@
         "symfony/monolog-bridge": ">=2.1,<2.3-dev",
         "spyrit/silex-utils": "dev-master",
         "fzaninotto/faker": "1.1.*@dev",
-        "spyrit/light-csv": "dev-master"
-        
+        "spyrit/light-csv": "dev-master",
+        "CodePlex/PHPExcel": "1.7.8"
+    },
+    "suggest": {
+        "php": ">=5.4.0"
     },
     "autoload": {
         "psr-0": {"": "src/"}

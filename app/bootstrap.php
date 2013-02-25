@@ -131,6 +131,7 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
         'max_variables' => isset($config['max_variables']) ? (int) $config['max_variables'] : 100,
         'max_columns' => isset($config['max_columns']) ? (int) $config['max_columns'] : 80,
         'max_rows' => isset($config['max_rows']) ? (int) $config['max_rows'] : 2000,
+        'google_analytics_account' => isset($config['google_analytics_account']) ? $config['google_analytics_account'] : null,
     );
 
     /*
@@ -205,6 +206,8 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
 
     $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
         // add custom globals, filters, tags, ...
+        $twig->addGlobal('google_analytics_account', $app['datalea']['google_analytics_account']);
+
         return $twig;
     }));
 

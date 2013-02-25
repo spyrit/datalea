@@ -78,31 +78,6 @@ class Config
         );
     }
 
-    public static function getAvailableFakerLocale()
-    {
-        return array(
-            'bg_BG' => 'Bulgarian - Bulgaria',
-            'cs_CZ' => 'Czech - Czech Republic',
-            'da_DK' => 'Danish - Denmark',
-            'de_AT' => 'German - Austria',
-            'de_DE' => 'German - Germany',
-            'en_GB' => 'English - United Kingdom',
-            'en_US' => 'English - United States',
-            'es_AR' => 'Spanish - Argentina',
-            'es_ES' => 'Spanish - Spain',
-            'fi_FI' => 'Finnish - Finland',
-            'fr_FR' => 'French - France',
-            'it_IT' => 'Italian - Italy',
-            'pl_PL' => 'Polish - Poland',
-            'pt_BR' => 'Portuguese - Brazil',
-            'ru_RU' => 'Russian - Russia',
-            'sk_SK' => 'Slovak - Slovakia',
-            'sr_Cyrl_RS' => 'Serbian (Cyrillic) - Serbia',
-            'sr_Latn_RS' => 'Serbian (Latin) - Serbia',
-            'tr_TR' => 'Turkish - Turkey',
-        );
-    }
-
     public function getLocale()
     {
         return $this->locale;
@@ -125,11 +100,20 @@ class Config
         return $this->setSeed(mt_rand(0, 50000));
     }
 
+    /**
+     *
+     * @return int
+     */
     public function getSeed()
     {
         return $this->seed;
     }
 
+    /**
+     *
+     * @param  int                                $seed
+     * @return \Spyrit\Datalea\Faker\Model\Config
+     */
     public function setSeed($seed)
     {
         $this->seed = $seed !== null && $seed != '' ? (int) $seed : null;
@@ -137,11 +121,20 @@ class Config
         return $this;
     }
 
+    /**
+     *
+     * @param  bool   $withoutSlashes
+     * @return string
+     */
     public function getClassName($withoutSlashes = false)
     {
         return $withoutSlashes ? str_ireplace('\\', '_', $this->className) : $this->className;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getClassNameLastPart()
     {
         $res = preg_match('/([a-zA-Z0-9]+)$/', $this->className, $matches);

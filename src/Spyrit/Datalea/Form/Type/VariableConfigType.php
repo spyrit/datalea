@@ -2,11 +2,11 @@
 
 namespace Spyrit\Datalea\Form\Type;
 
-use Spyrit\Datalea\Faker\Model\VariableConfig;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Constraints;
+use \Spyrit\Datalea\Faker\Model\FakerMethodCollection;
+use \Symfony\Component\Form\AbstractType;
+use \Symfony\Component\Form\FormBuilderInterface;
+use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use \Symfony\Component\Validator\Constraints;
 
 /**
  * VariableConfigType
@@ -17,7 +17,7 @@ class VariableConfigType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $methodsChoices = VariableConfig::getAvailableFakerMethods();
+        $methodsChoices = FakerMethodCollection::getAvailableFakerMethodsForSelect();
 
         $methods = array();
         foreach ($methodsChoices as $group => $methodsChoice) {
