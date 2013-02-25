@@ -8,7 +8,7 @@
     </div>
     {% endif %}
     <fieldset>
-        <legend>{{ 'Existing Configuration' | trans }}</legend>
+        <legend>{{ 'generator.form.configuration.title' | trans }}</legend>
             {##
             {{ form_row(form.configFile) }}
             {##}
@@ -16,6 +16,6 @@
             {{ form_label(form.configFile) }}
             {{ form_widget(form.configFile) }}
             {{ form_rest(form) }}
-            <input type="submit" class="btn btn-primary" value="{{ 'Load' | trans }}" />
+            <input type="submit" class="btn btn-primary" value="{{ 'generator.form.buttons.load' | trans }}" />
     </fieldset>
 </form>

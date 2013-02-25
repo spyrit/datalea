@@ -22,8 +22,8 @@ class ColumnConfigType extends AbstractType
         $builder
             ->add('name', 'text', array(
                 'required' => true,
-                'label' => 'Name',
-                'help' => 'set the column name',
+                'label' => 'generator.form.columns.name',
+                'help' => 'generator.form.columns.name_help',
                 'help_type' => 'popover',
                 'help_popover_position' => 'right',
                 'attr' => array(
@@ -39,8 +39,8 @@ class ColumnConfigType extends AbstractType
             ))
             ->add('value', 'text', array(
                 'required' => true,
-                'label' => 'Value',
-                'help' => 'set the column value. You can insert some variable pattern <strong>%variable_name%</strong> which will be replaced by random generated value.',
+                'label' => 'generator.form.columns.value',
+                'help' => 'generator.form.columns.value_help',
                 'help_type' => 'popover',
                 'attr' => array(
 //                    'style' => 'width: 95%',
@@ -56,8 +56,8 @@ class ColumnConfigType extends AbstractType
             ->add('convertMethod', 'choice', array(
                 'required' => false,
                 'empty_value' => '',
-                'label' => 'Convert',
-                'help' => 'Select a filter to transform the column value after variable substitution.',
+                'label' => 'generator.form.columns.convert',
+                'help' => 'generator.form.columns.convert_help',
                 'help_type' => 'popover',
                 'choices' => $convertMethods,
                 'attr' => array(
@@ -75,8 +75,8 @@ class ColumnConfigType extends AbstractType
             ))
             ->add('unique', 'checkbox', array(
                 'required' => false,
-                'label' => 'Unique',
-                'help' => 'Set this column to be unique through each generated item. Only works if the column use some variables.',
+                'label' => 'generator.form.columns.unique',
+                'help' => 'generator.form.columns.unique_help',
                 'help_type' => 'popover',
                 'help_popover_position' => 'top',
                 'attr' => array(

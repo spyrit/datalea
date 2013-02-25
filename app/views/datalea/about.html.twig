@@ -12,28 +12,59 @@
 {% block main_body %}
 
 <section class="section">
-    
-        <div class="container">
-            
-            <div class="row">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h1>{{ 'about.title' | trans }}</h1>
+                
+                <p>{{ 'about.text1' | trans }}</p>
+                <p>{{ 'about.components_used.text' | trans }}</p>
+                <ul>
+                    <li>{{ 'about.components_used.silex' | trans | raw }}</li>
+                    <li>{{ 'about.components_used.bootstrap' | trans | raw }}</li>
+                    <li>{{ 'about.components_used.faker' | trans | raw }}</li>
+                </ul>
+                <div class="thank-you-area">
+                    <center>
+                        <span class="thank-you">{{ 'about.thanks' | trans }}</span>
 
-                    <div class="span12">
-
-                    </div>
-
+                        <div id="love" class="circle"><i class="icon-heart"></i></div>
+                    </center>
+                </div>
             </div>
         </div>
+    </div>
 </section>
 
-<section class="gray section">
+
+            
+
+<section class="section gray">
     <div class="container">
+        <div class="row">
+            <div class="span12">
+                
+            <h2>{{ 'about.prerequisite.title' | trans }}</h2>
+            <p>{{ 'about.prerequisite.text1' | trans }}</p>
+            <p>{{ 'about.prerequisite.text2' | trans }}
+            <ul>
+                <li>{{ 'about.prerequisite.php' | trans }}</li>
+                <li>{{ 'about.prerequisite.server' | trans }}</li>
+            </ul>
+             
+            </div>
+        </div>
     </div>
 </section>
 
 <section class="section">
     <div class="container">
-
-
+        <div class="row">
+            <div class="span12">
+            <h2>{{ 'about.confidentiality.title' | trans }}</h2>
+            <p>{{ 'about.confidentiality.text1' | trans }}</p>
+            </div>
+        </div>
     </div>
 </section>
 

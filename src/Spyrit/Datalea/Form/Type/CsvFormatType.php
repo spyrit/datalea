@@ -23,7 +23,7 @@ class CsvFormatType extends AbstractType
         $builder
             ->add('delimiter', 'text', array(
                 'required' => true,
-                'label' => 'delimiter',
+                'label' => 'generator.form.csv.delimiter',
 //                'help' => '',
 //                'help_type' => 'popover',
 //                'help_popover_position' => 'right',
@@ -40,7 +40,7 @@ class CsvFormatType extends AbstractType
             ))
             ->add('enclosure', 'text', array(
                 'required' => true,
-                'label' => 'enclosure',
+                'label' => 'generator.form.csv.enclosure',
 //                'help' => '',
 //                'help_type' => 'popover',
 //                'help_popover_position' => 'top',
@@ -57,7 +57,7 @@ class CsvFormatType extends AbstractType
             ))
             ->add('escape', 'text', array(
                 'required' => true,
-                'label' => 'escape',
+                'label' => 'generator.form.csv.escape',
 //                'help' => '',
 //                'help_type' => 'popover',
 //                'help_popover_position' => 'top',
@@ -74,7 +74,7 @@ class CsvFormatType extends AbstractType
             ))
             ->add('eol', 'choice', array(
                 'required' => true,
-                'label' => 'end of line',
+                'label' => 'generator.form.csv.eof',
 //                'help' => '',
 //                'help_type' => 'popover',
                 'choices' => $eols,
@@ -93,7 +93,7 @@ class CsvFormatType extends AbstractType
             ))
             ->add('encoding', 'choice', array(
                 'required' => true,
-                'label' => 'encoding',
+                'label' => 'generator.form.csv.encoding',
 //                'help' => '',
 //                'help_type' => 'popover',
                 'choices' => $encodings,

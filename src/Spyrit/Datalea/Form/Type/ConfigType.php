@@ -24,8 +24,8 @@ class ConfigType extends AbstractType
         $builder
             ->add('className', 'text', array(
                 'required' => true,
-                'label' => 'Class or table name',
-                'help' => 'set the item object class name or the database table name',
+                'label' => 'generator.form.settings.class',
+                'help' => 'generator.form.settings.class_help',
                 'help_type' => 'popover',
                 'help_popover_position' => 'right',
                 'attr' => array(
@@ -41,7 +41,7 @@ class ConfigType extends AbstractType
             ))
             ->add('locale', 'choice', array(
                 'required' => true,
-                'label' => 'Language',
+                'label' => 'generator.form.settings.language',
                 'choices' => $locales,
                 'preferred_choices' => array('fr_FR', 'en_US', 'en_GB', ),
                 'attr' => array(
@@ -59,8 +59,8 @@ class ConfigType extends AbstractType
             ))
             ->add('seed', 'integer', array(
                 'required' => false,
-                'label' => 'Seed',
-                'help' => 'Set a seed to get always the same set of random values',
+                'label' => 'generator.form.settings.seed',
+                'help' => 'generator.form.settings.seed_help',
                 'help_type' => 'popover',
                 'help_popover_position' => 'right',
                 'attr' => array(
@@ -76,8 +76,8 @@ class ConfigType extends AbstractType
             ))
             ->add('fakeNumber', 'integer', array(
                 'required' => true,
-                'label' => 'Number of rows',
-                'help' => 'the number of rows with random columns to generate',
+                'label' => 'generator.form.settings.row_number',
+                'help' => 'generator.form.settings.row_number_help',
                 'help_type' => 'popover',
                 'attr' => array(
                     'style' => 'width: 95%',
@@ -92,7 +92,7 @@ class ConfigType extends AbstractType
             ))
             ->add('variableConfigs', 'collection', array(
 //                'required' => false,
-                'label' => 'Variables',
+                'label' => 'generator.form.variables.title',
                 'type'   => new VariableConfigType(),
                 'prototype' => true,
                 'allow_add' => true,
@@ -114,7 +114,7 @@ class ConfigType extends AbstractType
             ))
             ->add('columnConfigs', 'collection', array(
 //                'required' => false,
-                'label' => 'Columns',
+                'label' => 'generator.form.columns.title',
                 'type'   => new ColumnConfigType(),
                 'prototype' => true,
                 'allow_add' => true,

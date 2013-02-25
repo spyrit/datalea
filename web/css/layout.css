@@ -24,6 +24,10 @@ h1, h2, h3, h4, h5, h6, h7 {
 
 /* Nav bar */
 
+.navbar .brand {
+    padding: 7px 30px 0px;
+}
+
 .navbar-inverse .brand, 
 .navbar-inverse .nav > li > a {
     color: #999;
@@ -86,8 +90,12 @@ h1, h2, h3, h4, h5, h6, h7 {
     padding: 80px 0;
 }
 
+#homepage #footer {
+    margin-top: 0;
+}
+
 #header h1 {
-    font-size: 3.5em;
+    font-size: 2.7em;
     line-height: 1em; 
 }
 #header legend {
@@ -101,6 +109,11 @@ h1, h2, h3, h4, h5, h6, h7 {
 
 #header .help-popover {
     color: #224285;
+}
+
+#header .faker-link {
+    color: white;
+    font-weight: bold;
 }
 
 /* Footer */
@@ -221,6 +234,45 @@ h1, h2, h3, h4, h5, h6, h7 {
     font-weight: 100;
 }
 
+/* FAQ styles */
+
+
+#faq-accordion .accordion-heading .accordion-toggle {
+    padding: 8px 0px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+#faq-accordion .accordion-heading a.accordion-toggle  {
+    color: #00a5db;
+}
+
+#faq-accordion .accordion-heading a.accordion-toggle:hover  {
+    color: #ff7400;
+    text-decoration: none;
+}
+
+#faq-accordion .accordion-inner {
+    border-top:none;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Latest news */
+
+#latest-news ul {
+    margin-left: 0;
+}
+
+#latest-news ul li {
+    list-style: none;
+    padding-top: 7px;
+    margin-top: 7px;
+    border-top: 1px solid #F1F1F1;
+}
+
+#latest-news ul li .date {
+    color: #00a5db;
+}
+
 /* Testimonial styles */
 
 #testimonial .carousel-control {
@@ -235,6 +287,36 @@ h1, h2, h3, h4, h5, h6, h7 {
 }
 #testimonial .carousel-control .icon {
     margin-top: 5px;
+}
+
+
+/* about styles */
+
+#about .thank-you-area {
+    padding: 50px 0 0;
+}
+
+#about .thank-you {
+    font-size: 4em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #2a2a2a;
+    font-weight: 100;
+}
+
+#about #love.circle {
+    /* background-color: #96c400 ; */
+    background-color: #00a5db ;
+    color: white;
+    height: 115px;
+    width: 150px;
+    padding-top: 35px;
+    position: relative;
+    font-size: 5em;
+    margin-top: 20px
+}
+
+#about #love.circle .icon-heart {
+    margin-top:30px;
 }
 
 .row.bonus {

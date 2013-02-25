@@ -31,21 +31,26 @@ class MainControllerProvider implements ControllerProviderInterface
         // controller name to use with method name (instead of using function closure for controller)
         $controller = 'Spyrit\Datalea\Controller\MainControllerProvider::';
 
-        // set as many controllers as you want
-        $controllers
-            ->get('/{_locale}/about', $controller.'homeAction')
-            ->value('_locale', 'en')
-            ->bind('datalea_about');
-
         $controllers
             ->get('/{_locale}', $controller.'homeAction')
             ->value('_locale', 'en')
             ->bind('datalea_homepage');
         
+        // set as many controllers as you want
+        $controllers
+            ->get('/{_locale}/about', $controller.'aboutAction')
+            ->value('_locale', 'en')
+            ->bind('datalea_about');
+        
         $controllers
             ->get('/{_locale}/tutorial', $controller.'tutorialAction')
             ->value('_locale', 'en')
             ->bind('datalea_tutorial');
+        
+        $controllers
+            ->get('/{_locale}/introduction', $controller.'introductionAction')
+            ->value('_locale', 'en')
+            ->bind('datalea_introduction');
         
         // config form
         $controllers
@@ -74,6 +79,11 @@ class MainControllerProvider implements ControllerProviderInterface
     public function aboutAction(Request $request, Application $app)
     {
         return $app['twig']->render('datalea/about.html.twig', array());
+    }
+    
+    public function introductionAction(Request $request, Application $app)
+    {
+        return $app['twig']->render('datalea/introduction.html.twig', array());
     }
 
     protected function setUserExampleConfig(Config $config)

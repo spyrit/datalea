@@ -27,8 +27,8 @@ class VariableConfigType extends AbstractType
         $builder
             ->add('name', 'text', array(
                 'required' => true,
-                'label' => 'Name',
-                'help' => 'Set the variable name to use in column value with the pattern <strong>%variable_name%</strong>',
+                'label' => 'generator.form.variables.name',
+                'help' => 'generator.form.variables.name_help',
                 'help_type' => 'popover',
                 'help_popover_position' => 'right',
                 'attr' => array(
@@ -44,8 +44,8 @@ class VariableConfigType extends AbstractType
             ))
             ->add('fakerMethod', 'choice', array(
                 'required' => true,
-                'label' => 'Method',
-                'help' => 'Select the Faker Formatter method to generate a random value for this variable.<br/> Some methods can have arguments.',
+                'label' => 'generator.form.variables.method',
+                'help' => 'generator.form.variables.method_help',
                 'help_type' => 'popover',
 //                'help_popover_trigger' => 'click',
                 'choices' => $methodsChoices,
@@ -71,8 +71,8 @@ class VariableConfigType extends AbstractType
 
             for ($i = 0; $i < count($arguments); $i++) {
                 $builder->add('fakerMethodArg'.($i+1), 'text', array(
-                    'label' => 'Argument '.($i+1),
-                    'help' => ucfirst($arguments[$i]).' argument for faker method if available (see method name).',
+                    'label' => 'generator.form.variables.argument'.($i+1),
+                    'help' => 'generator.form.variables.argument'.($i+1).'_help',
                     'help_type' => 'popover',
                     'help_popover_position' => $i == 0 ? 'right' : 'top',
                     'required' => false,

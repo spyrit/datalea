@@ -19,8 +19,8 @@ class ConfigFileType extends AbstractType
         $builder
             ->add('configFile', 'file', array(
                 'required' => true,
-                'label' => 'Configuration File',
-                'help' => 'Select a Datalea configuration XML file',
+                'label' => 'generator.form.configuration.file',
+                'help' => 'generator.form.configuration.file_help',
                 'help_type' => 'popover',
                 'help_popover_position' => 'right',
                 'constraints' => array(

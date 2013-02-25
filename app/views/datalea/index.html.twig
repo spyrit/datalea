@@ -6,18 +6,18 @@
 {% block header_content %}
 <div class="row">
     <div class="span7">
-        <h1>{{ 'about.description.title'|trans() }}</h1>
-        <p>{{ 'about.description.line1'|trans() }}</p>
-        <p>
-            {{ 'about.description.line2'|trans() }}<br/>
-            {{ 'about.based_on'|trans({'%name%': 'Francois Zaninotto'}) }} <a href="https://github.com/fzaninotto/Faker" target="_blank" title="{{ 'Faker' }}">{{ 'Faker' }}</a>
+        <h1>{{ 'home.description.title'|trans() }}</h1>
+        <p>{{ 'home.description.line1'|trans() }}</p>
+        <p>{{ 'home.description.line2'|trans() }}</p>
+        <p class="mt20">
+            {{ 'home.based_on'|trans({'%name%': 'Francois Zaninotto'}) }} <a href="https://github.com/fzaninotto/Faker" target="_blank" class="faker-link" title="{{ 'Faker' }}">{{ 'Faker' }}</a>
         </p>
-        <a href="{{ path('datalea_generate') }}" title="{{ 'about.try_datalea'|trans|capitalize }}" class="btn btn-large btn mt20"><i class="icon-beaker icon-large"></i>{{ 'about.try_it'|trans|capitalize }}</a>
-        <a href="https://github.com/spyrit/datalea" class="btn btn-primary btn-large mt20 ml20" target="_blank" title="{{ 'about.fork_github'|trans|capitalize}}"><i class="icon-github-alt icon-large"></i> {{ 'about.fork_me'|trans|capitalize }}</a>
+        <a href="{{ path('datalea_generate') }}" title="{{ 'home.try_datalea'|trans|capitalize }}" class="btn btn-large btn mt20"><i class="icon-beaker icon-large"></i> {{ 'home.try_it'|trans|capitalize }}</a>
+        <a href="https://github.com/spyrit/datalea" class="btn btn-primary btn-large mt20 ml20" target="_blank" title="{{ 'home.fork_github'|trans|capitalize}}"><i class="icon-github-alt icon-large"></i> {{ 'home.fork_me'|trans|capitalize }}</a>
     </div>
 
     <div class="span4 offset1">
-        <img src="/img/db.png" alt="Generate data" title="{{ 'Generate data'|trans|capitalize }}" />
+        <img src="/img/db.png" alt="{{ 'home.header.generate_data'|trans|capitalize }}" title="{{ 'home.header.generate_data'|trans|capitalize }}" />
     </div>
 </div>
 {% endblock header_content %}
@@ -30,7 +30,7 @@
         
         <div class="row title">
                 <div class="span12">
-                    <center><h2>{{ 'Ready in 4 steps' }}</h2></center>
+                    <center><h2>{{ 'home.steps.title' | trans }}</h2></center>
                 </div>
             </div>
         
@@ -42,7 +42,7 @@
                             <i class="icon-pencil"></i>
                         </div>
                         <div class="description">
-                            {{ 'Define primary data<br />for use as variables' }} 
+                            {{ 'home.steps.1' | trans | raw }} 
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                             <i class="icon-columns"></i>
                         </div>
                         <div class="description">
-                           {{ 'Created columns<br>combining variables' }} 
+                           {{ 'home.steps.2' | trans | raw }} 
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                             <i class="icon-cogs"></i>
                         </div>
                         <div class="description">
-                            {{ 'Set parameters and output format' }} 
+                            {{ 'home.steps.3' | trans | raw }} 
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                             <i class="icon-cloud-download"></i>
                         </div>
                         <div class="description">
-                            {{ 'Download your data <br /><span style="color: #00a0dd ; "><i class="icon-plus-sign"></i> config file</span>' }} 
+                            {{ 'home.steps.4.download' | trans | raw }} <br /><span style="color: #00a0dd ; "><i class="icon-plus-sign"></i> {{ 'home.steps.4.file' | trans | raw }} </span>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
             <div class="row bonus">
                 <div class="span12">
                     <center>
-                        <span style="color: #00a5db;"><i class="icon-plus-sign"></i> Extras bonus :</span> save your whole data generation configuration to re-use and improve it later.
+                        <span style="color: #00a5db;"><i class="icon-plus-sign"></i> {{ 'home.steps.bonus.title' | trans }} :</span>  {{ 'home.steps.bonus.description' | trans }}
                     </center>
                 </div>
             </div>
@@ -100,37 +100,31 @@
 
             <div class="row">
             
-                <div class="span8">
+                <div class="span7">
                     
-                    <h2>{{ 'How does it work ?' }}</h2>
+                    <h2>{{ 'home.how_it_works.title' | trans }}</h2>
                     
                     <div class="row">
                         
-                        <div class="span4">
-                            <h3>{{ 'Screencast' }}</h3>
-                            <p>Lorem ipsum dolor sit amet. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-                        </div>
-                        
-                        <div class="span4">
-                            <h3>{{ 'Ready in 4 steps' }}</h3>
-                            <ol>
-                                <li>{{ 'Set your parameters' }}</li>
-                                <li>{{ 'Define variables and combine item for creating your columns' }}</li>
-                                <li>{{ 'Choose your favorite output formats' }}</li>
-                                <li>{{ 'Download your data' }}</li>
-                            </ol>
-                            <p>+ Extras bonus : save your whole data generation configuration to re-use and improve it later.</p>
+                        <div class="span7">
+                            <h3>{{ 'home.how_it_works.screencast.title' | trans }}</h3>
+                            <p>{{ 'home.how_it_works.screencast.text' | trans }}</p>
                         </div>
                         
                     </div>
                 </div>
                 
-                <div class="span4">
+                <div class="span5" id="latest-news">
                     <div class="well">
-                        <h2>{{ 'Latest news' }}</h2>
-                        <p>At vero eos et accusam et justo duo dolores et ea rebum. Lorem ipsum dolor sit amet.</p>
-                        <p>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
-                        <p>Stet clita kasd gubergren, no sea takimata sanctus est. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        <h2>{{ 'home.latest_news.title'|trans }}</h2>
+                        
+                        {% set i = 1 %}
+                        <ul>
+                        {% for i in range(1, 3) %}
+                            <li><span class="date">{{ ('home.latest_news.news'~i~'_date') | trans | date('global.date_format'|trans) }}</span> - {{ ('home.latest_news.news'~i) | trans }}</li>
+                            {% set i = i + 1 %}
+                        {% endfor %}
+                        </ul>
                     </div>
                 </div>
             
@@ -148,30 +142,45 @@
             
                 <div class="span6">
                     
-                    <h2>{{ 'F.A.Q.' }}</h2>
+                    <h2>{{ 'home.faq.title' | trans }}</h2>
                     
-                    <ul>
-                        <li>Nam liber tempor cum soluta imperdiet doming id quod mazim placerat facer possim assum ?</li>
-                        <li>Nam liber tempor cum soluta nobis eleifend option congue nihil ?</li>
-                        <li>Imperdiet doming id quod mazim placerat facer possim assum ?</li>
-                        <li>Doming id quod mazim placerat facer possim assum ?</li>
-                        <li>Eleifend option liber tempor cum soluta nobis congue nihil nam assum ?</li>
-                    </ul>
+                    <div class="accordion" id="faq-accordion">
+                        
+                        {% set i = 1 %}
+                        
+                        {% for i in range(1, 3) %}
+                            <div class="">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-question-{{ i }}">
+                                    {{ ('home.faq.question'~i) | trans }}
+                                    </a>
+                                </div>
+                                <div id="faq-question-{{ i }}" class="accordion-body collapse">
+                                  <div class="accordion-inner">
+                                      {{ ('home.faq.answer'~i) | trans }}
+                                  </div>
+                                </div>
+                            </div>
+                            
+                            {% set i = i + 1 %}
+                        {% endfor %}
+                        
+                    </div>
                     
                 </div>
                 
                 <div class="span6">
-                    <h2>{{ 'What do people say about it ?' }}</h2>
+                    <h2>{{ 'home.testimonial.title'|trans }}</h2>
                     
                     <div id="testimonial" class="carousel slide">
                         <div class="carousel-inner">
                           <div class="active item">
                               <h4 class="author">Charles SANQUER</h4>
-                              <p class="quote"><i class="icon-quote-left"></i> Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. <i class="icon-quote-right"></i></p>
+                              <p class="quote"><i class="icon-quote-left"></i> {{ 'home.testimonial.1' | trans }} <i class="icon-quote-right"></i></p>
                           </div>
                           <div class="item">
                               <h4 class="author">Pierre-Yves STUCKI</h4>
-                              <p class="quote"><i class="icon-quote-left"></i> Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. <i class="icon-quote-right"></i></p>
+                              <p class="quote"><i class="icon-quote-left"></i> {{ 'home.testimonial.2' | trans }} <i class="icon-quote-right"></i></p>
                           </div>
                         </div>
                         <a class="carousel-control right" href="#testimonial" data-slide="next"><i class="icon-chevron-right"></i></a>

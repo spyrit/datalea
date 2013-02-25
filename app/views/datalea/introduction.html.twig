@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% set currentPage = 'introduction' %}
+{% set bodyId = currentPage %}
+
+{% block header_content %}
+<div class="row">
+    
+</div>
+{% endblock header_content %}
+
+{% block main_body %}
+
+<section class="section">
+        <div class="container">
+            <div class="row">
+
+                <div class="span12">
+                    <h1>{{ 'introduction.title' | trans }}</h1>
+                    
+                    <p>{{ 'introduction.text1' | trans }}</p>
+                    <p>{{ 'introduction.text2' | trans }}</p>
+                    <p>{{ 'introduction.assets.text' | trans }}</p>
+                    <ul>
+                        <li>{{ 'introduction.assets.variables' | trans }}</li>
+                        <li>{{ 'introduction.assets.unicity' | trans }}</li>
+                        <li>{{ 'introduction.assets.config_variables' | trans }}</li>
+                    </ul>
+                    <p>{{ 'introduction.assets.note1' | trans }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock main_body %}
