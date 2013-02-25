@@ -390,7 +390,33 @@ JSON;
         if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
             $json = json_encode($fakeData, JSON_PRETTY_PRINT);
         } else {
-            $json = json_encode($fakeData);
+            $indent = 4;
+            $indentChar = ' ';
+
+            $json = '['."\n";
+            $first1 = true;
+            foreach ($fakeData as $item) {
+                if ($first1) {
+                    $first1 = false;
+                } else {
+                    $json .= ','."\n";
+                }
+                $json .= str_repeat($indentChar, $indent).'{';
+
+                $first2 = true;
+                foreach ($item as $key => $value) {
+                    if ($first2) {
+                        $first2 = false;
+                        $json .= "\n";
+                    } else {
+                        $json .= ','."\n";
+                    }
+                    $json .= str_repeat($indentChar, $indent*2).'"'.$key.'": '.json_encode($value).'';
+                }
+
+                $json .= "\n".str_repeat($indentChar, $indent).'}';
+            }
+            $json .= "\n".']'; 
         }
         file_put_contents($file, $json);
 
