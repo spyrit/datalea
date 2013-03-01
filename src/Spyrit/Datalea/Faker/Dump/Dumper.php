@@ -96,7 +96,7 @@ class Dumper
     {
         $name = $this->config->getClassName(true).'_datalea_config';
 
-        $root = new CdataSimpleXMLElement('<?xml version=\'1.0\' encoding=\'utf-8\'?><dataleaConfig/>');
+        $root = new CdataSimpleXMLElement('<?xml version=\'1.0\' encoding=\'utf-8\'?><datalea/>');
 
         $root->addAttribute('classname', $this->config->getClassName());
         $root->addAttribute('locale', $this->config->getLocale());
@@ -384,11 +384,39 @@ DUMP;
 JSON;
         $name = $this->config->getClassName(true);
 
+        $fakeData = $this->getFakeData();
+        
         $file = $dir.DS.$name.'.json';
         if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-            $json = json_encode($this->getFakeData(), JSON_PRETTY_PRINT);
+            $json = json_encode($fakeData, JSON_PRETTY_PRINT);
         } else {
-            $json = json_encode($this->getFakeData());
+            $indent = 4;
+            $indentChar = ' ';
+
+            $json = '['."\n";
+            $first1 = true;
+            foreach ($fakeData as $item) {
+                if ($first1) {
+                    $first1 = false;
+                } else {
+                    $json .= ','."\n";
+                }
+                $json .= str_repeat($indentChar, $indent).'{';
+
+                $first2 = true;
+                foreach ($item as $key => $value) {
+                    if ($first2) {
+                        $first2 = false;
+                        $json .= "\n";
+                    } else {
+                        $json .= ','."\n";
+                    }
+                    $json .= str_repeat($indentChar, $indent*2).'"'.$key.'": '.json_encode($value).'';
+                }
+
+                $json .= "\n".str_repeat($indentChar, $indent).'}';
+            }
+            $json .= "\n".']'; 
         }
         file_put_contents($file, $json);
 
