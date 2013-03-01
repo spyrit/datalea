@@ -7,4 +7,5 @@ return array(
     'max_columns' => 80,
     'max_rows' => 2000,
     'google_analytics_account' => '',
+    'contact_address' => 'support@spyrit.net',
 );

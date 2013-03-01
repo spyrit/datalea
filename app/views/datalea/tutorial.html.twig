@@ -5,7 +5,9 @@
 
 {% block header_content %}
 <div class="row">
-    
+    <div class="span12">
+        <h1>{{ 'tutorial.title' | trans }}</h1>
+    </div>
 </div>
 {% endblock header_content %}
 
@@ -16,38 +18,60 @@
             <div class="row">
 
                 <div class="span12">
-                    <h1>{{ 'tutorial.title' | trans }}</h1>
-                    
                     <h2>{{ 'tutorial.subtitle1' | trans }}</h2>
-                    <p></p>
-                    <p></p>
-                    
-                    <ol>
-                        <li>
+
+                    <div id="step1" class="row step">
+                        <div class="span8 text">
+                            
+                            <div class="step-number"><p>1</p></div>
+                            
                             <p class="bold">{{ 'tutorial.steps.1.text' | trans }}</p>
                             <ul>
-                                <li>{{ 'tutorial.steps.1.language' | trans }}</li>
-                                <li>{{ 'tutorial.steps.1.encode' | trans }}</li>
-                                <li>{{ 'tutorial.steps.1.variables' | trans }}</li>
+                                <li>{{ 'tutorial.steps.1.column_firstname' | trans }}</li>
+                                <li>{{ 'tutorial.steps.1.column_lastname' | trans }}</li>
+                                <li>{{ 'tutorial.steps.1.column_email' | trans }}</li>
+                                <li>{{ 'tutorial.steps.1.column_login' | trans }}</li>
+                                <li>{{ 'tutorial.steps.1.column_login_password' | trans }}</li>
                             </ul>
+
+                            <p>{{ 'tutorial.steps.1.note' | trans }}</p>
+                        </div>
                             
-                            {# <p>[screenshot]</p> #}
-                        </li>
-                        <li>
+                        <div class="span4 pictures">
+                            <div class="row">
+                                <div class="span4 mb20">
+                                    <a id="{{ 'tutorial.subtitle1' | trans }}" href="/img/tutorial/step1-1.png" class="fancybox">
+                                        <img title="{{ 'tutorial.subtitle1' | trans }}" alt="{{ 'tutorial.subtitle1' | trans }}" src="/img/tutorial/step1-1.png" class="bordered"/>
+                                    </a>
+                                </div>
+                                <div class="span4">
+                                    <a id="{{ 'tutorial.subtitle1' | trans }}" href="/img/tutorial/step1-2.png" class="fancybox">
+                                        <img title="{{ 'tutorial.subtitle1' | trans }}" alt="{{ 'tutorial.subtitle1' | trans }}" src="/img/tutorial/step1-2.png" class="bordered"/>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                    
+                    <div id="step2" class="row step mt20">
+                        
+                        <div class="span8 text">
+                            <div class="step-number"><p>2</p></div>
                             <p class="bold">{{ 'tutorial.steps.2.text' | trans }}</p>
                             <ul>
-                                <li>{{ 'tutorial.steps.2.column_firstname' | trans }}</li>
-                                <li>{{ 'tutorial.steps.2.column_lastname' | trans }}</li>
-                                <li>{{ 'tutorial.steps.2.column_email' | trans }}</li>
-                                <li>{{ 'tutorial.steps.2.column_login' | trans }}</li>
-                                <li>{{ 'tutorial.steps.2.column_login_password' | trans }}</li>
+                                <li>{{ 'tutorial.steps.2.language' | trans }}</li>
+                                <li>{{ 'tutorial.steps.2.encode' | trans }}</li>
+                                <li>{{ 'tutorial.steps.2.variables' | trans }}</li>
                             </ul>
-                            
-                            <p>{{ 'tutorial.steps.2.note' | trans }}</p>
-                            
-                            {# <p>[screenshot]</p> #}
-                        </li>
-                    </ol>
+                        </div>
+                        <div class="span4 pictures">
+                            <a id="{{ 'tutorial.subtitle1' | trans }}" href="/img/tutorial/step2-1.png" class="fancybox">
+                                <img title="{{ 'tutorial.subtitle1' | trans }}" alt="{{ 'tutorial.subtitle1' | trans }}" src="/img/tutorial/step2-1.png" class="bordered"/>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

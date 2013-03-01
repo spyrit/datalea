@@ -1,6 +1,6 @@
 <p>
-    {{ 'config_file.description1'|trans({'%file%': '<strong>datalea_config.xml</strong>'})|raw}}<br/>
-    {{ 'config_file.description2'|trans}}
+    {{ 'generator.form.configuration.description1'|trans({'%file%': '<strong>datalea_config.xml</strong>'})|raw}}<br/>
+    {{ 'generator.form.configuration.description2'|trans}}
 </p>
 
 <form action="{{ path('datalea_load_config') }}" method="post" {{ form_enctype(form) }} style="width: 100%" class="form-inline">

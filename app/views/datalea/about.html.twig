@@ -5,7 +5,9 @@
 
 {% block header_content %}
 <div class="row">
-    
+    <div class="span12">
+        <h1>{{ 'about.title' | trans }}</h1>
+    </div>
 </div>
 {% endblock header_content %}
 
@@ -15,7 +17,6 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h1>{{ 'about.title' | trans }}</h1>
                 
                 <p>{{ 'about.text1' | trans }}</p>
                 <p>{{ 'about.components_used.text' | trans }}</p>

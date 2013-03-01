@@ -32,11 +32,9 @@ home:
       title: Extras bonus
       description: save your whole data generation configuration to re-use and improve it later.
   
-  how_it_works:
-    title: How does it work ?
-    screencast:
-      title: Screencast
-      text: Lorem ipsum dolor sit amet. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+  screencast:
+    title: Screencast
+    subtitle: Visit
     
   latest_news:
     title: Latest news
@@ -58,6 +56,8 @@ home:
   
   testimonial:
     title: What do people say about it ?
+    no_text: Be the first to say something cool about DATALEA!
+    email: Email us 
     1: Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
     2: Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
     
@@ -107,18 +107,18 @@ tutorial:
   text1: "To illustrate the way of working of DATALEA, take one of the most classic situation : the generation of a list of users. A user is an individual with a name and a surname. But as a user of the site, it also has an email address, a username and password. But different data are not independent. The email has the form firstname.lastname @ nomdelasociete.com, and the login is composed of the first letter of the first name and the name in lowercase. We also need a phone number."
   text2: "Now, see how to get this result with DATALEA."
   steps:
-    1: 
-      text: "First of all, we define the global file parameters."
+    2: 
+      text: "Then, we define the global file parameters."
       language: The language / the country (which will giv us phone numbers)
       encode: The encoding
       variables: "Then, we will define four variables : the first name, the lastname, the password and the company."
-    2:
-      text: "Then we define the columns of the file based on these variables."
+    1:
+      text: "First of all, we define the columns of the file based on these variables."
       column_firstname: The column "firstname" takes the variable first_name as is, without further modification.
       column_lastname: In the same way the column "lastname" takes the variable name as is.
-      column_email: "The \"email\" column is defined by concatenating the first name variable, the string \". \", the \"first name\" variable and the character string that represents the sequence \" @ nomdelasociete.com \". Note that we apply the function to convert XXX first and last name to be compatible with an email address (lowercase, without accents etc..). "
-      column_login: "The \"login\" column is also assembled from the variables \"first_name\" and \"email\" YYY by applying the function that allows you to take only the first letter of the first name and the function that converts the name ZZZ replacing accented characters, spaces etc.. "
-      column_login_password: "As the login must be unique within the application, check the box \"unique\" for DATALEA ensures the uniqueness of the data in this column."
+      column_email: "The \"email\" column is defined by concatenating the first name variable, the string \". \", the \"first name\" variable and the character string that represents the sequence \" @ nomdelasociete.com \". Note that we apply the « remove accent and lower case » function to convert first and last name to be compatible with an email address (lowercase, without accents etc..). "
+      column_login: "The \"login\" column is also assembled from the variables \"first_name\" and \"email\" and we apply the function that replace accented characters, spaces etc.. "
+      column_login_password: "As the login must be unique within the application, we check the box \"unique\" to ensure the uniqueness of the data in this column."
       note: "The column \"password\" call the \"password\" variable applying the encryption function desired."
   note1: "Note: it is possible to generate two columns, one with the password in plain text, the other with the encrypted password. The second is to be inserted into the base application, the first allows to know the passwords to perform tests with user accounts."
   text3: It only remains to choose the export formats expected. If you choose the CSV, a new line allows you to specify additional options specific to this format. Then, click on "Generate Data" to download data, aggregated in a ZIP archive. This archive contains a file for each export format handpicked, plus an XML file containing the entire set definition test. To generate a new test set, just reload the XML file.
@@ -184,6 +184,8 @@ generator:
       title: Existing Configuration
       file: Configuration File
       file_help: Select a Datalea configuration XML file
+      description1: When you generate and download your data, a %file% file is added to the archive. 
+      description2: This file can be loaded to retrieve a previously used Datalea configuration.
     buttons:
       generate: Generate
       reset: Reset

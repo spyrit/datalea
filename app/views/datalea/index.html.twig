@@ -102,15 +102,21 @@
             
                 <div class="span7">
                     
-                    <h2>{{ 'home.how_it_works.title' | trans }}</h2>
+                    <h2>{{ 'home.screencast.title' | trans }}</h2>
                     
-                    <div class="row">
+                    <div id="screencast" class="row">
                         
                         <div class="span7">
-                            <h3>{{ 'home.how_it_works.screencast.title' | trans }}</h3>
-                            <p>{{ 'home.how_it_works.screencast.text' | trans }}</p>
+                            <h3>{{ 'home.screencast.subtitle' | trans }}</h3>
+                            
+                            <div class="pictures-container">
+                                <a href="{{ path('datalea_generate') }}">
+                                    <img title="{{ 'home.screencast.subtitle' | trans }}" alt="{{ 'home.screencast.subtitle' | trans }}" src="/img/screencast/1.png" class="bordered first"/>
+                                    <img title="{{ 'home.screencast.subtitle' | trans }}" alt="{{ 'home.screencast.subtitle' | trans }}" src="/img/screencast/2.png" class="bordered second"/>
+                                    <img title="{{ 'home.screencast.subtitle' | trans }}" alt="{{ 'home.screencast.subtitle' | trans }}" src="/img/screencast/3.png" class="bordered third"/>
+                                </a>
+                            </div>
                         </div>
-                        
                     </div>
                 </div>
                 
@@ -172,7 +178,10 @@
                 <div class="span6">
                     <h2>{{ 'home.testimonial.title'|trans }}</h2>
                     
-                    <div id="testimonial" class="carousel slide">
+                    <p>{{ 'home.testimonial.no_text' | trans }}</p>
+                    <a href="mailto:{{ contact_address }}">{{ 'home.testimonial.email' | trans }}!</a>
+                    
+                    {# <div id="testimonial" class="carousel slide">
                         <div class="carousel-inner">
                           <div class="active item">
                               <h4 class="author">Charles SANQUER</h4>
@@ -184,7 +193,7 @@
                           </div>
                         </div>
                         <a class="carousel-control right" href="#testimonial" data-slide="next"><i class="icon-chevron-right"></i></a>
-                    </div>
+                    </div> #}
                     
                 </div>
             

@@ -31,11 +31,9 @@ home:
       title: Extras bonus
       description: sauvegardez l'ensemble de votre configuration de génération pour l'améliorer et la réutiliser plus tard.
   
-  how_it_works:
-    title: Comment ça marche ?
-    screencast:
-      title: Screencast
-      text: Lorem ipsum dolor sit amet. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+  screencast:
+    title: Découvrez DATALEA
+    subtitle: Hop !
     
   latest_news:
     title: Dernières nouvelles
@@ -57,6 +55,8 @@ home:
   
   testimonial:
     title: Que disent-ils à son propos ?
+    no_text: Soyez les premiers à écrire quelque chose de sympa à propos de Datalea!
+    email: Ecrivez-nous 
     1: Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
     2: Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
     
@@ -107,20 +107,20 @@ tutorial:
   text1: "Pour illustrer le fonctionnement de DATALEA, prenons l’un des cas les plus classiques : la génération d’une liste d’utilisateurs. Un utilisateur, c’est une personne physique, avec un prénom et un nom. Mais comme utilisateur du site, il a aussi une adresse électronique, un login et un mot de passe. Mais différentes données ne sont pas indépendantes. L’email est de la forme prenom.nom@nomdelasociete.com, et le login est composé de la première lettre du prenom et du nom, en minuscule. Il nous faut aussi un numéro de téléphone."
   text2: "Voyons comment obtenir cela avec DATALEA."
   steps:
-    1: 
-      text: "Tout d’abord nous définissions les paramètres généraux du fichier :"
+    1:
+      text: "Tout d’abord nous allons définir les colonnes du fichier en fonction de ces variables."
+      column_firstname: La colonne « firstname » reprend telle quelle la variable « firstname », sans autre modification.
+      column_lastname: De même la colonne « lastname » reprend telle quelle la variable « lastname ».
+      column_email: "La colonne « mail » est défini en concaténant la variable « firstname », la chaîne « . », la variable « lastname », et la chaîne de caractères représentant la suite « @company.com ». A noter que nous appliquons la fonction « remove accent and lower case » pour convertir le prénom et le nom afin qu’ils soient compatibles avec une adresse email (en minuscule, sans accents etc.)."
+      column_login: "La colonne « login » est également construite à partir des variables « firstname » et « email », en appliquant la fonction de remplacement des caractères accentués, espaces etc."
+      column_login_password: "Comme le login doit être unique dans l’application, on coche la case « unique » pour que DATALEA assure l’unicité des données dans cette colonne."
+      note: "La colonne « password » appelle la variable « password » en lui appliquant la fonction d’encryptage souhaitée."
+    2: 
+      text: "Puis, nous définissions les paramètres généraux du fichier :"
       language: La langue / le pays (ce qui permettra d’avoir des numéros de téléphone
       encode: L’encodage 
-      variables: "Puis nous allons définir quatre variables : le prenom, le nom, le mot de passe, la société."
-    2:
-      text: "Puis nous allons définir les colonnes du fichier en fonction de ces variables."
-      column_firstname: La colonne « prenom » reprend telle quelle la variable prenom, sans autre modification.
-      column_lastname: De même la colonne « nom » reprend telle quelle la variable nom.
-      column_email: "La colonne « email » est défini en concaténant la variable prenom, la chaîne « . », la variable nom, et la chaîne de caractères représentant la suite « @nomdelasociete.com ». A noter que nous appliquons la fonction XXX pour convertir le prénom et le nom afin qu’ils soient compatibles avec une adresse email (en minuscule, sans accents etc.)."
-      column_login: "La colonne « login » est également construite à partir des variables « prenom » et « email », en appliquant la fonction YYY qui permet de ne prendre que la première lettre du prenom et la fonction ZZZ qui convertit le nom en remplaçant les caractères accentués, espaces etc."
-      column_login_password: "Comme le login doit être unique dans l’application, on coche la case « unique » pour que DATALEA assure l’unicité des données dans cette colonne."
-      note: "La colonne « password » appelle la variable « mot de passe » en lui appliquant la fonction d’encryptage souhaitée."
-  note1: "A noter : il est possible de générer deux colonnes, l’une avec le mot de passe en clair, l’autre avec le mot de passe encrypté. La seconde est destinée à être insérée en base dans l’application, la première permet de connaître les mots de passes pour pouvoir effectuer les tests avec les comptes utilisateurs.</p>"
+      
+  note1: "A noter : il est possible de générer deux colonnes, l’une avec le mot de passe en clair, l’autre avec le mot de passe encrypté. La seconde est destinée à être insérée en base dans l’application, la première permet de connaître les mots de passes pour pouvoir effectuer les tests avec les comptes utilisateurs."
   text3: Il ne reste plus qu’à choisir le ou les formats d’export attendu. Si l’on choisit le CSV, une ligne supplémentaire permet de préciser les options propres à ce format.Puis on clique sur « Generate data » pour télécharger les données, regroupées dans une archive ZIP. Ce fichier contient un fichier pour chaque format d’export séléctionné, plus un fichier XML contenant l’ensemble de la définition du jeu de test.Pour générer un nouveau jeu de test, il suffit de recharger ce fichier XML.
   text4: Le formulaire est aussitôt pré-rempli avec les précédents paramètres. Nous pouvons alors le modifier si besoin et générer de nouvelles données.
   
@@ -140,7 +140,7 @@ generator:
     variables:
       title: Variables
       name: Nom
-      name_help: "Définissez le nom de la variable à utiliser dans la ou les colonnes et son \"pattern\" : <strong>%variable_name%</strong>"
+      name_help: "Définissez le nom de la variable à utiliser dans la ou les colonnes et son motif : <strong>%variable_name%</strong>"
       method: Méthode
       method_help: "Choisissez la méthode Faker pour générer une valuer aléatoire pour cette variable.<br/> Certaines méthodes peuvent prendre des paramètres en arguments."
       argument1: Argument 1
@@ -154,7 +154,7 @@ generator:
       name: Nom
       name_help: "Définissez le nom de la colonne"
       value: Value
-      value_help: "Définissez la valeur de la colonne. Vous pouvez y insérer plusieurs \"patterns\" de variables <strong>%variable_name%</strong> qui vont être remplacées par des variables."
+      value_help: "Définissez la valeur de la colonne. Vous pouvez y insérer plusieurs motifs de variables <strong>%variable_name%</strong> qui vont être remplacées par des variables."
       convert: Convert
       convert_help: "Select a filter to transform the column value after variable substitution."
       unique: Unique
@@ -184,6 +184,8 @@ generator:
       title: Configuration existante
       file: Fichier de configuration
       file_help: Selectionnez un fichier de configuration reconnu par DATALEA
+      description1: Lorsque vous générez et téléchargez vos données, un fichier %file% est intégrée à l'archive. 
+      description2: Ce fichier peut être chargé pour réutiliser la configuration avec les paramètres prédéfinis.
     buttons:
       generate: Générer
       reset: Réinitialiser
