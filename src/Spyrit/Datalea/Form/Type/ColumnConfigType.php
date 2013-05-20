@@ -34,7 +34,7 @@ class ColumnConfigType extends AbstractType
                 ),
                 'constraints' => array(
                     new Constraints\NotBlank(),
-                    new Constraints\MinLength(3),
+                    new Constraints\Length(array('min' => 3)),
                 )
             ))
             ->add('value', 'text', array(
@@ -50,7 +50,7 @@ class ColumnConfigType extends AbstractType
                 ),
                 'constraints' => array(
                     new Constraints\NotBlank(),
-                    new Constraints\MinLength(1),
+                    new Constraints\Length(array('min' => 1)),
                 )
             ))
             ->add('convertMethod', 'choice', array(
