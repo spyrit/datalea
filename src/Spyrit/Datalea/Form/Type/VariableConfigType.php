@@ -39,7 +39,7 @@ class VariableConfigType extends AbstractType
                 ),
                 'constraints' => array(
                     new Constraints\NotBlank(),
-                    new Constraints\MinLength(3),
+                    new Constraints\Length(array('min' => 3)),
                 )
             ))
             ->add('fakerMethod', 'choice', array(
