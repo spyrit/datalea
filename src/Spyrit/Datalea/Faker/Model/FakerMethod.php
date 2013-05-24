@@ -88,20 +88,6 @@ class FakerMethod
 
     /**
      *
-     * @return array
-     */
-    public function getCulturesLabels()
-    {
-        $result = array();
-        foreach ($this->cultures as $culture) {
-            $result[$culture] = FakerMethodCollection::getCultureLabel($culture);
-        }
-
-        return $result;
-    }
-
-    /**
-     *
      * @param  array|string                            $cultures
      * @return \Spyrit\Datalea\Faker\Model\FakerMethod
      */
@@ -184,8 +170,14 @@ class FakerMethod
      */
     public function getMethodForSelect()
     {
-        $cultures = $this->getCulturesLabels();
-
+        $cultures = array();
+        $availablesCultures = array_keys(FakerMethodCollection::getAvailableFakerCulture());
+        foreach ($this->cultures as $culture) {
+            if (in_array($culture, $availablesCultures)) {
+                $cultures[] = $culture; 
+            }
+        }
+        
         $args = array();
         foreach ($this->getArguments() as $arg => $default) {
             $args[] = $arg.' = '.$default;

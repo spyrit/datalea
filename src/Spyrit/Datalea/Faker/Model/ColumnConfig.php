@@ -110,20 +110,20 @@ class ColumnConfig
     public static function getAvailableConvertMethods()
     {
         return array(
-            'lowercase' => 'lowercase',
-            'uppercase' => 'uppercase',
-            'capitalize' => 'capitalize',
-            'capitalize_words' => 'capitalize words',
-            'absolute' => 'absolute',
-            'as_bool' => 'as boolean',
-            'as_int' => 'as integer',
-            'as_float' => 'as floating number',
-            'as_string' => 'as string',
-            'remove_accents' => 'remove accents',
-            'remove_accents_lowercase' => 'remove accents and lowercase',
-            'remove_accents_uppercase' => 'remove accents and uppercase',
-            'remove_accents_capitalize' => 'remove accents and capitalize',
-            'remove_accents_capitalize_words' => 'remove accents and capitalize words',
+            'lowercase' => 'generator.form.columns.convert_methods.lowercase',
+            'uppercase' => 'generator.form.columns.convert_methods.uppercase',
+            'capitalize' => 'generator.form.columns.convert_methods.capitalize',
+            'capitalize_words' => 'generator.form.columns.convert_methods.capitalize_words',
+            'absolute' => 'generator.form.columns.convert_methods.absolute',
+            'as_bool' => 'generator.form.columns.convert_methods.as_bool',
+            'as_int' => 'generator.form.columns.convert_methods.as_int',
+            'as_float' => 'generator.form.columns.convert_methods.as_float',
+            'as_string' => 'generator.form.columns.convert_methods.as_string',
+            'remove_accents' => 'generator.form.columns.convert_methods.remove_accents',
+            'remove_accents_lowercase' => 'generator.form.columns.convert_methods.remove_accents_lowercase',
+            'remove_accents_uppercase' => 'generator.form.columns.convert_methods.remove_accents_uppercase',
+            'remove_accents_capitalize' => 'generator.form.columns.convert_methods.remove_accents_capitalize',
+            'remove_accents_capitalize_words' => 'generator.form.columns.convert_methods.remove_accents_capitalize_words',
         );
     }
 

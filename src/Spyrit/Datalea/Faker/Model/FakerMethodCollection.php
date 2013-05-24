@@ -92,17 +92,19 @@ class FakerMethodCollection
      */
     public function getMethodsByCulture()
     {
+        $cultures = array_keys(static::getAvailableFakerCulture());
+        
         $result = array();
-        foreach ($this->fakerMethods as $fakerMethod) {
-            $cultures = $fakerMethod->getCultures();
-            foreach ($cultures as $culture) {
-                if (!isset($result[$culture])) {
-                    $result[$culture] = array();
+        foreach ($cultures as $culture) {
+            $result[$culture] = array();
+            foreach ($this->fakerMethods as $fakerMethod) {
+                $methodCultures = $fakerMethod->getCultures();
+                if (empty($methodCultures) || in_array($culture, $methodCultures)) {
+                    $result[$culture][] = $fakerMethod->getMethod();
                 }
-                $result[$culture][] = $fakerMethod->getMethod();
             }
         }
-
+        
         return $result;
     }
 
@@ -148,42 +150,30 @@ class FakerMethodCollection
     
     /**
      *
-     * @param  string $culture
-     * @return string
-     */
-    public static function getCultureLabel($culture)
-    {
-        $cultures = self::getAvailableFakerCulture();
-
-        return isset($cultures[$culture]) ? $cultures[$culture] : '';
-    }
-
-    /**
-     *
      * @return array
      */
     public static function getAvailableFakerCulture()
     {
         return array(
-            'bg_BG' => 'Bulgarian - Bulgaria',
-            'cs_CZ' => 'Czech - Czech Republic',
-            'da_DK' => 'Danish - Denmark',
-            'de_AT' => 'German - Austria',
-            'de_DE' => 'German - Germany',
-            'en_GB' => 'English - United Kingdom',
-            'en_US' => 'English - United States',
-            'es_AR' => 'Spanish - Argentina',
-            'es_ES' => 'Spanish - Spain',
-            'fi_FI' => 'Finnish - Finland',
-            'fr_FR' => 'French - France',
-            'it_IT' => 'Italian - Italy',
-            'pl_PL' => 'Polish - Poland',
-            'pt_BR' => 'Portuguese - Brazil',
-            'ru_RU' => 'Russian - Russia',
-            'sk_SK' => 'Slovak - Slovakia',
-            'sr_Cyrl_RS' => 'Serbian (Cyrillic) - Serbia',
-            'sr_Latn_RS' => 'Serbian (Latin) - Serbia',
-            'tr_TR' => 'Turkish - Turkey',
+            'bg_BG' => 'generator.form.settings.language_codes.bg_BG',
+            'cs_CZ' => 'generator.form.settings.language_codes.cs_CZ',
+            'da_DK' => 'generator.form.settings.language_codes.da_DK',
+            'de_AT' => 'generator.form.settings.language_codes.de_AT',
+            'de_DE' => 'generator.form.settings.language_codes.de_DE',
+            'en_GB' => 'generator.form.settings.language_codes.en_GB',
+            'en_US' => 'generator.form.settings.language_codes.en_US',
+            'es_AR' => 'generator.form.settings.language_codes.es_AR',
+            'es_ES' => 'generator.form.settings.language_codes.es_ES',
+            'fi_FI' => 'generator.form.settings.language_codes.fi_FI',
+            'fr_FR' => 'generator.form.settings.language_codes.fr_FR',
+            'it_IT' => 'generator.form.settings.language_codes.it_IT',
+            'pl_PL' => 'generator.form.settings.language_codes.pl_PL',
+            'pt_BR' => 'generator.form.settings.language_codes.pt_BR',
+            'ru_RU' => 'generator.form.settings.language_codes.ru_RU',
+            'sk_SK' => 'generator.form.settings.language_codes.sk_SK',
+            'sr_Cyrl_RS' => 'generator.form.settings.language_codes.sr_Cyrl_RS',
+            'sr_Latn_RS' => 'generator.form.settings.language_codes.sr_Latn_RS',
+            'tr_TR' => 'generator.form.settings.language_codes.tr_TR',
         );
     }
 

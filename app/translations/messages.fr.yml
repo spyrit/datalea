@@ -154,11 +154,26 @@ generator:
       name: Nom
       name_help: "Définissez le nom de la colonne"
       value: Valeur
-      value_help: "Définissez la valeur de la colonne. Vous pouvez y insérer plusieurs motifs de variables <strong>%variable_name%</strong> qui vont être remplacées par des variables."
+      value_help: "Définissez la valeur de la colonne. Vous pouvez y insérer plusieurs motifs de variables <strong>%variable_name%</strong> qui seront remplacées par la valeur de ces variables."
       convert: Filtre
-      convert_help: "Select a filter to transform the column value after variable substitution."
+      convert_help: "Sélectionnez un filtre à appliquer sur la colonne apres la substitution des variables."
       unique: Unique
       unique_help: "Définissez cette colonne comme unique pour que les données générées à chaque ligne soient uniques. Ne fonctionne que si la colonne utilise des variables."
+      convert_methods:
+        lowercase: en minuscule
+        uppercase: en majuscule
+        capitalize: 1ere lettre en majuscule
+        capitalize_words: 1ere lettre en majuscule pour chaque mot
+        absolute: valeur absolue
+        as_bool: booleen
+        as_int: entier
+        as_float: nombre à virgule flottante
+        as_string: chaîne de caractères
+        remove_accents: retirer les accents
+        remove_accents_lowercase: retirer les accents et en minuscule
+        remove_accents_uppercase: retirer les accents et en majuscule
+        remove_accents_capitalize: retirer les accents et 1ere lettre en majuscule
+        remove_accents_capitalize_words: retirer les accents et 1ere lettre en majuscule pour chaque mot
     settings:
       title: Paramètres
       class: Classe ou base de données
@@ -168,11 +183,31 @@ generator:
       seed_help: "Définissez une valeur d'initialisation du generateur aléatoire (graine) pour toujours obtenir le même ensemble de données."
       row_number: Nombre de ligne
       row_number_help: "Le nombre de lignes à générer pour chaque colonne."
+      language_codes:
+        bg_BG: Bulgare - Bulgarie (bg_BG)
+        cs_CZ: Tchêque - République Tchêque (cs_CZ)
+        da_DK: Danois - Danemark (da_DK)
+        de_AT: Allemand - Autriche (de_AT)
+        de_DE: Allemand - Allemagne (de_DE)
+        en_GB: Anglais - Royaume-Uni (en_GB)
+        en_US: Anglais - Etats-Unis (en_US)
+        es_AR: Espagnol - Argentine (es_AR)
+        es_ES: Espagnol - Espagne (es_ES)
+        fi_FI: Finnois - Finlande (fi_FI)
+        fr_FR: Francais - France (fr_FR)
+        it_IT: Italien - Italie (it_IT)
+        pl_PL: Polonais - Pologne (pl_PL)
+        pt_BR: Portugais - Bresil (pt_BR)
+        ru_RU: Russe - Russie (ru_RU)
+        sk_SK: Slovaque - Slovaquie (sk_SK)
+        sr_Cyrl_RS: Serbe (Cyrillique) - Serbie (sr_Cyrl_RS)
+        sr_Latn_RS: Serbe (Latin) - Serbie (sr_Latn_RS)
+        tr_TR: Turque - Turquie (tr_TR)
     output:
       title: Sortie 
       formats: Formats de fichier
       formats_help: Sélectionner les formats de fichier
-      generator: Fichier XML de configuration du générateur
+      generator: Fichier XML de configuration
     csv:
       title: Options CSV
       encoding: Encodage

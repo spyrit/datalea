@@ -157,6 +157,21 @@ generator:
       value_help: "Set the column value. You can insert some variable pattern <strong>%variable_name%</strong> which will be replaced by random generated value."
       convert: Filter
       convert_help: "Select a filter to transform the column value after variable substitution."
+      convert_methods:
+        lowercase: lowercase
+        uppercase: uppercase
+        capitalize: capitalize
+        capitalize_words: capitalize words
+        absolute: absolute
+        as_bool: as boolean
+        as_int: as integer
+        as_float: as floating number
+        as_string: as string
+        remove_accents: remove accents
+        remove_accents_lowercase: remove accents and lowercase
+        remove_accents_uppercase: remove accents and uppercase
+        remove_accents_capitalize: remove accents and capitalize
+        remove_accents_capitalize_words: remove accents and capitalize words
       unique: Unique
       unique_help: "Set this column to be unique through each generated item. Only works if the column use some variables."
     settings:
@@ -168,6 +183,26 @@ generator:
       seed_help: "Set a seed to get always the same set of random values"
       row_number: Number of rows
       row_number_help: "The number of rows with random columns to generate"
+      language_codes:
+        bg_BG: Bulgarian - Bulgaria (bg_BG)
+        cs_CZ: Czech - Czech Republic (cs_CZ)
+        da_DK: Danish - Denmark (da_DK)
+        de_AT: German - Austria (de_AT)
+        de_DE: German - Germany (de_DE)
+        en_GB: English - United Kingdom (en_GB)
+        en_US: English - United States (en_US)
+        es_AR: Spanish - Argentina (es_AR)
+        es_ES: Spanish - Spain (es_ES)
+        fi_FI: Finnish - Finland (fi_FI)
+        fr_FR: French - France (fr_FR)
+        it_IT: Italian - Italy (it_IT)
+        pl_PL: Polish - Poland (pl_PL)
+        pt_BR: Portuguese - Brazil (pt_BR)
+        ru_RU: Russian - Russia (ru_RU)
+        sk_SK: Slovak - Slovakia (sk_SK)
+        sr_Cyrl_RS: Serbian (Cyrillic) - Serbia (sr_Cyrl_RS)
+        sr_Latn_RS: Serbian (Latin) - Serbia (sr_Latn_RS)
+        tr_TR: Turkish - Turkey (tr_TR)
     output:
       title: Output 
       formats: Output formats
