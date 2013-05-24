@@ -155,7 +155,7 @@ generator:
       name_help: "Set the column name"
       value: Value
       value_help: "Set the column value. You can insert some variable pattern <strong>%variable_name%</strong> which will be replaced by random generated value."
-      convert: Convert
+      convert: Filter
       convert_help: "Select a filter to transform the column value after variable substitution."
       unique: Unique
       unique_help: "Set this column to be unique through each generated item. Only works if the column use some variables."
@@ -171,7 +171,7 @@ generator:
     output:
       title: Output 
       formats: Output formats
-      formats_help: ""
+      formats_help: Select the output formats to dump
       generator: XML generator configuration
     csv:
       title: CSV options

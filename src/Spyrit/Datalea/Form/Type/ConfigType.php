@@ -138,8 +138,8 @@ class ConfigType extends AbstractType
                 'required' => true,
                 'multiple' => true,
                 'expanded' => true,
-                'label' => 'Output Formats',
-                'help' => 'Select the output formats to dump',
+                'label' => 'generator.form.output.formats',
+                'help' => 'generator.form.output.formats_help',
                 'help_type' => 'popover',
                 'attr' => array(
                     'inline' => true,

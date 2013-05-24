@@ -133,7 +133,7 @@ introduction:
     variables: La gestion de variables métiers réutilisables et combinables pour définir les colonnes du fichier d’export
     unicity: La gestion de l’unicité des données sur certaines colonnes 
     config_variables: "L’enregistrement de la configuration d’un jeu de données  dans un fichier XML pour reprendre, adapter et générer rapidement un nouveau jeu."
-  note1: DATALEA est absolument gratuit, utilisable directement en ligne en mode SaaS sur ce site web, ou téléchargeable sur GitHub pour être librement adapté.
+    note1: DATALEA est absolument gratuit, utilisable directement en ligne en mode SaaS sur ce site web, ou téléchargeable sur GitHub pour être librement adapté.
   
 generator:
   form:
@@ -142,7 +142,7 @@ generator:
       name: Nom
       name_help: "Définissez le nom de la variable à utiliser dans la ou les colonnes et son motif : <strong>%variable_name%</strong>"
       method: Méthode
-      method_help: "Choisissez la méthode Faker pour générer une valuer aléatoire pour cette variable.<br/> Certaines méthodes peuvent prendre des paramètres en arguments."
+      method_help: "Choisissez la méthode Faker pour générer une valeur aléatoire pour cette variable.<br/> Certaines méthodes peuvent prendre des paramètres en arguments."
       argument1: Argument 1
       argument1_help: "Premier argument de la méthode Faker - si disponible (cf. nom des méthodes)."
       argument2: Argument 2
@@ -153,9 +153,9 @@ generator:
       title: Colonnes
       name: Nom
       name_help: "Définissez le nom de la colonne"
-      value: Value
+      value: Valeur
       value_help: "Définissez la valeur de la colonne. Vous pouvez y insérer plusieurs motifs de variables <strong>%variable_name%</strong> qui vont être remplacées par des variables."
-      convert: Convert
+      convert: Filtre
       convert_help: "Select a filter to transform the column value after variable substitution."
       unique: Unique
       unique_help: "Définissez cette colonne comme unique pour que les données générées à chaque ligne soient uniques. Ne fonctionne que si la colonne utilise des variables."
@@ -165,21 +165,21 @@ generator:
       class_help: "Définissez le nom de la classe objet ou de la base de données pour laquelle les données sont générées"
       language: Langue
       seed: Graine
-      seed_help: "Définissez une valeur (graine) pour toujours obtenir le même ensemble de données."
+      seed_help: "Définissez une valeur d'initialisation du generateur aléatoire (graine) pour toujours obtenir le même ensemble de données."
       row_number: Nombre de ligne
       row_number_help: "Le nombre de lignes à générer pour chaque colonne."
     output:
       title: Sortie 
-      formats: Formats de sortie
-      formats_help: ""
-      generator: Configuration XML de génération
+      formats: Formats de fichier
+      formats_help: Sélectionner les formats de fichier
+      generator: Fichier XML de configuration du générateur
     csv:
       title: Options CSV
       encoding: Encodage
       eof: Fin de ligne
       delimiter: Délimiteur
-      enclosure: Encerclement
-      escape: Echapement
+      enclosure: Encadrement
+      escape: Echappement
     configuration:
       title: Configuration existante
       file: Fichier de configuration
