@@ -180,7 +180,7 @@ class MainControllerProvider implements ControllerProviderInterface
         ));
 
         if ('POST' == $request->getMethod()) {
-            $configForm->bindRequest($request);
+            $configForm->submit($request);
 
             if ($configForm->isValid()) {
                 $config = $configForm->getData();

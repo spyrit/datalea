@@ -5,7 +5,7 @@
     "authors": [
         {
             "name": "Charles Sanquer",
-            "email": "charles.sanquer@spyrit.net",
+            "email": "charles.sanquer@gmail.com",
             "role": "developer"
         },
         {
@@ -16,12 +16,14 @@
     ],
     "license": "GPL-3.0+",
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": ">=5.3.3",
         "ext-mbstring": "*",
         "ext-SimpleXML": "*",
         "silex/silex": "~1.1",
         "silex/web-profiler": "~1.0",
+        "symfony/web-profiler-bundle": "~2.3",
         "twig/twig": "~1.13",
         "twig/extensions": "~1.0",
         "symfony/twig-bridge": "~2.3",
