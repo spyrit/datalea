@@ -6,16 +6,12 @@ use \Silex\Provider\FormServiceProvider;
 use \Silex\Provider\MonologServiceProvider;
 use \Silex\Provider\ServiceControllerServiceProvider;
 use \Silex\Provider\SessionServiceProvider;
-use \Silex\Provider\SwiftmailerServiceProvider;
 use \Silex\Provider\TranslationServiceProvider;
 use \Silex\Provider\TwigServiceProvider;
 use \Silex\Provider\UrlGeneratorServiceProvider;
 use \Silex\Provider\ValidatorServiceProvider;
 use \Silex\Provider\WebProfilerServiceProvider;
 use \Spyrit\Datalea\Form\extension\BootstrapFormExtension;
-use \Spyrit\Silex\Utils\Provider\Database\PDOServiceProvider;
-use \Swift_MailTransport;
-use \Swift_SendmailTransport;
 use \Symfony\Component\ClassLoader\DebugClassLoader;
 use \Symfony\Component\Filesystem\Filesystem;
 use \Symfony\Component\HttpFoundation\Response;
@@ -224,33 +220,6 @@ function createDefaultSilexApp($appdir = __DIR__, $env = 'prod', $debug = false)
         ));
 
         $app->mount('/_profiler', $p);
-    }
-
-    //add swiftmailer with default SMTP transport
-    if (!empty($config['swiftmailer'])) {
-        $app->register(new SwiftmailerServiceProvider(), array(
-            'swiftmailer.options' => isset($config['swiftmailer']['options']) ? $config['swiftmailer']['options'] : array(),
-        ));
-        // custom swiftmailer transport
-        $swiftTransport = in_array($config['swiftmailer']['transport'], array('mail', 'sendmail', 'smtp')) ? $config['swiftmailer']['transport'] : 'smtp';
-        switch ($swiftTransport) {
-            case 'mail':
-                $app['swiftmailer.transport'] = new Swift_MailTransport();
-                break;
-            case 'sendmail':
-                $app['swiftmailer.transport'] = new Swift_SendmailTransport();
-                break;
-            case 'smtp':
-            default:
-                break;
-        }
-    }
-
-    //Database PDO Connection
-    if (!empty($config['databases'])) {
-        $app->register(new PDOServiceProvider(), array(
-            'pdo.dbs.options' => is_array($config['databases']) ? $config['databases'] : array(),
-        ));
     }
 
     /*
