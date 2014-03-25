@@ -18,31 +18,31 @@
 {% if form.vars.errors|length > 0 %}
 <section class="section">
     <div class="container">
-    
+
         <div class="alert alert-error">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <div class="control-group error"> 
+            <div class="control-group error">
                 {{ form_errors(form) }}
             </div>
         </div>
     </div>
 </section>
 {% endif %}
-    
+
 <section id="variables" class="form-horizontal section">
     <div class="container">
         {{ form_row(form.variableConfigs) }}
     </div>
 </section>
 
-<section id="column-configs" class="form-horizontal section gray">    
+<section id="column-configs" class="form-horizontal section gray">
     <div class="container">
         {{ form_row(form.columnConfigs) }}
     </div>
 </section>
-    
-<section class="section">    
-    <div class="container">    
+
+<section class="section">
+    <div class="container">
         <div class="row">
             <div class="span6">
                 <fieldset>
@@ -107,7 +107,7 @@
                 </fieldset>
                 <hr />
             </div>
-            
+
         </div>
         {{ form_rest(form) }}
          <div class="row">
@@ -131,14 +131,15 @@
 jQuery(document).ready(function() {
     var fakerMethods = {{ fakerMethods|json_encode()|raw }};
     var fakerMethodsCulture = {{ fakerMethodsCulture|json_encode()|raw }};
-    
+
     console.log(fakerMethods);
     console.log(fakerMethodsCulture);
-    
+
     var $columnCollectionHolder = $('#datalea_generator_config_columnConfigs');
     var addColumnConfigSelector = '.add-columnConfigs';
     var $variableCollectionHolder = $('#datalea_generator_config_variableConfigs');
     var addVariableConfigSelector = '.add-variableConfigs';
+    var copyVariableConfigSelector = '.copy-variableConfigs';
     var removeConfigSelector = '.remove-collection-item-form';
     var $csvFormatOption = $('input[type="checkbox"][name^="datalea_generator_config"][value="csv"]')
     var $csvOptions = $('#csv-options');
@@ -150,6 +151,13 @@ jQuery(document).ready(function() {
     $(addVariableConfigSelector).on('click', function(e) {
         addConfigForm($variableCollectionHolder);
     });
+
+    $(copyVariableConfigSelector).on('click', function(e) {
+        generateColumnsList($variableCollectionHolder);
+    });
+
+
+
 
     addRemoveConfigListener($(removeConfigSelector));
 
@@ -189,11 +197,17 @@ jQuery(document).ready(function() {
         });
     }
 
-    function addConfigForm($collectionHolder)
+    function addConfigForm($collectionHolder, $name)
     {
         var prototype = $collectionHolder.attr('data-prototype');
         var newForm = prototype.replace(/__name__/g, $collectionHolder.children().length);
         var elt = $collectionHolder.append(newForm);
+
+        if ($name != undefined) {
+            $collectionHolder.find(".name").last().find("input").val($name);
+            $collectionHolder.find(".value").last().find("input").val("%"+$name+"%");
+        }
+
         $collectionHolder.find('select.select2-box').select2({
             width: 'resolve'
         });
@@ -205,6 +219,16 @@ jQuery(document).ready(function() {
         });
         addRemoveConfigListener($collectionHolder.find(removeConfigSelector));
     }
+
+    function generateColumnsList($collectionHolder) {
+        $columnCollectionHolder.find(".well").remove();
+        $variableCollectionHolder.find(".well").each(function() {
+            $name = $(this).find(".name").find("input").val();
+            addConfigForm($columnCollectionHolder, $name);
+        })
+
+    }
+
 });
 </script>
 

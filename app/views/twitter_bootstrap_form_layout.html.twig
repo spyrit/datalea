@@ -19,6 +19,7 @@
             {{ block('collection_errors') }}
             {{ block('collection_widget') }}
         </div>
+        {{ block('end_collection_widget') }}
     </fieldset>
 {% endspaceless %}
 {% endblock collection_row %}
@@ -37,9 +38,18 @@
     <legend {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
     {{ label|trans({}, translation_domain)|raw }}{{ block('form_label_asterisk') }}{% if help_type == 'popover' %}{{ block('form_help') }}{% endif %}
     <span class="pull-right add-{{name}} btn btn-success" title="{{ 'Add a new element' | trans({}, translation_domain) }}"><i class="icon-plus"></i></span>
+    {% if name == 'columnConfigs'%}
+    <span class="pull-right copy-variableConfigs btn btn-info mr10" title="{{ 'Copy columns from variables' | trans({}, translation_domain) }}"><i class="icon-arrow-down"></i></span>
+    {% endif %}
     </legend>
 {% endspaceless %}
 {% endblock collection_label %}
+
+{% block end_collection_widget %}
+{% spaceless %}
+    <span class="pull-right add-{{name}} btn btn-success" title="{{ 'Add a new element' | trans({}, translation_domain) }}"><i class="icon-plus"></i></span>
+{% endspaceless %}
+{% endblock end_collection_widget %}
 
 {% block collection_widget %}
 {% import _self as macros %}
@@ -49,7 +59,7 @@
         {{ macros.collection_item(child) }}
     {% endfor %}
     </div>
-    {##}    
+    {##}
 {% endspaceless %}
 {% endblock collection_widget %}
 
